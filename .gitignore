@@ -24,16 +24,19 @@ hs_err_pid*
 /QueroBike/target/
 
 ### Eclipse ###
-/QueroBike/.metadata
-/QueroBike/bin/
-/QueroBike/tmp/
-/QueroBike/*.tmp
-/QueroBike/*.bak
-/QueroBike/*.swp
-/QueroBike/*~.nib
-/QueroBike/local.properties
-/QueroBike/.settings/
-/QueroBike/.loadpath
-/QueroBike/.recommenders
-/QueroBike/.classpath
-/QueroBike/.project
+**/.metadata
+**/bin/
+**/tmp/
+**/*.tmp
+**/*.bak
+**/*.swp
+**/*~.nib
+**/local.properties
+**/.settings/
+**/.loadpath
+**/.recommenders
+**/.classpath
+**/.project
+
+### vccode ###
+**/.vscode/*
