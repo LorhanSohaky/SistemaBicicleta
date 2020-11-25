@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `rental` (
   `description` MEDIUMTEXT NULL,
   `postal_code` VARCHAR(8) NOT NULL,
   `street_name` VARCHAR(128) NOT NULL,
+  `neighborhood` VARCHAR(128) NOT NULL,
   `complement` VARCHAR(128) NULL,
   `street_number` VARCHAR(32) NOT NULL,
   `fk_city_name` VARCHAR(64) NOT NULL,
