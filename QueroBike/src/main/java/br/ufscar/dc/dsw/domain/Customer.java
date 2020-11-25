@@ -14,7 +14,7 @@ public class Customer {
     private String gender;
     private Date birthdate;
 
-    public Customer(int i) {
+    public Customer(int id) {
         this.id = id;
     }
 
