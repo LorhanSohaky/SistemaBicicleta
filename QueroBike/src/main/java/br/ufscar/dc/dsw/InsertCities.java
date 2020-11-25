@@ -11,13 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Statement;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author lorhan
- */
 public class InsertCities extends GenericDAO {
 
     private static Connection connect() throws ClassNotFoundException, SQLException {
