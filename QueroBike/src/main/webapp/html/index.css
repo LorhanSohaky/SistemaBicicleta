@@ -1,0 +1,51 @@
+/* Meu CSS */
+body,
+html{
+	margin:  0; 
+	padding: 0;
+	font-size:18px;
+}
+
+.principal{
+	width: 960px;
+	color: rgb(19, 14, 14);
+	margin: 0 auto;
+	font-family:sans-serif;
+}
+
+.menu{
+	width:960;
+	display:block;
+	clear:both;
+	background:#5FBF00;
+}
+.texto{
+	width:960;
+	display:block;
+	clear:both;
+	color:#5FBF00;
+	font-size:40px;
+}
+.menu ul li, 
+.menu ul{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.menu ul li{
+	display:inline-block;
+}
+.menu ul li a{
+	display:block;
+	color:#fff;
+	padding:13px 20px;
+}
+.corpo{
+	position:relative;
+	overflow:hidden;
+}
+
+
+.espacamento{
+	padding:20px;
+}
