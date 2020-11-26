@@ -2,6 +2,7 @@ package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.CreateDatabase;
 import br.ufscar.dc.dsw.InsertCities;
+import br.ufscar.dc.dsw.InsertRentals;
 import br.ufscar.dc.dsw.dao.CityDAO;
 import br.ufscar.dc.dsw.domain.City;
 
@@ -53,6 +54,7 @@ public class ResetDatabaseController extends HttpServlet {
         System.out.println(path);
         CreateDatabase.createDatabase(path);
         InsertCities.insertCities(path);
+        InsertRentals.insertRentals(path);
         
         List<City> list = dao.getAll();
         request.setAttribute("cityList", list);
