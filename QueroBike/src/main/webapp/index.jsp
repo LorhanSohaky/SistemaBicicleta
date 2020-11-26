@@ -10,6 +10,7 @@
     </head>
     <body>
         <a href="/cities"><fmt:message key="crudCities"/></a><br/>
+        <a href="/rentals"><fmt:message key="crudRentals"/></a><br/>
     </body>
     </fmt:bundle>
 </html>
