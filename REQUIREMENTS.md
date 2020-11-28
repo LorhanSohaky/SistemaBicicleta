@@ -26,7 +26,8 @@ O sistema deve possuir um cadastro de locações, com os seguintes dados:
 Assume-se que a duração da locação é de 1 hora e sempre inicia-se em "hora cheia" (13h 00min etc)
 
 O sistema deve atender aos seguintes requisitos:
-1. CRUD1 de clientes (requer login de administrador)
+1. CRUD de clientes (requer login de administrador)
+  - Cliente também pode se cadastrar
 2. CRUD de locadoras (requer login de administrador)
 3.  Listagem de todos as locadoras em uma única página (não requer login)
 4.  Listagem de todos as locadoras por cidade (não requer login)
