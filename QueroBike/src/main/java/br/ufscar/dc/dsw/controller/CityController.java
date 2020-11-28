@@ -38,10 +38,8 @@ public class CityController extends HttpServlet {
         if (action == null) {
             action = "";
         }
-        
-        //TODO use Actions
-        
 
+        //TODO use Actions
         lista(request, response);
 
     }
@@ -49,7 +47,6 @@ public class CityController extends HttpServlet {
     private void lista(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<City> list = dao.getAll();
-        System.out.println(list);
         request.setAttribute("cityList", list);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/cities/list.jsp");
         dispatcher.forward(request, response);

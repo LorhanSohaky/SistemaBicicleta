@@ -47,15 +47,14 @@ public class ResetDatabaseController extends HttpServlet {
 
     private void resetDatabase(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
-        
+
         ServletContext context = request.getServletContext();
-        
+
         String path = context.getRealPath("/WEB-INF/classes/sql/");
-        System.out.println(path);
         CreateDatabase.createDatabase(path);
         InsertCities.insertCities(path);
         InsertRentals.insertRentals(path);
-        
+
         List<City> list = dao.getAll();
         request.setAttribute("cityList", list);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/cities/list.jsp");
