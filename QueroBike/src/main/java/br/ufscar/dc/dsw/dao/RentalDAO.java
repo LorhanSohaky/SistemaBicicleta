@@ -3,6 +3,7 @@ package br.ufscar.dc.dsw.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,4 +50,39 @@ public class RentalDAO extends GenericDAO {
         }
         return list;
     }
+
+    public void insert(Rental rental) {
+
+        String sql = "INSERT INTO rental (name,cnpj,email,description,"
+                + "postal_code,street_name,neighborhood,street_number, "
+                + "fk_city_name, fk_city_state,password,salt) "
+                + "VALUES (?,?,?,?,?,?,?,?,?,?, ?,?);";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, rental.getName());
+            statement.setString(2, rental.getCnpj());
+            statement.setString(3, rental.getEmail());
+            statement.setString(4, rental.getDescription());
+            statement.setString(5, rental.getPostalCode());
+            statement.setString(6, rental.getStreetName());
+            statement.setString(7, rental.getNeighborhood());
+            statement.setString(8, rental.getStreetNumber());
+            statement.setString(9, rental.getCity().getName());
+            statement.setString(10, rental.getCity().getState());
+            statement.setString(11, rental.getPassword());
+            statement.setString(12, rental.getSalt());
+
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
