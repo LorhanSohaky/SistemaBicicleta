@@ -9,8 +9,11 @@
             <title>Quero BIKE</title>
         </head>
         <body>
-            <a href="/cities"><fmt:message key="crudCities"/></a><br/>
-            <a href="/rentals"><fmt:message key="crudRentals"/></a><br/>
+            <%
+		String contextPath = request.getContextPath().replace("/", "");
+	%>
+            <a href="/<%=contextPath%>/cities"><fmt:message key="crudCities"/></a><br/>
+            <a href="/<%=contextPath%>/rentals"><fmt:message key="crudRentals"/></a><br/>
         </body>
     </fmt:bundle>
 </html>
