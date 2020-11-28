@@ -4,13 +4,13 @@
 <!DOCTYPE html>
 <html>
     <fmt:bundle basename="messages">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Quero BIKE</title>
-    </head>
-    <body>
-        <a href="/cities"><fmt:message key="crudCities"/></a><br/>
-        <a href="/rentals"><fmt:message key="crudRentals"/></a><br/>
-    </body>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <title>Quero BIKE</title>
+        </head>
+        <body>
+            <a href="/cities"><fmt:message key="crudCities"/></a><br/>
+            <a href="/rentals"><fmt:message key="crudRentals"/></a><br/>
+        </body>
     </fmt:bundle>
 </html>
