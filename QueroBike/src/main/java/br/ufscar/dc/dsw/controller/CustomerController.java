@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/customers/", "/customers/register", "/customers/login"})
+@WebServlet(urlPatterns = {"/customers/", "/customers/register", "/customers/login", "/customers/delete"})
 public class CustomerController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(CustomerController.class.getName());
@@ -56,6 +56,10 @@ public class CustomerController extends HttpServlet {
                     break;
                 case "/login":
                     login(request, response);
+                    break;
+
+                case "/delete":
+                    delete(request, response);
                     break;
                 default:
                     throw new Error("[POST] - Invalid path");
@@ -126,7 +130,7 @@ public class CustomerController extends HttpServlet {
         ErrorList errors = CustomerValidator.loginCustomerValidation(request);
         try {
             if (errors.isNotEmpty()) {
-                request.setAttribute("errors", errors);
+                request.setAttribute("errorList", errors);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/customers/login.jsp");
                 dispatcher.forward(request, response);
                 return;
@@ -155,5 +159,23 @@ public class CustomerController extends HttpServlet {
             }
             logger.log(Level.SEVERE, e.getMessage(), e.getCause());
         }
+
+    }
+
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ErrorList errors = CustomerValidator.deleteCustomerValidation(request);
+        if (errors.isNotEmpty()) {
+            request.setAttribute("errors", errors);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/customers/delete.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        dao.delete(id);
+
+        response.sendRedirect("/");
+
     }
 }

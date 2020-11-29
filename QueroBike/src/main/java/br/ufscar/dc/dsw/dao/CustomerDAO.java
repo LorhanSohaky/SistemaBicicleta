@@ -118,4 +118,21 @@ public class CustomerDAO extends GenericDAO {
             throw new RuntimeException("Ops! Aconteceu um erro interno.", e);
         }
     }
+
+    public void delete(int id){
+        String sql = "DELETE FROM customer WHERE id=?;";
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException("Ops! Aconteceu um erro interno.", e);
+        }
+    }
 }

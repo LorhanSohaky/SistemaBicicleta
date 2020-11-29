@@ -98,4 +98,17 @@ public class CustomerValidator {
 
         return errors;
     }
+    
+    public static ErrorList deleteCustomerValidation(HttpServletRequest request){
+        ErrorList errors = new ErrorList();
+
+        String idString = request.getParameter("id");
+        
+
+        if (idString == null || idString.length() == 0) {
+            errors.add("É obrigatório informar o id");
+        }
+
+        return errors;
+    }
 }
