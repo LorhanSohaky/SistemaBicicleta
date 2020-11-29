@@ -24,15 +24,15 @@ public class CustomerValidator {
         String gender = request.getParameter("gender");
         String birthdateString = request.getParameter("birthdate");
 
-        if (email == null) {
+        if (email == null || email.length()==0) {
             errors.add("É obrigatório informar o e-mail");
         }
 
-        if (password == null) {
+        if (password == null || password.length()==0) {
             errors.add("É obrigatório informar a senha");
         }
 
-        if (cpf == null) {
+        if (cpf == null || cpf.length()==0) {
             errors.add("É obrigatório informar o CPF");
         } else {
             if (cpf.length() != 11) {
@@ -44,7 +44,7 @@ public class CustomerValidator {
             errors.add("É obrigatório informar o nome");
         }
 
-        if (phone == null) {
+        if (phone == null|| phone.length()==0) {
             errors.add("É obrigatório informar o telefone");
         } else {
             final String regex = "^55\\d{10,11}$";
@@ -59,11 +59,11 @@ public class CustomerValidator {
             }
         }
 
-        if (gender == null) {
+        if (gender == null || gender.length()==0) {
             errors.add("É obrigatório informar o gênero");
         }
 
-        if (birthdateString == null) {
+        if (birthdateString == null || birthdateString.length()==0) {
             errors.add("É obrigatório informar a data de nascimento");
         } else {
             try {
