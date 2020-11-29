@@ -41,6 +41,16 @@ public class Customer {
         this.salt = salt;
     }
 
+    public Customer(int id, String cpf, String name, String phone, String gender, Date birthdate, String email) {
+        this.id = id;
+        this.cpf = cpf;
+        this.name = name;
+        this.phone = phone;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.email = email;
+    }
+
     public int getId() {
         return id;
     }
