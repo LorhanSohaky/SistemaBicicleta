@@ -11,9 +11,8 @@ import java.sql.SQLException;
 public class CustomerDAO extends GenericDAO {
 
     // TODO:
-    // - get
     // - delete
-    public Customer insert(Customer customer) throws SemanticError, RuntimeException{
+    public Customer insert(Customer customer) throws SemanticError, RuntimeException {
         String sql
                 = "INSERT INTO customer (email,password, salt, cpf,"
                 + " name, phone, gender, birthdate) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -87,5 +86,36 @@ public class CustomerDAO extends GenericDAO {
             throw new RuntimeException("Ops! Aconteceu um erro interno.", e);
         }
 
+    }
+
+    public Customer getById(int id) throws SemanticError {
+        String sql = "SELECT cpf, name, phone, gender, email, birthdate FROM customer WHERE id = ?;";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (!resultSet.next()) {
+                throw new SemanticError("Usuário não encontrado");
+            }
+
+            String cpf = resultSet.getString("cpf");
+            String name = resultSet.getString("name");
+            String email = resultSet.getString("email");
+            String phone = resultSet.getString("phone");
+            String gender = resultSet.getString("gender");
+            java.util.Date birthdate = resultSet.getDate("birthdate");
+            Customer customer = new Customer(id, cpf, name, phone, gender, birthdate, email);
+
+            statement.close();
+            conn.close();
+
+            return customer;
+        } catch (SQLException e) {
+            throw new RuntimeException("Ops! Aconteceu um erro interno.", e);
+        }
     }
 }
