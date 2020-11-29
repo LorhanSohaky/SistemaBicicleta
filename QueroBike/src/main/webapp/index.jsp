@@ -10,10 +10,10 @@
         </head>
         <body>
             <%
-		String contextPath = request.getContextPath().replace("/", "");
+		String basePath = request.getRequestURL().toString();
 	%>
-            <a href="/<%=contextPath%>/cities"><fmt:message key="crudCities"/></a><br/>
-            <a href="/<%=contextPath%>/rentals"><fmt:message key="crudRentals"/></a><br/>
+            <a href="<%=basePath%>cities"><fmt:message key="crudCities"/></a><br/>
+            <a href="<%=basePath%>rentals"><fmt:message key="crudRentals"/></a><br/>
         </body>
     </fmt:bundle>
 </html>
