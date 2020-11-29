@@ -20,4 +20,9 @@ public class HashPassword {
         String hash = lazySodium.cryptoPwHash(password, 64, lazySodium.toBinary(salt), PwHash.ARGON2ID_OPSLIMIT_INTERACTIVE, new NativeLong(PwHash.ARGON2ID_MEMLIMIT_INTERACTIVE), PwHash.Alg.PWHASH_ALG_ARGON2ID13);
         return hash;
     }
+    
+     public static boolean isSamePassword(String password, String salt, String hashedPassword) throws SodiumException {
+        String hash = lazySodium.cryptoPwHash(password, 64, lazySodium.toBinary(salt), PwHash.ARGON2ID_OPSLIMIT_INTERACTIVE, new NativeLong(PwHash.ARGON2ID_MEMLIMIT_INTERACTIVE), PwHash.Alg.PWHASH_ALG_ARGON2ID13);
+        return hashedPassword.equals(hash);
+    }
 }
