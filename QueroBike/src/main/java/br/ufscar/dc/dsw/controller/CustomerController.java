@@ -11,6 +11,8 @@ import com.goterl.lazycode.lazysodium.exceptions.SodiumException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -73,33 +75,63 @@ public class CustomerController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        String action = this.getAction(request);
-        switch (action) {
-            case "/":
-                break;
-            default:
-                throw new Error("[GET] - Invalid path");
+        try {
+            String action = this.getAction(request);
+            switch (action) {
+                case "/":
+                    break;
+                case "/register":
+                    renderPage("/customers/register.jsp", request, response);
+                    break;
+                case "/login":
+                    renderPage("/customers/login.jsp", request, response);
+                    break;
+                case "/delete":
+                    renderPage("/customers/delete.jsp", request, response);
+                    break;
+                case "/update":
+                    renderPage("/customers/update.jsp", request, response);
+                    break;
+                default:
+                    throw new Error("[GET] - Invalid path");
+            }
+        } catch (ServletException | IOException ex) {
+            logger.log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void renderPage(String page, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+        dispatcher.forward(request, response);
     }
 
     private void register(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ErrorList errors = CustomerValidator.registerCustomerValidation(request);
+
+        String email = request.getParameter("email");
+        String plainTextPassword = request.getParameter("password");
+        String cpf = request.getParameter("cpf");
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        String gender = request.getParameter("gender");
+        String birthdateString = request.getParameter("birthdate");
+
+        Map<String, String> fields = new HashMap<String, String>();
+        fields.put("email", email);
+        fields.put("cpf", cpf);
+        fields.put("name", name);
+        fields.put("phone", phone);
+        fields.put("gender", gender);
+        fields.put("birthdate", birthdateString);
         try {
             if (errors.isNotEmpty()) {
+                request.setAttribute("data", fields);
                 request.setAttribute("errorList", errors);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/customers/register.jsp");
                 dispatcher.forward(request, response);
                 return;
             }
-
-            String email = request.getParameter("email");
-            String plainTextPassword = request.getParameter("password");
-            String cpf = request.getParameter("cpf");
-            String name = request.getParameter("name");
-            String phone = request.getParameter("phone");
-            String gender = request.getParameter("gender");
-            String birthdateString = request.getParameter("birthdate");
 
             Date birthdate = DateParser.format(birthdateString, "dd/MM/yyyy");
 
@@ -146,7 +178,7 @@ public class CustomerController extends HttpServlet {
             if (!HashPassword.isSamePassword(password, customer.getSalt(), customer.getPassword())) {
                 throw new SemanticError("Usuário ou senha inválida");
             }
-            
+
             customer.setPassword(null);
             customer.setSalt(null);
 
@@ -183,7 +215,7 @@ public class CustomerController extends HttpServlet {
         response.sendRedirect("/");
 
     }
-    
+
     private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ErrorList errors = CustomerValidator.updateCustomerValidation(request);
         try {
@@ -203,7 +235,7 @@ public class CustomerController extends HttpServlet {
             String birthdateString = request.getParameter("birthdate");
 
             Date birthdate = DateParser.format(birthdateString, "dd/MM/yyyy");
-            
+
             Customer customer = new Customer(id, cpf, name, phone, gender, birthdate, email);
 
             customer = dao.update(customer);
