@@ -7,4 +7,8 @@ public class SemanticError extends RuntimeException {
     public SemanticError(String errorMessage, Throwable err) {
         super(errorMessage, err);
     }
+
+    public SemanticError(String errorMessage) {
+        super(errorMessage);
+    }
 }
