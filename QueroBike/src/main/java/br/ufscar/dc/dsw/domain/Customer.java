@@ -29,16 +29,16 @@ public class Customer {
         this.birthdate = birthdate;
     }
 
-    public Customer(int id, String email, String password, String salt, String cpf, String name, String phone, String gender, Date birthdate) {
+    public Customer(int id, String cpf, String name, String phone, String gender, Date birthdate, String email, String password, String salt) {
         this.id = id;
-        this.email = email;
-        this.password = password;
-        this.salt = salt;
         this.cpf = cpf;
         this.name = name;
         this.phone = phone;
         this.gender = gender;
         this.birthdate = birthdate;
+        this.email = email;
+        this.password = password;
+        this.salt = salt;
     }
 
     public int getId() {
