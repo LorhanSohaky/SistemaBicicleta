@@ -1,14 +1,13 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.RentalDAO;
-import br.ufscar.dc.dsw.domain.Rental;
 import br.ufscar.dc.dsw.domain.City;
+import br.ufscar.dc.dsw.domain.Rental;
 import com.goterl.lazycode.lazysodium.LazySodiumJava;
 import com.goterl.lazycode.lazysodium.SodiumJava;
 import com.goterl.lazycode.lazysodium.exceptions.SodiumException;
 import com.goterl.lazycode.lazysodium.interfaces.PwHash;
 import com.sun.jna.NativeLong;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,7 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = {"/rentals/", "/rentals/register", "/rentals/list"})
 public class RentalController extends HttpServlet {
-
+    private static final Logger logger = Logger.getLogger(
+        RentalController.class.getName()
+      );
     private static final long serialVersionUID = 1L;
 
     private RentalDAO dao;
@@ -33,7 +34,10 @@ public class RentalController extends HttpServlet {
     }
 
     private String getAction(HttpServletRequest request) {
-        String action = request.getRequestURI().substring("/rentals".length());
+        String contextPath = request.getContextPath();
+        int length = contextPath.length() + "/rentals".length();
+
+        String action = request.getRequestURI().substring(length);
         if (action == null) {
             action = "";
         }
@@ -41,7 +45,10 @@ public class RentalController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(
+            HttpServletRequest request,
+            HttpServletResponse response
+    )
             throws ServletException, IOException {
         try {
             String action = this.getAction(request);
@@ -54,15 +61,17 @@ public class RentalController extends HttpServlet {
                     throw new Error("Invalid path");
             }
         } catch (SodiumException | ServletException | IOException ex) {
-            Logger.getLogger(RentalController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
         try {
             String action = this.getAction(request);
-            System.out.println(action);
             switch (action) {
                 case "/":
                     list(request, response);
@@ -71,22 +80,25 @@ public class RentalController extends HttpServlet {
                     throw new Error("Invalid path");
             }
         } catch (ServletException | IOException ex) {
-            Logger.getLogger(RentalController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
-
     }
 
     private void list(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Rental> list = dao.getAll();
         request.setAttribute("rentalList", list);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/rentals/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(
+                "/rentals/list.jsp"
+        );
         dispatcher.forward(request, response);
     }
 
-    private void register(HttpServletRequest request, HttpServletResponse response)
+    private void register(
+            HttpServletRequest request,
+            HttpServletResponse response
+    )
             throws ServletException, IOException, SodiumException {
-
         LazySodiumJava lazySodium = new LazySodiumJava(new SodiumJava());
 
         String name = request.getParameter("name");
@@ -99,17 +111,42 @@ public class RentalController extends HttpServlet {
         String streetNumber = request.getParameter("streetNumber");
         String complement = request.getParameter("complement");
         String plainTextPassword = request.getParameter("password");
-        City city = new City(request.getParameter("city"), request.getParameter("state"));
+        City city = new City(
+                request.getParameter("city"),
+                request.getParameter("state")
+        );
 
         if (complement == null) {
             complement = "";
         }
 
-        String salt = lazySodium.toHexStr(lazySodium.randomBytesBuf(PwHash.ARGON2ID_SALTBYTES));
+        String salt = lazySodium.toHexStr(
+                lazySodium.randomBytesBuf(PwHash.ARGON2ID_SALTBYTES)
+        );
 
-        String password = lazySodium.cryptoPwHash(plainTextPassword, 64, lazySodium.toBinary(salt), PwHash.ARGON2ID_OPSLIMIT_INTERACTIVE, new NativeLong(PwHash.ARGON2ID_MEMLIMIT_INTERACTIVE), PwHash.Alg.PWHASH_ALG_ARGON2ID13);
+        String password = lazySodium.cryptoPwHash(
+                plainTextPassword,
+                64,
+                lazySodium.toBinary(salt),
+                PwHash.ARGON2ID_OPSLIMIT_INTERACTIVE,
+                new NativeLong(PwHash.ARGON2ID_MEMLIMIT_INTERACTIVE),
+                PwHash.Alg.PWHASH_ALG_ARGON2ID13
+        );
 
-        Rental rental = new Rental(name, cnpj, description, postalCode, streetName, neighborhood, complement, streetNumber, email, password, salt, city);
+        Rental rental = new Rental(
+                name,
+                cnpj,
+                description,
+                postalCode,
+                streetName,
+                neighborhood,
+                complement,
+                streetNumber,
+                email,
+                password,
+                salt,
+                city
+        );
         dao.insert(rental);
         response.sendRedirect("/rentals/");
     }
