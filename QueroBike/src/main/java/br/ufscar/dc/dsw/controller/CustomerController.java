@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/customers/", "/customers/register"})
+@WebServlet(urlPatterns = {"/customers/", "/customers/register", "/customers/login"})
 public class CustomerController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(
@@ -59,8 +59,11 @@ public class CustomerController extends HttpServlet {
                 case "/register":
                     register(request, response);
                     break;
+                case "/login":
+                    login(request, response);
+                    break;
                 default:
-                    throw new Error("Invalid path");
+                    throw new Error("[POST] - Invalid path");
             }
         } catch (ServletException | IOException ex) {
             logger.log(Level.SEVERE, null, ex);
@@ -77,7 +80,7 @@ public class CustomerController extends HttpServlet {
             case "/":
                 break;
             default:
-                throw new Error("Invalid path");
+                throw new Error("[GET] - Invalid path");
         }
     }
 
@@ -143,5 +146,57 @@ public class CustomerController extends HttpServlet {
             }
             logger.log(Level.SEVERE, e.getMessage(), e.getCause());
         }
+    }
+
+    private void login(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws ServletException, IOException {
+
+        List<String> errors = CustomerValidator.loginCustomerValidation(request);
+        try {
+            if (errors.size() > 0) {
+                request.setAttribute("errors", errors);
+                RequestDispatcher dispatcher = request.getRequestDispatcher(
+                        "/customers/login.jsp"
+                );
+                dispatcher.forward(request, response);
+                return;
+            }
+
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+
+            Customer customer = dao.findByEmail(email);
+
+            if (!HashPassword.isSamePassword(password, customer.getSalt(), customer.getPassword())) {
+                throw new SemanticError("Usuário ou senha inválida");
+            }
+
+            request.setAttribute("customerData", customer);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(
+                    "/customers/home.jsp"
+            );
+            dispatcher.forward(request, response);
+        } catch (SemanticError | SodiumException e) {
+            if (e instanceof SemanticError) {
+                errors.add(e.getMessage());
+                request.setAttribute("errors", errors);
+                RequestDispatcher dispatcher = request.getRequestDispatcher(
+                        "/customers/login.jsp"
+                );
+                dispatcher.forward(request, response);
+                logger.log(Level.WARNING, e.getMessage());
+                return;
+            }
+            logger.log(Level.SEVERE, e.getMessage(), e.getCause());
+        }
+    }
+
+    private void home(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws ServletException, IOException {
+
     }
 }
