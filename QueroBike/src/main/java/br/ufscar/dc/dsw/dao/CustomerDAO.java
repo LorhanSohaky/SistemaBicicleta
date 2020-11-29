@@ -135,4 +135,34 @@ public class CustomerDAO extends GenericDAO {
             throw new RuntimeException("Ops! Aconteceu um erro interno.", e);
         }
     }
+    
+    public Customer update (Customer customer){
+        String sql
+                = "UPDATE customer SET email = ?, password = ?, salt = ?, cpf = ?,"
+                + " name = ?, phone = ?, gender = ?, birthdate = ?  WHERE id = ?;";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, customer.getEmail());
+            statement.setString(2, customer.getPassword());
+            statement.setString(3, customer.getSalt());
+            statement.setString(4, customer.getCpf());
+            statement.setString(5, customer.getName());
+            statement.setString(6, customer.getPhone());
+            statement.setString(7, customer.getGender());
+            statement.setDate(8, new Date(customer.getBirthdate().getTime()));
+            statement.setInt(9, customer.getId());
+
+            statement.executeUpdate();
+            statement.close();
+            conn.close();
+
+            return customer;
+        } catch (SQLException e) {
+            throw new RuntimeException("Ops! Aconteceu um erro interno.", e);
+        }
+    }
 }

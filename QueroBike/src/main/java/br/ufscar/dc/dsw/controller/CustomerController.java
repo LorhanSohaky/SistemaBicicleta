@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/customers/", "/customers/register", "/customers/login", "/customers/delete"})
+@WebServlet(urlPatterns = {"/customers/", "/customers/register", "/customers/login", "/customers/delete", "/customers/update"})
 public class CustomerController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(CustomerController.class.getName());
@@ -57,9 +57,11 @@ public class CustomerController extends HttpServlet {
                 case "/login":
                     login(request, response);
                     break;
-
                 case "/delete":
                     delete(request, response);
+                    break;
+                case "/update":
+                    update(request, response);
                     break;
                 default:
                     throw new Error("[POST] - Invalid path");
@@ -144,6 +146,9 @@ public class CustomerController extends HttpServlet {
             if (!HashPassword.isSamePassword(password, customer.getSalt(), customer.getPassword())) {
                 throw new SemanticError("Usuário ou senha inválida");
             }
+            
+            customer.setPassword(null);
+            customer.setSalt(null);
 
             request.setAttribute("customerData", customer);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/customers/home.jsp");
@@ -177,5 +182,39 @@ public class CustomerController extends HttpServlet {
 
         response.sendRedirect("/");
 
+    }
+    
+    private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ErrorList errors = CustomerValidator.updateCustomerValidation(request);
+        try {
+            if (errors.isNotEmpty()) {
+                request.setAttribute("errorList", errors);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/customers/update.jsp");
+                dispatcher.forward(request, response);
+                return;
+            }
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            String email = request.getParameter("email");
+            String cpf = request.getParameter("cpf");
+            String name = request.getParameter("name");
+            String phone = request.getParameter("phone");
+            String gender = request.getParameter("gender");
+            String birthdateString = request.getParameter("birthdate");
+
+            Date birthdate = DateParser.format(birthdateString, "dd/MM/yyyy");
+            
+            Customer customer = new Customer(id, cpf, name, phone, gender, birthdate, email);
+
+            customer = dao.update(customer);
+            customer.setPassword(null);
+            customer.setSalt(null);
+
+            request.setAttribute("customerData", customer);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/customers/home.jsp");
+            dispatcher.forward(request, response);
+        } catch (ParseException e) {
+            logger.log(Level.SEVERE, e.getMessage(), e.getCause());
+        }
     }
 }
