@@ -13,7 +13,7 @@ public class CustomerDAO extends GenericDAO {
     // TODO:
     // - get
     // - delete
-    public Customer insert(Customer customer) {
+    public Customer insert(Customer customer) throws SemanticError, RuntimeException{
         String sql
                 = "INSERT INTO customer (email,password, salt, cpf,"
                 + " name, phone, gender, birthdate) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -55,7 +55,7 @@ public class CustomerDAO extends GenericDAO {
         }
     }
 
-    public Customer findByEmail(String email) {
+    public Customer findByEmail(String email) throws RuntimeException, SemanticError {
         String sql = "SELECT id, cpf, name, phone, gender, birthdate, password, salt FROM customer WHERE email = ?;";
 
         try {

@@ -1,6 +1,6 @@
 package br.ufscar.dc.dsw.erros;
 
-public class SemanticError extends RuntimeException {
+public class SemanticError extends Exception {
 
     private static final long serialVersionUID = 1L;
 

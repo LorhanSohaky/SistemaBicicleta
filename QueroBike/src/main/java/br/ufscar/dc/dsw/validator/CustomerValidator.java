@@ -1,20 +1,20 @@
 package br.ufscar.dc.dsw.validator;
 
 import br.ufscar.dc.dsw.utils.DateParser;
+import br.ufscar.dc.dsw.utils.ErrorList;
+
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 public class CustomerValidator {
 
-    public static List<String> registerCustomerValidation(
+    public static ErrorList registerCustomerValidation(
             HttpServletRequest request
     ) {
-        List<String> errors = new ArrayList();
+        ErrorList errors = new ErrorList();
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -82,8 +82,8 @@ public class CustomerValidator {
         return errors;
     }
 
-    public static List<String> loginCustomerValidation(HttpServletRequest request) {
-        List<String> errors = new ArrayList();
+    public static ErrorList loginCustomerValidation(HttpServletRequest request) {
+        ErrorList errors = new ErrorList();
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
