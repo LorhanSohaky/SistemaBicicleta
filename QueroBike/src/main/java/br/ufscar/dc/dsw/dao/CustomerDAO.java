@@ -11,7 +11,6 @@ import java.sql.SQLException;
 public class CustomerDAO extends GenericDAO {
 
     // TODO:
-    // - Login
     // - get
     // - delete
     public Customer insert(Customer customer) {
@@ -54,5 +53,39 @@ public class CustomerDAO extends GenericDAO {
 
             throw new RuntimeException("Ops! Aconteceu um erro interno.", e);
         }
+    }
+
+    public Customer findByEmail(String email) {
+        String sql = "SELECT id, cpf, name, phone, gender, birthdate, password, salt FROM customer WHERE email = ?;";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, email);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (!resultSet.next()) {
+                throw new SemanticError("Usuário ou senha inválida");
+            }
+
+            int id = resultSet.getInt("id");
+            String cpf = resultSet.getString("cpf");
+            String name = resultSet.getString("name");
+            String phone = resultSet.getString("phone");
+            String gender = resultSet.getString("gender");
+            java.util.Date birthdate = resultSet.getDate("birthdate");
+            String password = resultSet.getString("password");
+            String salt = resultSet.getString("salt");
+            Customer customer = new Customer(id, cpf, name, phone, gender, birthdate, email, password, salt);
+
+            statement.close();
+            conn.close();
+
+            return customer;
+        } catch (SQLException e) {
+            throw new RuntimeException("Ops! Aconteceu um erro interno.", e);
+        }
+
     }
 }
