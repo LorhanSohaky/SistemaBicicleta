@@ -1,6 +1,6 @@
 #!/bin/python3
 import hashlib
-import secrets
+import pysodium
 import sqlite3
 import re
 import os
@@ -43,11 +43,14 @@ def generate_random_rental(conn):
     rows = cursor.fetchall()
     (city, state) = rows[0]
 
-    salt = secrets.token_hex(16)
-    dk = hashlib.pbkdf2_hmac('sha512', str.encode(default_password), str.encode(salt), 100000)
-    password = dk.hex()
+    saltBytes = pysodium.randombytes(pysodium.crypto_pwhash_SALTBYTES)
+    opslimit = pysodium.crypto_pwhash_argon2id_OPSLIMIT_INTERACTIVE
+    memlimit = pysodium.crypto_pwhash_argon2id_MEMLIMIT_INTERACTIVE
+    alg = pysodium.crypto_pwhash_ALG_ARGON2ID13
 
-    print(len(password), len(salt))
+    passwordBytes = pysodium.crypto_pwhash(64, alg=alg, passwd=default_password, salt=saltBytes, opslimit=opslimit, memlimit=memlimit)
+    password = passwordBytes.hex()
+    salt = saltBytes.hex()
 
     return (name,cnpj,email,description,postal_code,street_name,neighborhood,street_number, city, state, password,salt)
 
@@ -56,6 +59,7 @@ def generate_random_rental(conn):
 prepare_database()
 f = open("sql/insert_rentals.sql", "w")
 for i in range(40):
+    print( f'{i + 1}/{40}')
     (name,cnpj,email,description,postal_code,street_name,neighborhood,street_number, city, state,password,salt) = generate_random_rental(conn)
 
     f.write(f'INSERT INTO rental (name,cnpj,email,description,postal_code,street_name,neighborhood,street_number, fk_city_name, fk_city_state,password,salt) VALUES ("{name}","{cnpj}","{email}","{description}","{postal_code}","{street_name}","{neighborhood}","{street_number}", "{city}", "{state}", "{password}", "{salt}");\n')
