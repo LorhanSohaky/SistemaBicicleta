@@ -55,4 +55,18 @@ CREATE TABLE IF NOT EXISTS `rental` (
     ON UPDATE NO ACTION);
 CREATE UNIQUE INDEX `email_rental_UNIQUE` ON `rental` (email);
 
+-- -----------------------------------------------------
+-- Table `admin`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `admin` ;
+
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+  `email` VARCHAR(128) NOT NULL,
+  `password` VARCHAR(128) NOT NULL,
+  `salt` VARCHAR(18) NOT NULL,
+  `name` VARCHAR(128) NOT NULL
+);
+CREATE UNIQUE INDEX `email_customer_UNIQUE` ON `admin` (email);
+
 
