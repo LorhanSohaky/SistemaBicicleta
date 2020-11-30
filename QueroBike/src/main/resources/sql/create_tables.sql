@@ -67,6 +67,24 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `salt` VARCHAR(18) NOT NULL,
   `name` VARCHAR(128) NOT NULL
 );
-CREATE UNIQUE INDEX `email_customer_UNIQUE` ON `admin` (email);
+CREATE UNIQUE INDEX `email_admin_UNIQUE` ON `admin` (email);
 
+-- -----------------------------------------------------
+-- Table `reserve`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `reserve`;
 
+CREATE TABLE IF NOT EXISTS `reserve` (
+  `fk_customer` INTEGER,
+  `fk_rental` INTEGER,
+  `moment` DATETIME NOT NULL,
+
+  FOREIGN KEY (`fk_rental`)
+    REFERENCES `rental` (`id`)
+    ON UPDATE NO ACTION,
+  FOREIGN KEY (`fk_customer`)
+    REFERENCES `customer` (`id`)
+    ON UPDATE NO ACTION
+);
+
+CREATE UNIQUE INDEX `reserve_UNIQUE` ON `reserve` (fk_customer,fk_rental, moment);
