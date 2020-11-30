@@ -1,0 +1,2 @@
+INSERT INTO admin (name, email, password, salt) VALUES ("Lorhan Sohaky","admin1@mailinator.com", "9119831a51401c7020a03b859bc960a55fcc050f0246d7b68998ef7023cb9d00d9339a58ddd0a479f953da81174ef0f9af76ca02c7c9489cdd5a76bebcb2a863", "399f0cdba980915af66c3a8562deda40");
+INSERT INTO admin (name, email, password, salt) VALUES ("Lucas Martins","admin2@mailinator.com", "88f578ef9f5ab96a86890a6dc5636819bb3ccb61352869851f56885c172d43b5d4f0d7485474d607758b68852182158d80da5998480eda5b837c443718407b8b", "e2d5618fe88467ae34e906bbcafb6aac");
