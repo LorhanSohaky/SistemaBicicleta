@@ -29,8 +29,8 @@ def hash_default_password():
     alg = pysodium.crypto_pwhash_ALG_ARGON2ID13
 
     passwordBytes = pysodium.crypto_pwhash(64, alg=alg, passwd=default_password, salt=saltBytes, opslimit=opslimit, memlimit=memlimit)
-    password = passwordBytes.hex()
-    salt = saltBytes.hex()
+    password = passwordBytes.hex().upper()
+    salt = saltBytes.hex().upper()
 
     return (password,salt)
 

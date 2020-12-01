@@ -49,8 +49,8 @@ def generate_random_rental(conn):
     alg = pysodium.crypto_pwhash_ALG_ARGON2ID13
 
     passwordBytes = pysodium.crypto_pwhash(64, alg=alg, passwd=default_password, salt=saltBytes, opslimit=opslimit, memlimit=memlimit)
-    password = passwordBytes.hex()
-    salt = saltBytes.hex()
+    password = passwordBytes.hex().upper()
+    salt = saltBytes.hex().upper()
 
     return (name,cnpj,email,description,postal_code,street_name,neighborhood,street_number, city, state, password,salt)
 
