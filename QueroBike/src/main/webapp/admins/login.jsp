@@ -8,11 +8,38 @@
 %>
 <!DOCTYPE html>
 <html>
-    <fmt:bundle basename="messages">
+    <fmt:bundle basename="messages.admins.login">
 
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <title>Quero BIKE - Admin</title>
+            <title><fmt:message key="headerTitle"/></title>
+        </head>
+
+        <body>
+            <div class="container">
+                <h1><fmt:message key="title"/></h1>
+                <c:if test="${errorList.notEmpty}">
+                    <div class="erro">
+                        <ul>
+                            <c:forEach var="erro" items="${errorList.errors}">
+                                <li> ${erro} </li>
+                                </c:forEach>
+                        </ul>
+                    </div>
+                </c:if>
+                <form action="<%=contextPath%>/admins/login" method="POST">
+                    <div class="form-group">
+                        <label for="inputEmail"><fmt:message key="emailLabel"/></label>
+                        <input type="email" name="email" maxlength="128" class="form-control" id="inputEmail" required placeholder="<fmt:message key='emailPlaceholder'/>" value="${data.email}">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword"><fmt:message key="passwordLabel"/></label>
+                        <input type="password" minlength="5" name="password" class="form-control" id="inputPassword" required placeholder="<fmt:message key='passwordPlaceholder'/>">
+                    </div>
+                    <button type="submit" class="btn btn-primary"><fmt:message key="submitButton"/></button>
+
+                </form>
+            </div>
 
             <!-- CSS -->
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -25,34 +52,6 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
             crossorigin="anonymous"></script>
-        </head>
-
-        <body>
-            <div class="container">
-                <h1>Login admin</h1>
-                <c:if test="${errorList.notEmpty}">
-                    <div class="erro">
-                        <ul>
-                            <c:forEach var="erro" items="${errorList.errors}">
-                                <li> ${erro} </li>
-                                </c:forEach>
-                        </ul>
-                    </div>
-                </c:if>
-                <form action="<%=contextPath%>/admins/login" method="POST">
-                    <div class="form-group">
-                        <label for="inputEmail">E-mail</label>
-                        <input type="email" name="email" maxlength="128" class="form-control" id="inputEmail" required placeholder="Digite seu e-mail aqui" value="${data.email}">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword">Senha</label>
-                        <input type="password" minlength="5" name="password" class="form-control" id="inputPassword" required placeholder="Digite aqui a sua senha">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Entrar</button>
-
-                </form>
-            </div>
-
         </body>
     </fmt:bundle>
 
