@@ -8,6 +8,8 @@ import br.ufscar.dc.dsw.utils.HashPassword;
 import br.ufscar.dc.dsw.validator.AdminValidator;
 import com.goterl.lazycode.lazysodium.exceptions.SodiumException;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -64,10 +66,23 @@ public class AdminController extends HttpServlet {
         }
     }
 
+    private boolean hasAValidSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+
+        return session.getAttribute("adminData") != null;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
             String action = this.getAction(request);
+            List<String> privateRoutes = Arrays.asList("/", "/update");
+
+            if (privateRoutes.contains(action) && !hasAValidSession(request, response)) {
+                response.sendRedirect(this.contextPath + "/admins/login");
+                return;
+            }
+
             switch (action) {
                 case "/":
                     renderPage("/admins/home.jsp", request, response);
@@ -114,8 +129,7 @@ public class AdminController extends HttpServlet {
             admin.setSalt(null);
 
             request.getSession().setAttribute("adminData", admin);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/home.jsp");
-            dispatcher.forward(request, response);
+            response.sendRedirect(this.contextPath + "/admins/");
         } catch (SemanticError | SodiumException e) {
             if (e instanceof SemanticError) {
                 errors.add(e.getMessage());
@@ -154,9 +168,7 @@ public class AdminController extends HttpServlet {
         admin.setSalt(null);
 
         request.getSession().setAttribute("adminData", admin);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/home.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect(this.contextPath + "/admins/");
 
     }
 }
