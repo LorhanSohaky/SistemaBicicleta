@@ -5,7 +5,7 @@ import br.ufscar.dc.dsw.domain.Admin;
 import br.ufscar.dc.dsw.erros.SemanticError;
 import br.ufscar.dc.dsw.utils.ErrorList;
 import br.ufscar.dc.dsw.utils.HashPassword;
-import br.ufscar.dc.dsw.validator.CustomerValidator;
+import br.ufscar.dc.dsw.validator.AdminValidator;
 import com.goterl.lazycode.lazysodium.exceptions.SodiumException;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -92,12 +92,11 @@ public class AdminController extends HttpServlet {
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO: Replace by AdminValidator
-        ErrorList errors = CustomerValidator.loginCustomerValidation(request);
+        ErrorList errors = AdminValidator.loginAdminValidation(request);
         try {
             if (errors.isNotEmpty()) {
                 request.setAttribute("errorList", errors);
-                RequestDispatcher dispatcher = request.getRequestDispatcher( "/admins/login.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/login.jsp");
                 dispatcher.forward(request, response);
                 return;
             }
@@ -106,7 +105,7 @@ public class AdminController extends HttpServlet {
             String password = request.getParameter("password");
 
             Admin admin = dao.findByEmail(email);
-            
+
             if (!HashPassword.isSamePassword(password, admin.getSalt(), admin.getPassword())) {
                 throw new SemanticError("Usuário ou senha inválida");
             }
@@ -132,7 +131,7 @@ public class AdminController extends HttpServlet {
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ErrorList errors = CustomerValidator.updateCustomerValidation(request);
+        ErrorList errors = AdminValidator.updateAdminValidation(request);
         if (errors.isNotEmpty()) {
             request.setAttribute("errorList", errors);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/update.jsp");
