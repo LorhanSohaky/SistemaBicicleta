@@ -99,6 +99,7 @@ public class CustomerController extends HttpServlet {
 
             switch (action) {
                 case "/":
+                    renderPage("/customers/home.jsp", request, response);
                     break;
                 case "/register":
                     renderPage("/customers/register.jsp", request, response);
