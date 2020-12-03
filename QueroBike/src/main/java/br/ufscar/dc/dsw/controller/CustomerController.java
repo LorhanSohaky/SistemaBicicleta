@@ -10,8 +10,10 @@ import br.ufscar.dc.dsw.validator.CustomerValidator;
 import com.goterl.lazycode.lazysodium.exceptions.SodiumException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,12 +23,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = {"/customers/", "/customers/register", "/customers/login", "/customers/delete", "/customers/update"})
+@WebServlet(urlPatterns = {"/customers/", "/customers/register", "/customers/login", "/customers/logout", "/customers/delete", "/customers/update"})
 public class CustomerController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(CustomerController.class.getName());
     private static final long serialVersionUID = 1L;
+    private String contextPath = "";
 
     private CustomerDAO dao;
 
@@ -36,14 +40,20 @@ public class CustomerController extends HttpServlet {
     }
 
     private String getAction(HttpServletRequest request) {
-        String contextPath = request.getContextPath();
-        int length = contextPath.length() + "/customers".length();
+        this.contextPath = request.getContextPath();
+        int length = this.contextPath.length() + "/customers".length();
 
         String action = request.getRequestURI().substring(length);
         if (action == null) {
             action = "";
         }
         return action;
+    }
+
+    private boolean hasAValidSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+
+        return session.getAttribute("customerData") != null;
     }
 
     @Override
@@ -58,6 +68,9 @@ public class CustomerController extends HttpServlet {
                     break;
                 case "/login":
                     login(request, response);
+                    break;
+                case "/logout":
+                    logout(request, response);
                     break;
                 case "/delete":
                     delete(request, response);
@@ -77,6 +90,13 @@ public class CustomerController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
             String action = this.getAction(request);
+            List<String> privateRoutes = Arrays.asList("/", "/update", "/delete");
+
+            if (privateRoutes.contains(action) && !hasAValidSession(request, response)) {
+                response.sendRedirect(this.contextPath + "/customers/login");
+                return;
+            }
+
             switch (action) {
                 case "/":
                     break;
@@ -133,7 +153,7 @@ public class CustomerController extends HttpServlet {
                 return;
             }
 
-            Date birthdate = DateParser.format(birthdateString, "dd/MM/yyyy");
+            Date birthdate = DateParser.format(birthdateString, "yyyy-MM-dd");
 
             String salt = HashPassword.generateSalt();
             String password = HashPassword.hashPassword(plainTextPassword, salt);
@@ -144,19 +164,19 @@ public class CustomerController extends HttpServlet {
             customer.setPassword(null);
             customer.setSalt(null);
 
-            request.setAttribute("customerData", customer);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/customers/home.jsp");
-            dispatcher.forward(request, response);
+            request.getSession().setAttribute("customerData", customer);
+            response.sendRedirect(this.contextPath + "/customers/");
         } catch (SemanticError | SodiumException | ParseException e) {
             if (e instanceof SemanticError) {
                 errors.add(e.getMessage());
                 request.setAttribute("errorList", errors);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/customers/login.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/customers/register.jsp");
                 dispatcher.forward(request, response);
                 logger.log(Level.WARNING, e.getMessage());
                 return;
             }
             logger.log(Level.SEVERE, e.getMessage(), e.getCause());
+            throw new RuntimeException(e);
         }
     }
 
@@ -182,9 +202,8 @@ public class CustomerController extends HttpServlet {
             customer.setPassword(null);
             customer.setSalt(null);
 
-            request.setAttribute("customerData", customer);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/customers/home.jsp");
-            dispatcher.forward(request, response);
+            request.getSession().setAttribute("customerData", customer);
+            response.sendRedirect(this.contextPath + "/customers/");
         } catch (SemanticError | SodiumException e) {
             if (e instanceof SemanticError) {
                 errors.add(e.getMessage());
@@ -195,6 +214,7 @@ public class CustomerController extends HttpServlet {
                 return;
             }
             logger.log(Level.SEVERE, e.getMessage(), e.getCause());
+            throw new RuntimeException(e);
         }
 
     }
@@ -212,7 +232,8 @@ public class CustomerController extends HttpServlet {
 
         dao.delete(id);
 
-        response.sendRedirect("/");
+        request.getSession().removeAttribute("customerData");
+        response.sendRedirect(this.contextPath + "/customers/login");
 
     }
 
@@ -243,10 +264,14 @@ public class CustomerController extends HttpServlet {
             customer.setSalt(null);
 
             request.setAttribute("customerData", customer);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/customers/home.jsp");
-            dispatcher.forward(request, response);
+            response.sendRedirect(this.contextPath + "/customers/");
         } catch (ParseException e) {
             logger.log(Level.SEVERE, e.getMessage(), e.getCause());
         }
+    }
+
+    private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().removeAttribute("customerData");
+        response.sendRedirect(this.contextPath + "/customers/login");
     }
 }
