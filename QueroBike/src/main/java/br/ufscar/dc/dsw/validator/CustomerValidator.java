@@ -67,7 +67,7 @@ public class CustomerValidator {
             errors.add("É obrigatório informar a data de nascimento");
         } else {
             try {
-                Date birthdate = DateParser.format(birthdateString, "dd/MM/yyyy");
+                Date birthdate = DateParser.format(birthdateString, "yyyy-MM-dd");
 
                 if (birthdate.compareTo(new Date()) >= 0) {
                     errors.add("Data de nascimento inválida");
@@ -98,12 +98,11 @@ public class CustomerValidator {
 
         return errors;
     }
-    
-    public static ErrorList deleteCustomerValidation(HttpServletRequest request){
+
+    public static ErrorList deleteCustomerValidation(HttpServletRequest request) {
         ErrorList errors = new ErrorList();
 
         String idString = request.getParameter("id");
-        
 
         if (idString == null || idString.length() == 0) {
             errors.add("É obrigatório informar o id");
@@ -111,7 +110,7 @@ public class CustomerValidator {
 
         return errors;
     }
-    
+
     public static ErrorList updateCustomerValidation(
             HttpServletRequest request
     ) {
@@ -125,7 +124,6 @@ public class CustomerValidator {
         String gender = request.getParameter("gender");
         String birthdateString = request.getParameter("birthdate");
         String idString = request.getParameter("id");
-        
 
         if (idString == null || idString.length() == 0) {
             errors.add("É obrigatório informar o id");
