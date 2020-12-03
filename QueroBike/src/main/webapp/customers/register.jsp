@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%
-    String basePath = request.getRequestURL().toString();
+    String contextPath = request.getContextPath().toString();
 %>
 <!DOCTYPE html>
 <html>
@@ -27,7 +27,7 @@
                         </ul>
                     </div>
                 </c:if>
-                <form action="/customers/register" method="POST">
+                <form action="<%=contextPath%>/customers/register" method="POST">
                     <div class="form-group">
                         <label for="inputName"><fmt:message key="nameLabel"/></label>
                         <input type="text" name="name" maxlength="128" class="form-control" id="inputName" required placeholder="<fmt:message key='namePlaceholder'/>" value="${data.name}">
