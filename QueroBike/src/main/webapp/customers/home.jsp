@@ -11,12 +11,12 @@
         </head>
         <body>
             <h1>Home</h1>
-            <p>${requestScope.customerData.id}</p>
-            <p>${requestScope.customerData.name}</p>
-            <p>${requestScope.customerData.cpf}</p>
-            <p>${requestScope.customerData.phone}</p>
-            <p>${requestScope.customerData.email}</p>
-            <p>${requestScope.customerData.password}</p>
+            <p>${sessionScope.customerData.id}</p>
+            <p>${sessionScope.customerData.name}</p>
+            <p>${sessionScope.customerData.cpf}</p>
+            <p>${sessionScope.customerData.phone}</p>
+            <p>${sessionScope.customerData.email}</p>
+            <p>${sessionScope.customerData.password}</p>
 
 
         </body>
