@@ -1,51 +1,60 @@
 /* Meu CSS */
-body,
-html{
-    margin:  0; 
+* {
+    margin: 0;
     padding: 0;
-    font-size:18px;
+    box-sizing: border-box;
+}
+
+body{
+	background-color: #ecf0f1
+}
+html{
+	margin:  0; 
+	padding: 0;
+	font-size:18px;
 }
 
 .principal{
-    width: 960px;
-    color: rgb(19, 14, 14);
-    margin: 0 auto;
-    font-family:sans-serif;
+	width: 960px;
+	color: rgb(19, 14, 14);
+	margin: 0 auto;
+	font-family:sans-serif;
 }
 
 .menu{
-    width:960;
-    display:block;
-    clear:both;
-    background:#5FBF00;
+	width:960;
+	display:block;
+	clear:both;
+	background:#5FBF00;
 }
 .texto{
-    width:960;
-    display:block;
-    clear:both;
-    color:#5FBF00;
-    font-size:40px;
+	width:960;
+	display:block;
+	clear:both;
+	color:#5FBF00;
+	font-size:40px;
 }
+
 .menu ul li, 
 .menu ul{
-    margin:0;
-    padding:0;
-    list-style:none;
+	margin:0;
+	padding:0;
+	list-style:none;
 }
 .menu ul li{
-    display:inline-block;
+	display:inline-block;
 }
 .menu ul li a{
-    display:block;
-    color:#fff;
-    padding:13px 20px;
+	display:block;
+	color:#fff;
+	padding:13px 20px;
 }
 .corpo{
-    position:relative;
-    overflow:hidden;
+	position:relative;
+	overflow:hidden;
 }
 
 
 .espacamento{
-    padding:20px;
+	padding:20px;
 }
