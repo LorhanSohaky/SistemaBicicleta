@@ -1,0 +1,32 @@
+.btn-primary {
+  background: #5FBF00!important;
+  border-radius: 5px!important;
+  border-color: #5FBF00!important;
+}
+
+.btn-primary:hover {
+  color: #fff !important;
+  background-color: #219653 !important;
+  border-color: #219653!important;
+}
+
+html, body, * {
+  font-family: 'IBM Plex Sans', sans-serif !important;
+}
+
+h1,h2,h3,h4,h5 {
+  font-family: 'Ubuntu', sans-serif!important;
+
+}
+
+h2 {
+  font-weight: 300!important;
+}
+
+h6 {
+  font-weight: 500!important;
+}
+
+
+
+
