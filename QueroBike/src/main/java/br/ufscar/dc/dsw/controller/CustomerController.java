@@ -69,9 +69,6 @@ public class CustomerController extends HttpServlet {
                 case "/login":
                     login(request, response);
                     break;
-                case "/logout":
-                    logout(request, response);
-                    break;
                 case "/delete":
                     delete(request, response);
                     break;
@@ -112,6 +109,9 @@ public class CustomerController extends HttpServlet {
                     break;
                 case "/update":
                     renderPage("/customers/update.jsp", request, response);
+                    break;
+                case "/logout":
+                    logout(request, response);
                     break;
                 default:
                     throw new Error("[GET] - Invalid path");
