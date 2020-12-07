@@ -19,11 +19,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/rentals/", "/rentals/register", "/rentals/list"})
+@WebServlet(urlPatterns = {"/rentals/", "/rentals/register"})
 public class RentalController extends HttpServlet {
+
     private static final Logger logger = Logger.getLogger(
-        RentalController.class.getName()
-      );
+            RentalController.class.getName()
+    );
     private static final long serialVersionUID = 1L;
 
     private RentalDAO dao;
@@ -89,7 +90,7 @@ public class RentalController extends HttpServlet {
         List<Rental> list = dao.getAll();
         request.setAttribute("rentalList", list);
         RequestDispatcher dispatcher = request.getRequestDispatcher(
-                "/rentals/list.jsp"
+                "/rentals/index.jsp"
         );
         dispatcher.forward(request, response);
     }

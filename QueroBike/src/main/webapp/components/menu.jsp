@@ -14,7 +14,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#"><fmt:message key="rentals"/></a>
+          <a class="nav-link" href="<%=contextPath%>/rentals/"><fmt:message key="rentals"/></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#"><fmt:message key="whoWeAre"/></a>
