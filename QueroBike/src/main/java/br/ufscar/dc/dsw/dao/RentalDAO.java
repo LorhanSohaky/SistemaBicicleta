@@ -10,6 +10,7 @@ import java.util.List;
 
 import br.ufscar.dc.dsw.domain.Rental;
 import br.ufscar.dc.dsw.domain.City;
+import br.ufscar.dc.dsw.erros.SemanticError;
 
 public class RentalDAO extends GenericDAO {
 
@@ -83,6 +84,51 @@ public class RentalDAO extends GenericDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Rental findByEmail(String email) throws RuntimeException, SemanticError {
+        String sql = "SELECT id, name, cnpj, description, neighborhood, complement,"
+                + " street_number,street_name, postal_code, fk_city_name, fk_city_state,"
+                + " password, salt FROM rental WHERE email = ?;";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, email);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (!resultSet.next()) {
+                throw new SemanticError("Usuário ou senha inválida");
+            }
+
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            String cnpj = resultSet.getString("cnpj");
+            String description = resultSet.getString("description");
+            String postalCode = resultSet.getString("postal_code");
+            String streetName = resultSet.getString("street_name");
+            String neighborhood = resultSet.getString("neighborhood");
+            String complement = resultSet.getString("complement");
+            String streetNumber = resultSet.getString("street_number");
+            String cityName = resultSet.getString("fk_city_name");
+            String cityState = resultSet.getString("fk_city_state");
+            String password = resultSet.getString("password");
+            String salt = resultSet.getString("salt");
+
+            City city = new City(cityName, cityState);
+            Rental rental = new Rental(id, name, cnpj, description, postalCode,
+                    streetName, neighborhood, complement, streetNumber, email,
+                    password, salt, city);
+
+            statement.close();
+            conn.close();
+
+            return rental;
+        } catch (SQLException e) {
+            throw new RuntimeException("Ops! Aconteceu um erro interno.", e);
+        }
+
     }
 
 }
