@@ -4,14 +4,22 @@
   border-color: #5FBF00!important;
 }
 
+.bg-primary {
+  background: #5FBF00!important;
+}
+
 .btn-primary:hover {
   color: #fff !important;
   background-color: #219653 !important;
   border-color: #219653!important;
 }
 
-html, body, * {
+* {
   font-family: 'IBM Plex Sans', sans-serif !important;
+}
+
+html,body {
+  min-height: 100vh;
 }
 
 h1,h2,h3,h4,h5 {
