@@ -29,7 +29,7 @@
           <a class="nav-link" href="#"><fmt:message key="access"/></a>
         </li>
         <li class="nav-item">
-          <button class="btn btn-primary" href="#"><fmt:message key="createAccount"/></button>
+          <button class="btn btn-primary" href="<%=contextPath%>/customers/register"><fmt:message key="createAccount"/></button>
         </li>
       </ul>
     </div>

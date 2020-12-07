@@ -16,8 +16,9 @@ html, body, * {
 
 h1,h2,h3,h4,h5 {
   font-family: 'Ubuntu', sans-serif!important;
-
+  color: #5FBF00!important;
 }
+
 
 h2 {
   font-weight: 300!important;
@@ -27,6 +28,16 @@ h6 {
   font-weight: 500!important;
 }
 
+#root{
+  margin-top: 5.7rem!important;
+}
+
+#page_footer{
+  background: #4F5D73;
+  color: #C4C4C4;
+  font-size: 24px;
+  line-height: 28px;
+}
 
 
 

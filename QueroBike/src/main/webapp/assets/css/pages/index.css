@@ -1,18 +1,3 @@
-h1,h2,h3,h4,h5 {
-  color: #5FBF00!important;
-}
-
-#page_footer{
-  background: #4F5D73;
-  color: #C4C4C4;
-  font-size: 24px;
-  line-height: 28px;
-}
-
-#root{
-  margin-top: 5.7rem!important;
-}
-
 #slide_title{
   font-weight: 500;
   letter-spacing: 0.04em;
