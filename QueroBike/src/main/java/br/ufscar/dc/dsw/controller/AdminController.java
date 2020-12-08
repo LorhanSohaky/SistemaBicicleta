@@ -1,7 +1,9 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.AdminDAO;
+import br.ufscar.dc.dsw.dao.RentalDAO;
 import br.ufscar.dc.dsw.domain.Admin;
+import br.ufscar.dc.dsw.domain.Rental;
 import br.ufscar.dc.dsw.erros.SemanticError;
 import br.ufscar.dc.dsw.utils.ErrorList;
 import br.ufscar.dc.dsw.utils.HashPassword;
@@ -20,18 +22,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = {"/admins/", "/admins/login", "/admins/update"})
+@WebServlet(urlPatterns = {"/admins/", "/admins/login", "/admins/update", "/admins/rentals", "/admins/logout"})
 public class AdminController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(AdminController.class.getName());
     private static final long serialVersionUID = 1L;
     private String contextPath = "";
 
-    private AdminDAO dao;
+    private AdminDAO adminDAO;
+    private RentalDAO rentalDAO;
 
     @Override
     public void init() {
-        dao = new AdminDAO();
+        adminDAO = new AdminDAO();
+        rentalDAO = new RentalDAO();
     }
 
     private String getAction(HttpServletRequest request) {
@@ -76,7 +80,7 @@ public class AdminController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
             String action = this.getAction(request);
-            List<String> privateRoutes = Arrays.asList("/", "/update");
+            List<String> privateRoutes = Arrays.asList("/", "/update", "/rentals");
 
             if (privateRoutes.contains(action) && !hasAValidSession(request, response)) {
                 response.sendRedirect(this.contextPath + "/admins/login");
@@ -92,6 +96,14 @@ public class AdminController extends HttpServlet {
                     break;
                 case "/update":
                     renderPage("/admins/update.jsp", request, response);
+                    break;
+                case "/rentals":
+                    List<Rental> list = rentalDAO.getAll();
+                    request.setAttribute("rentalList", list);
+                    renderPage("/admins/rentals_list.jsp", request, response);
+                    break;
+                case "/logout":
+                    logout(request, response);
                     break;
                 default:
                     throw new Error("[GET] - Invalid path");
@@ -119,7 +131,7 @@ public class AdminController extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
-            Admin admin = dao.findByEmail(email);
+            Admin admin = adminDAO.findByEmail(email);
 
             if (!HashPassword.isSamePassword(password, admin.getSalt(), admin.getPassword())) {
                 throw new SemanticError("Usuário ou senha inválida");
@@ -144,6 +156,11 @@ public class AdminController extends HttpServlet {
 
     }
 
+    private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().removeAttribute("adminData");
+        response.sendRedirect(this.contextPath + "/admins/login");
+    }
+
     private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ErrorList errors = AdminValidator.updateAdminValidation(request);
         if (errors.isNotEmpty()) {
@@ -163,7 +180,7 @@ public class AdminController extends HttpServlet {
 
         Admin admin = new Admin(id, name, email);
 
-        admin = dao.update(admin);
+        admin = adminDAO.update(admin);
         admin.setPassword(null);
         admin.setSalt(null);
 
