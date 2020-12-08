@@ -15,15 +15,25 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="<%=contextPath%>/rentals/"><fmt:message key="rentals"/></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><fmt:message key="whoWeAre"/></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><fmt:message key="contact"/></a>
-          </li>
+          <c:choose>
+              <c:when test = "${not empty sessionScope.adminData}">
+                  <li class="nav-item">
+                    <a class="nav-link" href="<%=contextPath%>/admins/rentals"><fmt:message key="rentals"/></a>
+                  </li>
+              </c:when>
+              <c:otherwise>
+                  <li class="nav-item">
+                    <a class="nav-link" href="<%=contextPath%>/rentals/"><fmt:message key="rentals"/></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#"><fmt:message key="whoWeAre"/></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#"><fmt:message key="contact"/></a>
+                  </li>
+              </c:otherwise>
+          </c:choose>
+
         </ul>
         <c:choose>
             <c:when test = "${not empty sessionScope.customerData}">
@@ -43,6 +53,16 @@
                   </li>
                   <li class="nav-item">
                     <a class="btn btn-primary" href="<%=contextPath%>/rentals/logout"><fmt:message key="logout"/></a>
+                  </li>
+                </ul>
+            </c:when>
+            <c:when test = "${not empty sessionScope.adminData}">
+                <ul class="navbar-nav">
+                  <li class="nav-item mr-2">
+                    <a class="nav-link" href="<%=contextPath%>/admins/"><fmt:message key="profile"/></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="btn btn-primary" href="<%=contextPath%>/admins/logout"><fmt:message key="logout"/></a>
                   </li>
                 </ul>
             </c:when>
