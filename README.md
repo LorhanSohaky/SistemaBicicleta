@@ -65,6 +65,10 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
 - [ ] Página para listar as locações do cliente (R6)
 - [ ] Página para realizar a locação de bicicletas (R7)
 - [ ] Página para listar todas as locações de uma locadora (R8)
+- [x] Página para o administrador listar as locadoras
+  - Internacionalização - Lorhan
+  - Interface - Lorhan
+  - Controller para listar as locadoras - Lorhan
 - [x] Componentes
   - Menu - Lorhan
   - Footer - Lorjan
