@@ -48,9 +48,9 @@
                   <td>${cnpj}</td>
                   <td>${rental.city.name}</td>
                   <td>${rental.city.state}</td>
-                  <td><a href="<%=contextPath%>/admins/rentals/edit?${rentals.id}"><fmt:message key="edit"/></a>
+                  <td><a href="<%=contextPath%>/admins/rentals/edit?id=${rental.id}"><fmt:message key="edit"/></a>
                     <br/>
-                    <a href="<%=contextPath%>/admins/rentals/remove?${rentals.id}"><fmt:message key="remove"/></a>
+                    <a href="<%=contextPath%>/admins/rentals/delete?id=${rental.id}"><fmt:message key="remove"/></a>
                   </td>
                 </tr>
             </c:forEach>
