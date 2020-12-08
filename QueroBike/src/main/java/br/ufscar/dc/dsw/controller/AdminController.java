@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = {"/admins/", "/admins/login", "/admins/update", "/admins/rentals", "/admins/logout"})
+@WebServlet(urlPatterns = {"/admins/", "/admins/login", "/admins/update", "/admins/rentals", "/admins/rentals/delete", "/admins/logout"})
 public class AdminController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(AdminController.class.getName());
@@ -80,7 +80,7 @@ public class AdminController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
             String action = this.getAction(request);
-            List<String> privateRoutes = Arrays.asList("/", "/update", "/rentals");
+            List<String> privateRoutes = Arrays.asList("/", "/update", "/rentals", "/logout", "/rentals/delete");
 
             if (privateRoutes.contains(action) && !hasAValidSession(request, response)) {
                 response.sendRedirect(this.contextPath + "/admins/login");
@@ -102,6 +102,9 @@ public class AdminController extends HttpServlet {
                     request.setAttribute("rentalList", list);
                     renderPage("/admins/rentals_list.jsp", request, response);
                     break;
+                case "/rentals/delete":
+                    deleteRental(request, response);
+                    break;
                 case "/logout":
                     logout(request, response);
                     break;
@@ -111,6 +114,13 @@ public class AdminController extends HttpServlet {
         } catch (ServletException | IOException ex) {
             logger.log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void deleteRental(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int rentalId = Integer.parseInt(request.getParameter("id"));
+        rentalDAO.delete(rentalId);
+        response.sendRedirect(this.contextPath + "/admins/rentals");
+
     }
 
     private void renderPage(String page, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
