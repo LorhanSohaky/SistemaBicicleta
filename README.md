@@ -33,7 +33,6 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
 - [x] Scripts SQL
   - Script de criação das tabelas (cidade, cliente e locadora)- Lorhan
   - Script de inserção das cidades, administradores e locadoras - Lorhan
-  - **PENDENTE** script para criação da tabela de reservas
 - [x] Página de login do cliente (R1)
   - Interface - Lucas e Lorhan
   - Internacionalização - Lorhan
