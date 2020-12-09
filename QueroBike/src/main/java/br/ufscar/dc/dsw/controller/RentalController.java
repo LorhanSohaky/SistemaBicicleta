@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = {"/rentals/", "/rentals/home", "/rentals/register", "/rentals/login", "/rentals/edit", "/rentals/logout"})
+@WebServlet(urlPatterns = {"/rentals/", "/rentals/home", "/rentals/register", "/rentals/login", "/rentals/edit", "/rentals/logout", "/rentals/list"})
 public class RentalController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(
@@ -104,9 +104,9 @@ public class RentalController extends HttpServlet {
                 return;
             }
 
+            List<Rental> list = dao.getAll();
             switch (action) {
                 case "/":
-                    List<Rental> list = dao.getAll();
                     request.setAttribute("rentalList", list);
                     renderPage("/rentals/index.jsp", request, response);
                     break;
@@ -118,6 +118,10 @@ public class RentalController extends HttpServlet {
                     break;
                 case "/logout":
                     logout(request, response);
+                    break;
+                case "/list":
+                    request.setAttribute("rentalList", list);
+                    renderPage("/rentals/list.jsp", request, response);
                     break;
                 default:
                     throw new Error("[GET] - Invalid path");

@@ -17,7 +17,9 @@
       <jsp:include page="../components/menu.jsp" />
       <div class="container" id="root">
         <section class="container">
-          <h1><fmt:message key="rentals"/></h1>
+              <h1><fmt:message key="rentals"/></h1>
+              <a class="btn btn-secondary" href="<%=contextPath%>/rentals/list"><fmt:message key="searchByCity"/></a>
+          </ul>
           <div class="mt-3 row justify-content-center">
             <c:forEach var="rental" items="${requestScope.rentalList}">
               <div class="card col-12 col-sm-5 col-md-3 mb-3 mr-sm-3 pt-3">
