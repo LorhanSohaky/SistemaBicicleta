@@ -13,7 +13,9 @@ import br.ufscar.dc.dsw.validator.RentalValidator;
 import com.goterl.lazycode.lazysodium.exceptions.SodiumException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -24,12 +26,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = {"/admins/", "/admins/login", "/admins/update", "/admins/rentals", "/admins/rentals/edit", "/admins/rentals/delete", "/admins/logout"})
+@WebServlet(urlPatterns = {"/admins/", "/admins/login", "/admins/update", "/admins/rentals", "/admins/rentals/edit", "/admins/rentals/register", "/admins/rentals/delete", "/admins/logout"})
 public class AdminController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(AdminController.class.getName());
     private static final long serialVersionUID = 1L;
-    private static final List<String> privateRoutes = Arrays.asList("/", "/update", "/rentals", "/logout", "/rentals/delete", "/rentals/edit");
+    private static final List<String> privateRoutes = Arrays.asList("/", "/update", "/rentals", "/logout", "/rentals/delete", "/rentals/edit", "/rentals/register");
     private String contextPath = "";
 
     private AdminDAO adminDAO;
@@ -72,6 +74,9 @@ public class AdminController extends HttpServlet {
                     break;
                 case "/rentals/edit":
                     editRental(request, response);
+                    break;
+                case "/rentals/register":
+                    registerRental(request, response);
                     break;
                 default:
                     throw new Error("[POST] - AdminController Invalid path");
@@ -117,6 +122,9 @@ public class AdminController extends HttpServlet {
                     break;
                 case "/rentals/edit":
                     renderEditRental(request, response);
+                    break;
+                case "/rentals/register":
+                    renderPage("/admins/rentals/register.jsp", request, response);
                     break;
                 case "/logout":
                     logout(request, response);
@@ -200,6 +208,52 @@ public class AdminController extends HttpServlet {
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/rentals/edit");
+        dispatcher.forward(request, response);
+    }
+
+    private void registerRental(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        ErrorList errors = RentalValidator.registerRentalValidation(request);
+
+        if (errors.isNotEmpty()) {
+            String name = request.getParameter("name");
+            String cnpj = request.getParameter("cnpj");
+            String email = request.getParameter("email");
+            String description = request.getParameter("description");
+            String postalCode = request.getParameter("postalCode");
+            String streetName = request.getParameter("streetName");
+            String neighborhood = request.getParameter("neighborhood");
+            String streetNumber = request.getParameter("streetNumber");
+            String complement = request.getParameter("complement");
+            City city = new City(
+                    request.getParameter("city"),
+                    request.getParameter("state")
+            );
+
+            if (complement == null) {
+                complement = "";
+            }
+
+            Map<String, String> fields = new HashMap<String, String>();
+            fields.put("name", name);
+            fields.put("cnpj", cnpj);
+            fields.put("email", email);
+            fields.put("description", description);
+            fields.put("postalCode", postalCode);
+            fields.put("streetName", streetName);
+            fields.put("neighborhood", neighborhood);
+            fields.put("streetNumber", streetNumber);
+            fields.put("complement", complement);
+            fields.put("city", city.getName());
+            fields.put("state", city.getState());
+
+            request.setAttribute("errorList", errors);
+            request.setAttribute("rental", fields);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/rentals/register.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/rentals/register");
         dispatcher.forward(request, response);
     }
 

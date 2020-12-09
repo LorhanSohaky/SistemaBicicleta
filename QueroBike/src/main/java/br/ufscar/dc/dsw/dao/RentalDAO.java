@@ -52,7 +52,7 @@ public class RentalDAO extends GenericDAO {
         return list;
     }
 
-    public void insert(Rental rental) {
+    public void insert(Rental rental) throws SemanticError {
 
         String sql = "INSERT INTO rental (name,cnpj,email,description,"
                 + "postal_code,street_name,neighborhood,street_number, "
@@ -82,6 +82,12 @@ public class RentalDAO extends GenericDAO {
             statement.close();
             conn.close();
         } catch (SQLException e) {
+            if (e.getMessage().contains("UNIQUE constraint failed: rental.email")) {
+                throw new SemanticError(
+                        "Ops! Já existe uma conta cadastrada com este e-mail.",
+                        e
+                );
+            }
             throw new RuntimeException(e);
         }
     }

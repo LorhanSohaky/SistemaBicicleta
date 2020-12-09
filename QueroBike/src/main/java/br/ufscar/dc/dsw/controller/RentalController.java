@@ -14,7 +14,9 @@ import com.goterl.lazycode.lazysodium.interfaces.PwHash;
 import com.sun.jna.NativeLong;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -191,8 +193,33 @@ public class RentalController extends HttpServlet {
                 salt,
                 city
         );
-        dao.insert(rental);
-        response.sendRedirect("admins/rentals");
+        try {
+            dao.insert(rental);
+            response.sendRedirect(this.contextPath + "/admins/rentals");
+        } catch (SemanticError e) {
+            ErrorList errors = new ErrorList();
+            errors.add(e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage(), e.getCause());
+
+            Map<String, String> fields = new HashMap<String, String>();
+            fields.put("name", name);
+            fields.put("cnpj", cnpj);
+            fields.put("email", email);
+            fields.put("description", description);
+            fields.put("postalCode", postalCode);
+            fields.put("streetName", streetName);
+            fields.put("neighborhood", neighborhood);
+            fields.put("streetNumber", streetNumber);
+            fields.put("complement", complement);
+            fields.put("city", city.getName());
+            fields.put("state", city.getState());
+
+            request.setAttribute("errorList", errors);
+            request.setAttribute("rental", fields);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/rentals/register.jsp");
+            dispatcher.forward(request, response);
+        }
+
     }
 
     private void edit(
