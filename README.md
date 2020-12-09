@@ -46,9 +46,11 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
 - [x] Página de home do cliente (R1)
   - Interface - Lucas e Lorhan
   - Controller para permitir acessar apenas se estiver logado - Lorhan
-- [ ] Página para atualizar os dados do cliente (R1)
-  - Controller para atualizar os dados do cliente - Lorhan
-  - DAO para salvar as alterações no banco de dados - Lorhan
+- [x] Página para atualizar os dados do cliente (R1)
+  - Interface - Lucas e Lorhan
+  - Internacionalização - Lorhan
+  - Controller - Lorhan
+  - DAO - Lorhan
 - [x] Opção para remover conta do cliente (R1)
   - Controller - Lorhan
   - DAO - Lorhan
