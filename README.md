@@ -18,12 +18,12 @@ Para executar basta fazer os seguintes passos:
 Se tudo der certo aparecerá uma lista de cidades. ;-)
 
 ### Usuários Defaults
-Para locadoras existe a `piresbeatriz@lima.com` e para administradores existe `admin1@mailinator.com`, todos eles com a senha `password123`. Caso queira ver os demais usuários basta acessar os arquivos `.sql`.
+No caso de locadoras, existe a usuária `piresbeatriz@lima.com` e, no caso de administradores existe `admin1@mailinator.com`, ambos com a senha `password123`. Caso queira ver os demais usuários basta acessar os arquivos `.sql`.
 
 ## Observações
-Para simplificar o desenvolvimento do projeto foi escolhido o bando de dados [SQLite](https://en.wikipedia.org/wiki/SQLite), desse modo não é necessário instalar nada, tendo em vista que a base de dados é armazenada em arquivo.
+Para simplificar o desenvolvimento do projeto escolhemos utilizar o bando de dados [SQLite](https://en.wikipedia.org/wiki/SQLite). Desse modo não é necessário instalar nada, tendo em vista que a base de dados é armazenada em arquivo.
 
-Para trazer um pouco mais de segurança ao projeto foi optado por utilizar [Argon2](https://en.wikipedia.org/wiki/Argon2) para criar um hash das senhas para então armazená-las no banco de dados, assim o projeto se aproxima ainda mais de um projeto real.
+Para trazer um pouco mais de segurança ao projeto optamos por utilizar [Argon2](https://en.wikipedia.org/wiki/Argon2) para criar um hash das senhas e em seguida armazená-las no banco de dados, assim o projeto se aproxima ainda mais de um projeto real.
 
 Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os logs do sistema e uma interface amigável de erro 404.
 
@@ -50,7 +50,7 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
 - [x] Opção para remover conta do cliente (R1)
   - Controller - Lorhan
   - DAO - Lorhan
-- [ ] Página de login da locadora (R2)
+- [x] Página de login da locadora (R2)
 - [ ] Página de home da locadora (R2)
 - [ ] Opção de remover locadora (R2)
 - [ ] Opção de atualizar dados da locadora (R2)
