@@ -52,7 +52,9 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
   - DAO - Lorhan
 - [x] Página de login da locadora (R2)
 - [ ] Página de home da locadora (R2)
-- [ ] Opção de remover locadora (R2)
+- [x] Opção de remover locadora (R2)
+  - DAO - Lorhan
+  - Controller - Lorhan
 - [ ] Opção de atualizar dados da locadora (R2)
 - [ ] Opção de cadastrar locadora (R2)
 - [x] Lista de locadoras (R3)
@@ -71,7 +73,7 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
   - Controller para listar as locadoras - Lorhan
 - [x] Componentes
   - Menu - Lorhan
-  - Footer - Lorjan
+  - Footer - Lorhan
 - [x] Página inicial
   - Internacionalização - Lorhan
   - Interface - Lucas e Lorhan

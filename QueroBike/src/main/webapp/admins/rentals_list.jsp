@@ -48,13 +48,33 @@
                   <td>${cnpj}</td>
                   <td>${rental.city.name}</td>
                   <td>${rental.city.state}</td>
-                  <td><a href="<%=contextPath%>/admins/rentals/edit?${rentals.id}"><fmt:message key="edit"/></a>
-                    <br/>
-                    <a href="<%=contextPath%>/admins/rentals/remove?${rentals.id}"><fmt:message key="remove"/></a>
+                  <td>
+                    <a class="badge badge-secondary" href="<%=contextPath%>/admins/rentals/edit?id=${rental.id}"><fmt:message key="edit"/></a>
+                    <a class="badge badge-danger" href="#" data-toggle="modal" data-target="#modalDelete" onclick="updateLinkDelete(${rental.id})"><fmt:message key="remove"/></a>
                   </td>
                 </tr>
             </c:forEach>
           </table>
+        </div>
+
+        <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><fmt:message key="modalTitleDelete"/></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <fmt:message key="modalMessageDelete"/>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key="closeModal"/></button>
+                <a id="linkDelete" class="btn btn-danger"><fmt:message key="remove"/></a>
+              </div>
+            </div>
+          </div>
         </div>
         <jsp:include page="../components/footer.jsp" />
         <jsp:include page="../components/imports.jsp" />
@@ -62,6 +82,12 @@
         <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
         <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/locale/bootstrap-table-en-US.js"></script>
         <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/locale/bootstrap-table-pt-BR.js"></script>
+        <script>
+                        function updateLinkDelete(rentalId) {
+                            linkElement = document.getElementById("linkDelete")
+                            linkElement.href = "<%=contextPath%>/admins/rentals/delete?id=" + rentalId
+                        }
+        </script>
       </body>
   </fmt:bundle>
 </html>
