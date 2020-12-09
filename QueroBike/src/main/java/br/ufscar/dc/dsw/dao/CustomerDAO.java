@@ -119,7 +119,7 @@ public class CustomerDAO extends GenericDAO {
         }
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         String sql = "DELETE FROM customer WHERE id=?;";
         try {
             Connection conn = this.getConnection();
@@ -135,8 +135,8 @@ public class CustomerDAO extends GenericDAO {
             throw new RuntimeException("Ops! Aconteceu um erro interno.", e);
         }
     }
-    
-    public Customer update (Customer customer){
+
+    public Customer update(Customer customer) {
         String sql
                 = "UPDATE customer SET email = ?, password = ?, salt = ?, cpf = ?,"
                 + " name = ?, phone = ?, gender = ?, birthdate = ?  WHERE id = ?;";
