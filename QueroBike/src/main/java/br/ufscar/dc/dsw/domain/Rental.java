@@ -33,6 +33,20 @@ public class Rental {
         this.city = city;
     }
 
+    public Rental(int id, String name, String cnpj, String description, String postalCode, String streetName, String neighborhood, String complent, String streetNumber, String email, City city) {
+        this.id = id;
+        this.name = name;
+        this.cnpj = cnpj;
+        this.description = description;
+        this.postalCode = postalCode;
+        this.streetName = streetName;
+        this.neighborhood = neighborhood;
+        this.complent = complent;
+        this.streetNumber = streetNumber;
+        this.city = city;
+        this.email = email;
+    }
+
     public Rental(String name, String cnpj, String description, String postalCode, String streetName, String neighborhood, String complent, String streetNumber, String email, String password, String salt, City city) {
         this.name = name;
         this.cnpj = cnpj;
