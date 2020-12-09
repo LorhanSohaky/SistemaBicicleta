@@ -71,7 +71,11 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
   - Interface - Lorhan
   - Internacionalização - Lorhan
   - Controller - Lorhan
-- [ ] Opção de cadastrar locadora (R2)
+- [x] Opção para o admin cadastrar uma locadora (R2)
+  - DAO - Lorhan
+  - Interface - Lorhan
+  - Internacionalização - Lorhan
+  - Controller - Lorhan
 - [x] Lista de locadoras (R3)
   - Internacionalização - Lorhan
   - Interface - Lorhan
