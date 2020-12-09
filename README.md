@@ -21,6 +21,8 @@ Se tudo der certo aparecerá uma lista de cidades. ;-)
 No caso de locadoras, existe a usuária `piresbeatriz@lima.com` e, no caso de administradores existe `admin1@mailinator.com`, ambos com a senha `password123`. Caso queira ver os demais usuários basta acessar os arquivos `.sql`.
 
 ## Observações
+Como o acesso de admin é mais restritivo ele não aparece no menu, então só é possível acessar através da url `admins/login`.
+
 Para simplificar o desenvolvimento do projeto escolhemos utilizar o bando de dados [SQLite](https://en.wikipedia.org/wiki/SQLite). Desse modo não é necessário instalar nada, tendo em vista que a base de dados é armazenada em arquivo.
 
 Para trazer um pouco mais de segurança ao projeto optamos por utilizar [Argon2](https://en.wikipedia.org/wiki/Argon2) para criar um hash das senhas e em seguida armazená-las no banco de dados, assim o projeto se aproxima ainda mais de um projeto real.
@@ -51,11 +53,21 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
   - Controller - Lorhan
   - DAO - Lorhan
 - [x] Página de login da locadora (R2)
+  - Interface - Lucas e Lorhan
+  - Internacionalização - Lorhan
+  - Controller - Lorhan
+  - DAO - Lorhan
 - [ ] Página de home da locadora (R2)
 - [x] Opção de remover locadora (R2)
   - DAO - Lorhan
   - Controller - Lorhan
-- [ ] Opção de atualizar dados da locadora (R2)
+  - Interface - Lorhan
+  - Internacionalização - Lorhan
+- [x] Opção para o admin atualizar os dados da locadora (R2)
+  - DAO - Lorhan
+  - Interface - Lorhan
+  - Internacionalização - Lorhan
+  - Controller - Lorhan
 - [ ] Opção de cadastrar locadora (R2)
 - [x] Lista de locadoras (R3)
   - Internacionalização - Lorhan
