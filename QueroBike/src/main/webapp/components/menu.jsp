@@ -39,7 +39,7 @@
             <c:when test = "${not empty sessionScope.customerData}">
                 <ul class="navbar-nav">
                   <li class="nav-item mr-2">
-                    <a class="nav-link" href="<%=contextPath%>/customers/"><fmt:message key="profile"/></a>
+                    <a class="nav-link" href="<%=contextPath%>/customers/update"><fmt:message key="profile"/></a>
                   </li>
                   <li class="nav-item">
                     <a class="btn btn-primary" href="<%=contextPath%>/customers/logout"><fmt:message key="logout"/></a>
