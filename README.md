@@ -63,7 +63,7 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
   - Internacionalização - Lorhan
   - Controller - Lorhan
   - DAO - Lorhan
-- [ ] Página de home da locadora (R2)
+- [x] Página de home da locadora (R2)
 - [x] Opção de remover locadora (R2)
   - DAO - Lorhan
   - Controller - Lorhan
@@ -89,8 +89,13 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
   - Internacionalização - Lucas
 - [ ] Página para locação de bicicleta (R5)
 - [x] Opção para listar as locações do cliente (R6)
-- [ ] Página para realizar a locação de bicicletas (R7)
-- [ ] Página para listar todas as locações de uma locadora (R8)
+- [ ] Não deve permitir o cadastro de locações de um mesmo cliente ou de uma mesma locadora em um mesmo dia/horário (R7)
+- [x] Página para listar todas as locações de uma locadora (R8)
+  - Internacionalização - Lorhan
+  - Interface - Lorhan
+  - Model - Lorhan
+  - Controller - Lorhan
+  - DAO - Lorhan
 - [x] Página para o administrador listar as locadoras
   - Internacionalização - Lorhan
   - Interface - Lorhan
