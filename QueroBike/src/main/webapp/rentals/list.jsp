@@ -39,8 +39,8 @@
                       <c:forEach var="rental" items="${requestScope.rentalList}">
                           <c:set var = "cnpj" value = "${fn:substring(rental.cnpj, 0, 2)}.${fn:substring(rental.cnpj, 2, 5)}.${fn:substring(rental.cnpj, 5, 8)}/${fn:substring(rental.cnpj, 8, 12)}-${fn:substring(rental.cnpj, 12, 14)}" />
                           <tr>
-                            <td > <a href="<%=contextPath%>/customer/rent?id=${rental.id}">${rental.name}</a> </td>
-                            <td>${rental.city.name}</td>
+                            <td > <a href="<%=contextPath%>/customers/rent.jsp?id=${rental.id}">${rental.name}</a> </td>
+                            <td> ${rental.city.name}</td>
                             <td>${rental.city.state}</td>
                             </td>
                           </tr>
