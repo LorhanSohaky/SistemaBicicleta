@@ -78,6 +78,12 @@ public class Rental {
         this.city = city;
     }
 
+    public Rental(int it, String name, City city) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+    }
+
     public int getId() {
         return id;
     }
