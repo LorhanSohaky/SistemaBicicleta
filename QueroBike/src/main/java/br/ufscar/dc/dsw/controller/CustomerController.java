@@ -1,7 +1,9 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.CustomerDAO;
+import br.ufscar.dc.dsw.dao.ReserveDAO;
 import br.ufscar.dc.dsw.domain.Customer;
+import br.ufscar.dc.dsw.domain.Reserve;
 import br.ufscar.dc.dsw.erros.SemanticError;
 import br.ufscar.dc.dsw.utils.DateParser;
 import br.ufscar.dc.dsw.utils.ErrorList;
@@ -33,11 +35,13 @@ public class CustomerController extends HttpServlet {
     private static final List<String> privateRoutes = Arrays.asList("/", "/update", "/delete");
     private String contextPath = "";
 
-    private CustomerDAO dao;
+    private CustomerDAO customerDAO;
+    private ReserveDAO reserveDAO;
 
     @Override
     public void init() {
-        dao = new CustomerDAO();
+        customerDAO = new CustomerDAO();
+        reserveDAO = new ReserveDAO();
     }
 
     private String getAction(HttpServletRequest request) {
@@ -101,7 +105,7 @@ public class CustomerController extends HttpServlet {
 
             switch (action) {
                 case "/":
-                    renderPage("/customers/home.jsp", request, response);
+                    renderHome(request, response);
                     break;
                 case "/register":
                     renderPage("/customers/register.jsp", request, response);
@@ -129,6 +133,14 @@ public class CustomerController extends HttpServlet {
     private void renderUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
         request.setAttribute("data", request.getSession().getAttribute("customerData"));
         renderPage("/customers/update.jsp", request, response);
+    }
+
+    private void renderHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
+        Customer customer = (Customer) request.getSession().getAttribute("customerData");
+
+        List<Reserve> list = reserveDAO.listReserveFrom(customer);
+        request.setAttribute("reservesList", list);
+        renderPage("/customers/home.jsp", request, response);
     }
 
     private void renderPage(String page, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
@@ -171,7 +183,7 @@ public class CustomerController extends HttpServlet {
 
             Customer customer = new Customer(email, password, salt, cpf, name, phone, gender, birthdate);
 
-            customer = dao.insert(customer);
+            customer = customerDAO.insert(customer);
             customer.setPassword(null);
             customer.setSalt(null);
 
@@ -204,7 +216,7 @@ public class CustomerController extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
-            Customer customer = dao.findByEmail(email);
+            Customer customer = customerDAO.findByEmail(email);
 
             if (!HashPassword.isSamePassword(password, customer.getSalt(), customer.getPassword())) {
                 throw new SemanticError("Usuário ou senha inválida");
@@ -241,7 +253,7 @@ public class CustomerController extends HttpServlet {
 
         int id = Integer.parseInt(request.getParameter("id"));
 
-        dao.delete(id);
+        customerDAO.delete(id);
 
         request.getSession().removeAttribute("customerData");
         response.sendRedirect(this.contextPath + "/customers/login");
@@ -287,13 +299,13 @@ public class CustomerController extends HttpServlet {
                 customer.setPassword(password);
                 customer.setSalt(salt);
             } else {
-                Customer customerFromDatabase = dao.findByEmail(email);
+                Customer customerFromDatabase = customerDAO.findByEmail(email);
 
                 customer.setPassword(customerFromDatabase.getPassword());
                 customer.setSalt(customerFromDatabase.getSalt());
             }
 
-            customer = dao.update(customer);
+            customer = customerDAO.update(customer);
             customer.setPassword(null);
             customer.setSalt(null);
 
