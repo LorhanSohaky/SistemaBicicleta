@@ -75,6 +75,7 @@ CREATE UNIQUE INDEX `email_admin_UNIQUE` ON `admin` (email);
 DROP TABLE IF EXISTS `reserve`;
 
 CREATE TABLE IF NOT EXISTS `reserve` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
   `fk_customer` INTEGER,
   `fk_rental` INTEGER,
   `moment` DATETIME NOT NULL,
