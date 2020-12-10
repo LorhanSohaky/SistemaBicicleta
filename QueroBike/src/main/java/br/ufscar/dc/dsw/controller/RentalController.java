@@ -1,8 +1,11 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.RentalDAO;
+import br.ufscar.dc.dsw.dao.ReserveDAO;
 import br.ufscar.dc.dsw.domain.City;
+import br.ufscar.dc.dsw.domain.Customer;
 import br.ufscar.dc.dsw.domain.Rental;
+import br.ufscar.dc.dsw.domain.Reserve;
 import br.ufscar.dc.dsw.erros.SemanticError;
 import br.ufscar.dc.dsw.utils.ErrorList;
 import br.ufscar.dc.dsw.utils.HashPassword;
@@ -36,11 +39,13 @@ public class RentalController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String contextPath = "";
 
-    private RentalDAO dao;
+    private RentalDAO rentalDAO;
+    private ReserveDAO reserveDAO;
 
     @Override
     public void init() {
-        dao = new RentalDAO();
+        this.rentalDAO = new RentalDAO();
+        this.reserveDAO = new ReserveDAO();
     }
 
     private String getAction(HttpServletRequest request) {
@@ -106,14 +111,14 @@ public class RentalController extends HttpServlet {
                 return;
             }
 
-            List<Rental> list = dao.getAll();
+            List<Rental> list = rentalDAO.getAll();
             switch (action) {
                 case "/":
                     request.setAttribute("rentalList", list);
                     renderPage("/rentals/index.jsp", request, response);
                     break;
                 case "/home":
-                    renderPage("/rentals/home.jsp", request, response);
+                    renderHome(request, response);
                     break;
                 case "/login":
                     renderPage("/rentals/login.jsp", request, response);
@@ -194,7 +199,7 @@ public class RentalController extends HttpServlet {
                 city
         );
         try {
-            dao.insert(rental);
+            rentalDAO.insert(rental);
             response.sendRedirect(this.contextPath + "/admins/rentals");
         } catch (SemanticError e) {
             ErrorList errors = new ErrorList();
@@ -287,7 +292,7 @@ public class RentalController extends HttpServlet {
             rental.setPassword(password);
         } else {
             try {
-                Rental rentalDataFromDatabase = dao.findByEmail(email);
+                Rental rentalDataFromDatabase = rentalDAO.findByEmail(email);
                 rental.setSalt(rentalDataFromDatabase.getSalt());
                 rental.setPassword(rentalDataFromDatabase.getPassword());
 
@@ -297,8 +302,16 @@ public class RentalController extends HttpServlet {
             }
         }
 
-        dao.update(rental);
+        rentalDAO.update(rental);
         response.sendRedirect(this.contextPath + "/admins/rentals");
+    }
+
+    private void renderHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
+        Rental rental = (Rental) request.getSession().getAttribute("rentalData");
+
+        List<Reserve> list = reserveDAO.listReserveFrom(rental);
+        request.setAttribute("reservesList", list);
+        renderPage("/rentals/home.jsp", request, response);
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -314,7 +327,7 @@ public class RentalController extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
-            Rental rental = dao.findByEmail(email);
+            Rental rental = rentalDAO.findByEmail(email);
 
             if (!HashPassword.isSamePassword(password, rental.getSalt(), rental.getPassword())) {
                 throw new SemanticError("Usuário ou senha inválida");

@@ -54,7 +54,7 @@ public class ReserveDAO extends GenericDAO {
         List<Reserve> list = new ArrayList<>();
 
         try {
-            String sql = "SELECT id, fk_customer, moment FROM reserve WHERE fk_rental = ?;";
+            String sql = "SELECT reserve.id, fk_customer, name, cpf, moment FROM reserve INNER JOIN customer ON customer.id = fk_customer WHERE fk_rental = ?;";
 
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -65,8 +65,11 @@ public class ReserveDAO extends GenericDAO {
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
+
                 int customerId = resultSet.getInt("fk_customer");
-                Customer customer = new Customer(customerId);
+                String customerName = resultSet.getString("name");
+                String customerCpf = resultSet.getString("cpf");
+                Customer customer = new Customer(customerId, customerName, customerCpf);
 
                 Date moment = resultSet.getDate("moment");
 
