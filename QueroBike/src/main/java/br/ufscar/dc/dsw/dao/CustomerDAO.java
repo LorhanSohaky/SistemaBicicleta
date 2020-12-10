@@ -10,8 +10,6 @@ import java.sql.SQLException;
 
 public class CustomerDAO extends GenericDAO {
 
-    // TODO:
-    // - delete
     public Customer insert(Customer customer) throws SemanticError, RuntimeException {
         String sql
                 = "INSERT INTO customer (email,password, salt, cpf,"
