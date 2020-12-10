@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufscar.dc.dsw.domain.City;
+import java.sql.PreparedStatement;
 
 public class CityDAO extends GenericDAO {
 
@@ -36,5 +37,31 @@ public class CityDAO extends GenericDAO {
             throw new RuntimeException(e);
         }
         return list;
+    }
+
+    public boolean hasCity(City city) {
+
+        String sql = "SELECT name, state FROM city WHERE name = ? and state = ?";
+
+        try {
+            Connection conn = this.getConnection();
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, city.getName());
+            statement.setString(2, city.getState());
+
+            ResultSet resultSet = statement.executeQuery();
+
+            boolean hasNext = resultSet.next();
+
+            resultSet.close();
+            statement.close();
+            conn.close();
+
+            return hasNext;
+        } catch (SQLException e) {
+            System.out.println("Erro:"+e.getLocalizedMessage());
+            throw new RuntimeException(e);
+        }
     }
 }

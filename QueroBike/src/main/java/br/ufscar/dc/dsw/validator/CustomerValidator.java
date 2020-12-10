@@ -117,7 +117,6 @@ public class CustomerValidator {
         ErrorList errors = new ErrorList();
 
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
         String cpf = request.getParameter("cpf");
         String name = request.getParameter("name");
         String phone = request.getParameter("phone");
@@ -131,10 +130,6 @@ public class CustomerValidator {
 
         if (email == null || email.length() == 0) {
             errors.add("É obrigatório informar o e-mail");
-        }
-
-        if (password == null || password.length() == 0) {
-            errors.add("É obrigatório informar a senha");
         }
 
         if (cpf == null || cpf.length() == 0) {
@@ -172,7 +167,7 @@ public class CustomerValidator {
             errors.add("É obrigatório informar a data de nascimento");
         } else {
             try {
-                Date birthdate = DateParser.format(birthdateString, "dd/MM/yyyy");
+                Date birthdate = DateParser.format(birthdateString, "yyyy-MM-dd");
 
                 if (birthdate.compareTo(new Date()) >= 0) {
                     errors.add("Data de nascimento inválida");

@@ -14,7 +14,9 @@ import com.goterl.lazycode.lazysodium.interfaces.PwHash;
 import com.sun.jna.NativeLong;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -25,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = {"/rentals/", "/rentals/home", "/rentals/register", "/rentals/login", "/rentals/logout","/rentals/list"})
+@WebServlet(urlPatterns = {"/rentals/", "/rentals/home", "/rentals/register", "/rentals/login", "/rentals/edit", "/rentals/logout", "/rentals/list"})
 public class RentalController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(
@@ -79,8 +81,11 @@ public class RentalController extends HttpServlet {
                 case "/login":
                     login(request, response);
                     break;
+                case "/edit":
+                    edit(request, response);
+                    break;
                 default:
-                    throw new Error("[POST] - Invalid path");
+                    throw new Error("[POST] - RentalController Invalid path");
             }
         } catch (SodiumException | ServletException | IOException ex) {
             logger.log(Level.SEVERE, null, ex);
@@ -133,6 +138,13 @@ public class RentalController extends HttpServlet {
             HttpServletResponse response
     )
             throws ServletException, IOException, SodiumException {
+        HttpSession session = request.getSession();
+
+        if (session.getAttribute("adminData") == null) {
+            response.sendRedirect("admins/rentals");
+            return;
+        }
+
         LazySodiumJava lazySodium = new LazySodiumJava(new SodiumJava());
 
         String name = request.getParameter("name");
@@ -181,8 +193,112 @@ public class RentalController extends HttpServlet {
                 salt,
                 city
         );
-        dao.insert(rental);
-        response.sendRedirect("/rentals/");
+        try {
+            dao.insert(rental);
+            response.sendRedirect(this.contextPath + "/admins/rentals");
+        } catch (SemanticError e) {
+            ErrorList errors = new ErrorList();
+            errors.add(e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage(), e.getCause());
+
+            Map<String, String> fields = new HashMap<String, String>();
+            fields.put("name", name);
+            fields.put("cnpj", cnpj);
+            fields.put("email", email);
+            fields.put("description", description);
+            fields.put("postalCode", postalCode);
+            fields.put("streetName", streetName);
+            fields.put("neighborhood", neighborhood);
+            fields.put("streetNumber", streetNumber);
+            fields.put("complement", complement);
+            fields.put("city", city.getName());
+            fields.put("state", city.getState());
+
+            request.setAttribute("errorList", errors);
+            request.setAttribute("rental", fields);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/rentals/register.jsp");
+            dispatcher.forward(request, response);
+        }
+
+    }
+
+    private void edit(
+            HttpServletRequest request,
+            HttpServletResponse response
+    )
+            throws ServletException, IOException, SodiumException {
+        HttpSession session = request.getSession();
+
+        if (session.getAttribute("adminData") == null) {
+            response.sendRedirect("admins/rentals");
+            return;
+        }
+
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String cnpj = request.getParameter("cnpj");
+        String email = request.getParameter("email");
+        String description = request.getParameter("description");
+        String postalCode = request.getParameter("postalCode");
+        String streetName = request.getParameter("streetName");
+        String neighborhood = request.getParameter("neighborhood");
+        String streetNumber = request.getParameter("streetNumber");
+        String complement = request.getParameter("complement");
+        String plainTextPassword = request.getParameter("password");
+        City city = new City(
+                request.getParameter("city"),
+                request.getParameter("state")
+        );
+
+        if (complement == null) {
+            complement = "";
+        }
+
+        Rental rental = new Rental(
+                id,
+                name,
+                cnpj,
+                description,
+                postalCode,
+                streetName,
+                neighborhood,
+                complement,
+                streetNumber,
+                email,
+                city
+        );
+
+        if (plainTextPassword != null && plainTextPassword.length() != 0) {
+            LazySodiumJava lazySodium = new LazySodiumJava(new SodiumJava());
+            String salt = lazySodium.toHexStr(
+                    lazySodium.randomBytesBuf(PwHash.ARGON2ID_SALTBYTES)
+            );
+
+            String password = lazySodium.cryptoPwHash(
+                    plainTextPassword,
+                    64,
+                    lazySodium.toBinary(salt),
+                    PwHash.ARGON2ID_OPSLIMIT_INTERACTIVE,
+                    new NativeLong(PwHash.ARGON2ID_MEMLIMIT_INTERACTIVE),
+                    PwHash.Alg.PWHASH_ALG_ARGON2ID13
+            );
+
+            rental.setSalt(salt);
+            rental.setPassword(password);
+        } else {
+            try {
+                Rental rentalDataFromDatabase = dao.findByEmail(email);
+                rental.setSalt(rentalDataFromDatabase.getSalt());
+                rental.setPassword(rentalDataFromDatabase.getPassword());
+
+            } catch (SemanticError e) {
+                logger.log(Level.SEVERE, e.getMessage(), e.getCause());
+                throw new RuntimeException(e);
+            }
+        }
+
+        dao.update(rental);
+        response.sendRedirect(this.contextPath + "/admins/rentals");
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

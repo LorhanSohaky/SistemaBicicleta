@@ -18,9 +18,11 @@ Para executar basta fazer os seguintes passos:
 Se tudo der certo aparecerá uma lista de cidades. ;-)
 
 ### Usuários Defaults
-No caso de locadoras, existe a usuária `piresbeatriz@lima.com` e, no caso de administradores existe `admin1@mailinator.com`, ambos com a senha `password123`. Caso queira ver os demais usuários basta acessar os arquivos `.sql`.
+No caso de locadoras, existe a usuária `piresbeatriz@lima.com`, no caso de clientes existe `customer@mailinator.com` e, no caso de administradores existe `admin1@mailinator.com`, todos com a senha `password123`. Caso queira ver os demais usuários basta acessar os arquivos `.sql`.
 
 ## Observações
+Como o acesso de admin é mais restritivo ele não aparece no menu, então só é possível acessar através da url `admins/login`.
+
 Para simplificar o desenvolvimento do projeto escolhemos utilizar o bando de dados [SQLite](https://en.wikipedia.org/wiki/SQLite). Desse modo não é necessário instalar nada, tendo em vista que a base de dados é armazenada em arquivo.
 
 Para trazer um pouco mais de segurança ao projeto optamos por utilizar [Argon2](https://en.wikipedia.org/wiki/Argon2) para criar um hash das senhas e em seguida armazená-las no banco de dados, assim o projeto se aproxima ainda mais de um projeto real.
@@ -29,8 +31,8 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
 
 ## TODOs
 - [x] Scripts SQL
-  - Script de criação das tabelas - Lorhan
-  - Script de inserção das cidades, administradores e locadoras - Lorhan
+  - Script de criação das tabelas (cidade, cliente, reservas e locadora)- Lorhan
+  - Script de inserção das cidades, administradores, usuários, reservas e locadoras - Lorhan
 - [x] Página de login do cliente (R1)
   - Interface - Lucas e Lorhan
   - Internacionalização - Lorhan
@@ -43,20 +45,37 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
   - DAO para salvar o cliente no banco de dados - Lorhan
 - [x] Página de home do cliente (R1)
   - Interface - Lucas e Lorhan
-  - Controller para permitir acessar apenas se estiver logado - Lorhan
-- [ ] Página para atualizar os dados do cliente (R1)
-  - Controller para atualizar os dados do cliente - Lorhan
-  - DAO para salvar as alterações no banco de dados - Lorhan
+  - Controller - Lorhan
+  - Internacionalização - Lorhan
+- [x] Página para atualizar os dados do cliente (R1)
+  - Interface - Lucas e Lorhan
+  - Internacionalização - Lorhan
+  - Controller - Lorhan
+  - DAO - Lorhan
 - [x] Opção para remover conta do cliente (R1)
   - Controller - Lorhan
   - DAO - Lorhan
 - [x] Página de login da locadora (R2)
+  - Interface - Lucas e Lorhan
+  - Internacionalização - Lorhan
+  - Controller - Lorhan
+  - DAO - Lorhan
 - [ ] Página de home da locadora (R2)
 - [x] Opção de remover locadora (R2)
   - DAO - Lorhan
   - Controller - Lorhan
-- [ ] Opção de atualizar dados da locadora (R2)
-- [ ] Opção de cadastrar locadora (R2)
+  - Interface - Lorhan
+  - Internacionalização - Lorhan
+- [x] Opção para o admin atualizar os dados da locadora (R2)
+  - DAO - Lorhan
+  - Interface - Lorhan
+  - Internacionalização - Lorhan
+  - Controller - Lorhan
+- [x] Opção para o admin cadastrar uma locadora (R2)
+  - DAO - Lorhan
+  - Interface - Lorhan
+  - Internacionalização - Lorhan
+  - Controller - Lorhan
 - [x] Lista de locadoras (R3)
   - Internacionalização - Lorhan
   - Interface - Lorhan
@@ -64,7 +83,7 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
   - DAO para listar as locadoras - Lorhan
 - [ ] Lista de locadoras por cidade (R4)
 - [ ] Página para locação de bicicleta (R5)
-- [ ] Página para listar as locações do cliente (R6)
+- [x] Opção para listar as locações do cliente (R6)
 - [ ] Página para realizar a locação de bicicletas (R7)
 - [ ] Página para listar todas as locações de uma locadora (R8)
 - [x] Página para o administrador listar as locadoras

@@ -17,9 +17,18 @@
         <title><fmt:message key="headerTitle"/></title>
       </head>
       <body  class="d-flex flex-column justify-content-between">
-        <jsp:include page="../components/menu.jsp" />
+        <jsp:include page="../../components/menu.jsp" />
         <div class="container" id="root">
           <h1 class="w-100 text-center"><fmt:message key="title"/></h1>
+          <c:if test="${errorList.notEmpty}">
+              <div class="alert alert-danger" role="alert">
+                <ul>
+                  <c:forEach var="erro" items="${errorList.errors}">
+                      <li>${erro}</li>
+                      </c:forEach>
+                </ul>
+              </div>
+          </c:if>
           <div id="toolbar">
             <a class="btn btn-primary" href="<%=contextPath%>/admins/rentals/register"><fmt:message key="new"/></a>
           </div>
@@ -76,8 +85,8 @@
             </div>
           </div>
         </div>
-        <jsp:include page="../components/footer.jsp" />
-        <jsp:include page="../components/imports.jsp" />
+        <jsp:include page="../../components/footer.jsp" />
+        <jsp:include page="../../components/imports.jsp" />
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css">
         <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
         <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/locale/bootstrap-table-en-US.js"></script>
