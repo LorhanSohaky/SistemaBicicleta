@@ -29,6 +29,9 @@ Para trazer um pouco mais de segurança ao projeto optamos por utilizar [Argon2]
 
 Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os logs do sistema e uma interface amigável de erro 404.
 
+### Problemas conhecidos
+- A inicialização do banco de dados é um pouco lenta e pode ter alguns erros devido ao lock do arquivo. Se isso acontecer será preciso apagar o arquivo do banco de dados, que está localizado na pasta do Apache Tomcat.
+
 ## TODOs
 - [x] Scripts SQL
   - Script de criação das tabelas (cidade, cliente, reservas e locadora)- Lorhan
@@ -77,11 +80,13 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
   - Internacionalização - Lorhan
   - Controller - Lorhan
 - [x] Lista de locadoras (R3)
-  - Internacionalização - Lorhan
+  - Internacionalização - Lucas e Lorhan
   - Interface - Lorhan
   - Controller para listar as locadoras - Lorhan
   - DAO para listar as locadoras - Lorhan
-- [ ] Lista de locadoras por cidade (R4)
+- [x] Lista de locadoras por cidade (R4)
+  - Interface - Lucas
+  - Internacionalização - Lucas
 - [ ] Página para locação de bicicleta (R5)
 - [x] Opção para listar as locações do cliente (R6)
 - [ ] Página para realizar a locação de bicicletas (R7)
