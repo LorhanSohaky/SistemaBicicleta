@@ -1,4 +1,4 @@
-package br.ufscar.dc.dsw.QueroBike;
+package br.ufscar.dc.dsw;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
