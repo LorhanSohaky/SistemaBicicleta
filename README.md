@@ -33,79 +33,76 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
 - A inicialização do banco de dados é um pouco lenta e pode ter alguns erros devido ao lock do arquivo. Se isso acontecer será preciso apagar o arquivo do banco de dados, que está localizado na pasta do Apache Tomcat.
 
 ## TODOs
-- [x] Scripts SQL
-  - Script de criação das tabelas (cidade, cliente, reservas e locadora)- Lorhan
-  - Script de inserção das cidades, administradores, usuários, reservas e locadoras - Lorhan
-- [x] Página de login do cliente (R1)
-  - Interface - Lucas e Lorhan
-  - Internacionalização - Lorhan
-  - Controller para realizar o login - Lorhan
-  - DAO para buscar o cliente pelo email - Lorhan
-- [x] Página de cadastro do cliente (R1)
-  - Interface - Lucas e Lorhan
-  - Internacionalização - Lorhan
-  - Controller para realizar o cadastro do cliente - Lorhan
-  - DAO para salvar o cliente no banco de dados - Lorhan
-- [x] Página de home do cliente (R1)
-  - Interface - Lucas e Lorhan
-  - Controller - Lorhan
-  - Internacionalização - Lorhan
-- [x] Página para atualizar os dados do cliente (R1)
-  - Interface - Lucas e Lorhan
-  - Internacionalização - Lorhan
-  - Controller - Lorhan
-  - DAO - Lorhan
-- [x] Opção para remover conta do cliente (R1)
-  - Controller - Lorhan
-  - DAO - Lorhan
-- [x] Página de login da locadora (R2)
-  - Interface - Lucas e Lorhan
-  - Internacionalização - Lorhan
-  - Controller - Lorhan
-  - DAO - Lorhan
-- [x] Página de home da locadora (R2)
-- [x] Opção de remover locadora (R2)
-  - DAO - Lorhan
-  - Controller - Lorhan
-  - Interface - Lorhan
-  - Internacionalização - Lorhan
-- [x] Opção para o admin atualizar os dados da locadora (R2)
-  - DAO - Lorhan
-  - Interface - Lorhan
-  - Internacionalização - Lorhan
-  - Controller - Lorhan
-- [x] Opção para o admin cadastrar uma locadora (R2)
-  - DAO - Lorhan
-  - Interface - Lorhan
-  - Internacionalização - Lorhan
-  - Controller - Lorhan
-- [x] Lista de locadoras (R3)
-  - Internacionalização - Lucas e Lorhan
-  - Interface - Lorhan
-  - Controller para listar as locadoras - Lorhan
-  - DAO para listar as locadoras - Lorhan
-- [x] Lista de locadoras por cidade (R4)
-  - Interface - Lucas
-  - Internacionalização - Lucas
+- [ ] Página de login do cliente (R1)
+  - Interface
+  - Internacionalização
+  - Controller para realizar o login
+  - DAO para buscar o cliente pelo email
+- [ ] Página de cadastro do cliente (R1)
+  - Interface
+  - Internacionalização
+  - Controller para realizar o cadastro do cliente
+  - DAO para salvar o cliente no banco de dados
+- [ ] Página de home do cliente (R1)
+  - Interface
+  - Controller
+  - Internacionalização
+- [ ] Página para atualizar os dados do cliente (R1)
+  - Interface
+  - Internacionalização
+  - Controller
+  - DAO
+- [ ] Opção para remover conta do cliente (R1)
+  - Controller
+  - DAO
+- [ ] Página de login da locadora (R2)
+  - Interface
+  - Internacionalização
+  - Controller
+  - DAO
+- [ ] Página de home da locadora (R2)
+- [ ] Opção de remover locadora (R2)
+  - DAO
+  - Controller
+  - Interface
+  - Internacionalização
+- [ ] Opção para o admin atualizar os dados da locadora (R2)
+  - DAO
+  - Interface
+  - Internacionalização
+  - Controller
+- [ ] Opção para o admin cadastrar uma locadora (R2)
+  - DAO
+  - Interface
+  - Internacionalização
+  - Controller
+- [ ] Lista de locadoras (R3)
+  - Internacionalização
+  - Interface
+  - Controller para listar as locadoras
+  - DAO para listar as locadoras
+- [ ] Lista de locadoras por cidade (R4)
+  - Interface
+  - Internacionalização
 - [ ] Página para locação de bicicleta (R5)
-- [x] Opção para listar as locações do cliente (R6)
+- [ ] Opção para listar as locações do cliente (R6)
 - [ ] Não deve permitir o cadastro de locações de um mesmo cliente ou de uma mesma locadora em um mesmo dia/horário (R7)
-- [x] Página para listar todas as locações de uma locadora (R8)
-  - Internacionalização - Lorhan
-  - Interface - Lorhan
-  - Model - Lorhan
-  - Controller - Lorhan
-  - DAO - Lorhan
-- [x] Página para o administrador listar as locadoras
-  - Internacionalização - Lorhan
-  - Interface - Lorhan
-  - Controller para listar as locadoras - Lorhan
-- [x] Componentes
-  - Menu - Lorhan
-  - Footer - Lorhan
-- [x] Página inicial
-  - Internacionalização - Lorhan
-  - Interface - Lucas e Lorhan
+- [ ] Página para listar todas as locações de uma locadora (R8)
+  - Internacionalização
+  - Interface
+  - Model
+  - Controller
+  - DAO
+- [ ] Página para o administrador listar as locadoras
+  - Internacionalização
+  - Interface
+  - Controller para listar as locadoras
+- [ ] Componentes
+  - Menu
+  - Footer
+- [ ] Página inicial
+  - Internacionalização
+  - Interface
 
 ## Licença
 Este projeto está licenciado sob a licença MIT e pode ser conferida [neste link](./LICENSE).
