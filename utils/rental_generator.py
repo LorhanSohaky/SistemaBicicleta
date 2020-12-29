@@ -39,30 +39,21 @@ def generate_random_rental(conn):
     neighborhood = faker.neighborhood()
     street_number = faker.building_number()
 
-    cursor = conn.execute('SELECT * FROM city ORDER BY RANDOM() LIMIT 1 ;')
+    cursor = conn.execute('SELECT id,state FROM city ORDER BY RANDOM() LIMIT 1 ;')
     rows = cursor.fetchall()
-    (city, state) = rows[0]
+    (city_id, city_state) = rows[0]
 
-    saltBytes = pysodium.randombytes(pysodium.crypto_pwhash_SALTBYTES)
-    opslimit = pysodium.crypto_pwhash_argon2id_OPSLIMIT_INTERACTIVE
-    memlimit = pysodium.crypto_pwhash_argon2id_MEMLIMIT_INTERACTIVE
-    alg = pysodium.crypto_pwhash_ALG_ARGON2ID13
-
-    passwordBytes = pysodium.crypto_pwhash(64, alg=alg, passwd=default_password, salt=saltBytes, opslimit=opslimit, memlimit=memlimit)
-    password = passwordBytes.hex().upper()
-    salt = saltBytes.hex().upper()
-
-    return (name,cnpj,email,description,postal_code,street_name,neighborhood,street_number, city, state, password,salt)
+    return (name,cnpj,email,description,postal_code,street_name,neighborhood,street_number, city_id, default_password)
 
 
 
 prepare_database()
-f = open("sql/insert_rentals.sql", "w")
+f = open("rentals.csv", "w")
 for i in range(40):
     print( f'{i + 1}/{40}')
-    (name,cnpj,email,description,postal_code,street_name,neighborhood,street_number, city, state,password,salt) = generate_random_rental(conn)
+    (name,cnpj,email,description,postal_code,street_name,neighborhood,street_number, city_id,password) = generate_random_rental(conn)
 
-    f.write(f'INSERT INTO rental (name,cnpj,email,description,postal_code,street_name,neighborhood,street_number, fk_city_name, fk_city_state,password,salt) VALUES ("{name}","{cnpj}","{email}","{description}","{postal_code}","{street_name}","{neighborhood}","{street_number}", "{city}", "{state}", "{password}", "{salt}");\n')
+    f.write(f"{name},{cnpj},{email},{description},{postal_code},{street_name},{neighborhood},{street_number},{city_id},{password};\n")
 
 f.close()
 conn.close()
