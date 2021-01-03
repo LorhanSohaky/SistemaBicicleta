@@ -76,10 +76,10 @@ Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os log
   - Interface
   - Internacionalização
   - Controller
-- [ ] Lista de locadoras (R3)
-  - Internacionalização
-  - Interface
-  - Controller para listar as locadoras
+- [x] Lista de locadoras (R3)
+  - Internacionalização - Lorhan
+  - Interface - Lorhan
+  - Controller para listar as locadoras - Lorhan
   - DAO para listar as locadoras
 - [ ] Lista de locadoras por cidade (R4)
   - Interface
