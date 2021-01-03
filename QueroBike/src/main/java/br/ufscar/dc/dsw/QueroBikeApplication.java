@@ -1,10 +1,7 @@
 package br.ufscar.dc.dsw;
 
 import br.ufscar.dc.dsw.dao.ICityDAO;
-import br.ufscar.dc.dsw.dao.IRentalDAO;
-import br.ufscar.dc.dsw.domain.City;
-import br.ufscar.dc.dsw.domain.Rental;
-import br.ufscar.dc.dsw.service.impl.RentalService;
+import br.ufscar.dc.dsw.domain.*;
 import br.ufscar.dc.dsw.service.spec.IRentalService;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -27,8 +24,15 @@ public class QueroBikeApplication {
     @Bean
     public CommandLineRunner run(ICityDAO cityDAO, IRentalService rentalService) throws Exception {
         return args -> {
-            populateCities(cityDAO);
-            populateRentals(rentalService, cityDAO);
+            if (cityDAO.findAll().size() < 5570) {
+                log.info("Populando cidades");
+                populateCities(cityDAO);
+            }
+
+            if (rentalService.listAll().size() < 40) {
+                log.info("Populando locadoras");
+                populateRentals(rentalService, cityDAO);
+            }
         };
     }
 
@@ -56,8 +60,8 @@ public class QueroBikeApplication {
             stream.close();
             isr.close();
             reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            log.error(e.getMessage());
         }
     }
 
@@ -106,8 +110,8 @@ public class QueroBikeApplication {
             stream.close();
             isr.close();
             reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | NumberFormatException e) {
+            log.error(e.getMessage());
         }
     }
 
