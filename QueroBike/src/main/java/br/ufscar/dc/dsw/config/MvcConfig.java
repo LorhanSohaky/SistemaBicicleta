@@ -14,8 +14,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 public class MvcConfig implements WebMvcConfigurer {
 
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("redirect:/home");
-        registry.addViewController("/home").setViewName("home");
+        registry.addViewController("/").setViewName("home");
         registry.addViewController("/login").setViewName("login");
     }
 
