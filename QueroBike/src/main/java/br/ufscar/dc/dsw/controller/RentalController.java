@@ -23,4 +23,9 @@ public class RentalController {
 
         return "rental/list";
     }
+
+    @GetMapping("/login")
+    public String login(ModelMap model) {
+        return "rental/login";
+    }
 }
