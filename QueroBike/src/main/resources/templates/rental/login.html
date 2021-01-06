@@ -17,9 +17,9 @@
             <div class="rounded-right col-12 col-md-8 py-3 px-4">
               <h1 class="text-center w-100" th:text="#{rentalsLogin.title}"></h1>
               <p class="h5 mt-3 text-center w-100" th:text="#{rentalsLogin.subTitle}"></p>
-              <div class="alert alert-danger" role="alert" th:if="${errorList != null && errorList.notEmpty}">
+              <div class="alert alert-danger" role="alert" th:if="${param.error}">
                 <ul>
-                  <li th:each="erro : ${errorList.errors}" th:text="@{erro}"></li>
+                  <li th:text="#{login.error}"></li>
                 </ul>
               </div>
               <div class="mt-5 mb-2 mx-5">

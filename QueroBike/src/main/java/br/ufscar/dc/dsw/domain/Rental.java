@@ -64,6 +64,8 @@ public class Rental implements Serializable {
     @ManyToOne
     @JoinColumn(name = "fk_city", referencedColumnName = "id")
     private City city;
+    
+    public final String roleType = "rental";
 
     public int getId() {
         return id;
