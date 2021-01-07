@@ -19,13 +19,13 @@
               <p class="h5 mt-3 text-center w-100" th:text="#{rentalsLogin.subTitle}"></p>
               <div class="alert alert-danger" role="alert" th:if="${param.error}">
                 <ul>
-                  <li th:text="#{login.error}"></li>
+                  <li th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></li>
                 </ul>
               </div>
               <div class="mt-5 mb-2 mx-5">
                 <div class="form-group">
                   <label for="inputEmail" th:text="#{rentalsLogin.emailLabel}"></label>
-                  <input type="email" name="email" maxlength="128" class="form-control" id="inputEmail" required th:placeholder="#{rentalsLogin.emailPlaceholder}" th:value="${data != null && data.email != null ? data.email : null}">
+                  <input type="email" name="username" maxlength="128" class="form-control" id="inputEmail" required th:placeholder="#{rentalsLogin.emailPlaceholder}" th:value="${data != null && data.email != null ? data.email : null}">
                 </div>
                 <div class="form-group">
                   <label for="inputPassword" th:text="#{rentalsLogin.passwordLabel}"></label>
