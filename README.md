@@ -18,19 +18,22 @@ Para executar basta fazer os seguintes passos:
 Se tudo der certo aparecerá uma lista de cidades. ;-)
 
 ### Usuários Defaults
-No caso de locadoras, existe a usuária `piresbeatriz@lima.com`, no caso de clientes existe `customer@mailinator.com` e, no caso de administradores existe `admin1@mailinator.com`, todos com a senha `password123`. Caso queira ver os demais usuários basta acessar os arquivos `.sql`.
+No caso de locadoras, existe a usuária `larissapeixoto@araujo.br`, 
+TODO: no caso de clientes existe `customer@mailinator.com` e, no caso de administradores existe `admin1@mailinator.com`, todos com a senha `password123`. Caso queira ver os demais usuários basta acessar os arquivos `.sql`.
 
 ## Observações
-Como o acesso de admin é mais restritivo ele não aparece no menu, então só é possível acessar através da url `admins/login`.
+Como o acesso de admin é mais restritivo ele não aparece no menu, então só é possível acessar através da url `/admins/login`.
 
-Para simplificar o desenvolvimento do projeto escolhemos utilizar o bando de dados [SQLite](https://en.wikipedia.org/wiki/SQLite). Desse modo não é necessário instalar nada, tendo em vista que a base de dados é armazenada em arquivo.
+Na primeira etapa optamos por usar SQLite, mas o mesmo não possui uma boa integração com o Spring, então tivemos de deixar de utilizar o sqlite e passar a usar o MySQL.
 
 Para trazer um pouco mais de segurança ao projeto optamos por utilizar [Argon2](https://en.wikipedia.org/wiki/Argon2) para criar um hash das senhas e em seguida armazená-las no banco de dados, assim o projeto se aproxima ainda mais de um projeto real.
 
-Além disso, configuramos o [SLF4J](http://www.slf4j.org/) para lidar com os logs do sistema e uma interface amigável de erro 404.
+Quando criamos a tabela de cidade, optamos por deixar a `cidade` e `estado` como chave composta, mas isso gerou vários problemas (principalmente quando tinha acentuação) por ser comparação com string, para contornar criamos IDs numéricos.
+
+A inicialização  do projeto é um pouco lento pelo fato dele popular todo o banco de dados.
 
 ### Problemas conhecidos
-- A inicialização do banco de dados é um pouco lenta e pode ter alguns erros devido ao lock do arquivo. Se isso acontecer será preciso apagar o arquivo do banco de dados, que está localizado na pasta do Apache Tomcat.
+- 
 
 ## TODOs
 - [ ] Página de login do cliente (R1)
