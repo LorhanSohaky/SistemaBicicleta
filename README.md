@@ -6,7 +6,7 @@ Antes de iniciar o desenvolvimento em nível de código foi criado um [mockup da
 ## Como instalar?
 O projeto depende do [Java 11](https://openjdk.java.net/projects/jdk/11/), [Maven 3.6.3](https://maven.apache.org/download.cgi) e [Tomcat 9](https://tomcat.apache.org/download-90.cgi). Caso tenha alguma dúvida pode usar o [guia rápido de instalação](https://github.com/delanobeder/DSW1/blob/master/software.md).
 
-## Como executar?
+## Como executar? TODO
 Para executar basta fazer os seguintes passos:
 1. Executar o Tomcat
   - Pode executar usando `./catalina.sh run` ou `./catalina.bat run`

@@ -19,7 +19,7 @@
               <p class="h5 mt-3 text-center w-100" th:text="#{rentalsLogin.subTitle}"></p>
               <div class="alert alert-danger" role="alert" th:if="${param.error}">
                 <ul>
-                  <li th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></li>
+                  <li th:text="#{rentalsLogin.error}"></li>
                 </ul>
               </div>
               <div class="mt-5 mb-2 mx-5">
