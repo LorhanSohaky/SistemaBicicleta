@@ -1,52 +1,59 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "city")
-public class City implements Serializable {
-
-    @Id
-    @GeneratedValue
-    private int id;
-
+@Table(name = "reserve")
+public class Reserve {
+    
     @NotBlank
-    @Column(nullable = false, length = 128)
-    private String name;
-
+    @Column(nullable = false, unique = false)
+    private String day;
+    
     @NotBlank
-    @Column(nullable = false, length = 128)
-    private String state;
+    @Column(nullable = false, unique = false)
+    private int time;
+    
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+	private Customer customer;
 
-    public int getId() {
-        return id;
+    @ManyToOne
+    @JoinColumn(name = "rental_id")
+	private Rental rental;
+
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public String getName() {
-        return name;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Rental getRental() {
+        return rental;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRental(Rental rental) {
+	this.rental = rental;
     }
 
-    public String getState() {
-        return state;
+    public String getDay() {
+	return day;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setDay(String day) {
+	this.day = day;
+    }
+	
+    public int getTime() {
+	return time;
     }
 
-    @Override
-    public String toString() {
-        return "City{" + "id=" + id + ", name=" + name + ", state=" + state + '}';
+    public void setTime(int time) {
+	this.time = time;
     }
 
 }
