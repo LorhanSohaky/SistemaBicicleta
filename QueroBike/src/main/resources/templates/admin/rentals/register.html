@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="#{admins.rentals.headerTitle}"></title>
+  </head>
+  <body  class="d-flex flex-column justify-content-between">
+    <div th:include="/fragments/menu"></div>
+    <div class="container" id="root">
+      <h1 class="w-100 text-center" th:text="#{admins.rentals.register.title}"></h1>
+
+      <form th:action="@{/admins/rentals/register}" method="POST">
+        <div class="form-group">
+          <label for="inputName" th:text="#{admins.rentals.register.nameLabel}"></label>
+          <input type="text" name="name" maxlength="128" class="form-control" id="inputName" required th:value="${rental.name}">
+        </div>
+        <div class="form-group">
+          <label for="inputCNPJ">CNPJ</label>
+          <input type="text" name="cnpj" maxlength="14" class="form-control" id="inputCNPJ" required th:value="${rental.cnpj}">
+        </div>
+        <div class="form-group">
+          <label for="inputEmail" th:text="#{admins.rentals.register.emailLabel}"></label>
+          <input type="email" name="email" maxlength="128" class="form-control" id="inputEmail" required th:value="${rental.email}">
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" th:text="#{admins.rentals.register.passwordLabel}"></label>
+          <input type="password" minlength="5" name="password" class="form-control" id="inputPassword" required>
+        </div>
+        <div class="form-group">
+          <label for="inputDescription" th:text="#{admins.rentals.register.descriptionLabel}"></label>
+          <input type="text" name="description" class="form-control" id="inputDescription" th:value="${rental.description}">
+        </div>
+        <div class="form-group">
+          <label for="inputPostalCode" th:text="#{admins.rentals.register.postalCodeLabel}"></label>
+          <input type="text" name="postalCode" maxlength="8" class="form-control" id="inputPostalCode" th:value="${rental.postalCode}" required>
+        </div>
+        <div class="form-group">
+          <label for="inputStreetName" th:text="#{admins.rentals.register.streetNameLabel}"></label>
+          <input type="text" name="streetName" class="form-control" id="inputStreetName" th:value="${rental.streetName}" required>
+        </div>
+        <div class="form-group">
+          <label for="inputNeighborhood" th:text="#{admins.rentals.register.neighborhoodLabel}"></label>
+          <input type="text" name="neighborhood" class="form-control" id="inputNeighborhood" th:value="${rental.neighborhood}" required>
+        </div>
+        <div class="form-group">
+          <label for="inputStreetNumber" th:text="#{admins.rentals.register.streetNumberLabel}"></label>
+          <input type="text" name="streetNumber" class="form-control" id="inputStreetNumber" th:value="${rental.streetNumber}" required>
+        </div>
+        <div class="form-group">
+          <label for="inputCity" th:text="#{admins.rentals.register.cityLabel}"></label>
+          <input type="text" name="city" class="form-control" id="inputCity" th:value="${rental.city}" required>
+        </div>
+        <div class="form-group">
+          <label for="inputState" th:text="#{admins.rentals.stateLabel}"></label>
+          <input type="text" name="state" class="form-control" id="inputState" th:value="${rental.state}" required>
+        </div>
+        <button type="submit" class="btn btn-primary" th:text="#{admins.rentals.register.submitButton}"></button>
+
+      </form>
+    </div>
+
+    <div th:replace="/fragments/footer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/pages/index.css}" />
+    <div th:replace="/fragments/imports" />
+  </body>
+</html>

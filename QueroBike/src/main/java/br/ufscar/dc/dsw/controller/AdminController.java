@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/admins")
 public class AdminController {
-    
+
     @Autowired
     private IRentalService rentalService;
 
@@ -25,11 +25,18 @@ public class AdminController {
     public String renderHome(ModelMap model, Principal principal) {
         return "admin/home";
     }
-    
+
     @GetMapping("/rentals")
     public String renderRentalsList(ModelMap model) {
         List<Rental> rentals = rentalService.listAll();
         model.addAttribute("rentals", rentals);
         return "admin/rentals/list";
+    }
+
+    @GetMapping("/rentals/register")
+    public String renderRegisterRental(ModelMap model) {
+        Rental rental = new Rental();
+        model.addAttribute("rental", rental);
+        return "admin/rentals/register";
     }
 }
