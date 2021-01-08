@@ -87,15 +87,15 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
 - [ ] Lista de locadoras por cidade (R4)
   - Interface
   - Internacionalização
-- [ ] Página para locação de bicicleta (R5)
-- [ ] Opção para listar as locações do cliente (R6)
-- [ ] Não deve permitir o cadastro de locações de um mesmo cliente ou de uma mesma locadora em um mesmo dia/horário (R7)
-- [ ] Página para listar todas as locações de uma locadora (R8)
+- [ ] Página para locação de bicicleta (R5) - Lucas
+- [ ] Opção para listar as locações do cliente (R6) - Lucas
+- [ ] Não deve permitir o cadastro de locações de um mesmo cliente ou de uma mesma locadora em um mesmo dia/horário (R7) - Lucas
+- [ ] Página para listar todas as locações de uma locadora (R8) 
   - Internacionalização
-  - Interface
-  - Model
-  - Controller
-  - DAO
+  - Interface - Lucas
+  - Model - Lucas
+  - Controller - Lucas
+  - DAO - Lucas
 - [ ] Página para o administrador listar as locadoras
   - Internacionalização
   - Interface

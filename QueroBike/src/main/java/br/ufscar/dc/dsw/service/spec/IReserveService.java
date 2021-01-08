@@ -7,7 +7,6 @@ import br.ufscar.dc.dsw.domain.Reserve;
 
 public interface IReserveService {
 
-
     List<Reserve> findByCustomer(Customer customer);
 
     List<Reserve> findByRental(Rental rental);
