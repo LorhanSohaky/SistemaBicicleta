@@ -1,7 +1,9 @@
 package br.ufscar.dc.dsw;
 
+import br.ufscar.dc.dsw.dao.IAdminDAO;
 import br.ufscar.dc.dsw.dao.ICityDAO;
 import br.ufscar.dc.dsw.domain.*;
+import br.ufscar.dc.dsw.service.spec.IAdminService;
 import br.ufscar.dc.dsw.service.spec.IRentalService;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -11,6 +13,7 @@ import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication()
 public class QueroBikeApplication {
@@ -22,8 +25,13 @@ public class QueroBikeApplication {
     }
 
     @Bean
-    public CommandLineRunner run(ICityDAO cityDAO, IRentalService rentalService) throws Exception {
+    public CommandLineRunner run(ICityDAO cityDAO, IRentalService rentalService, IAdminService adminService) throws Exception {
         return args -> {
+            if (adminService.listAll().size() < 2) {
+                log.info("Populando admins");
+                populateAdmins(adminService);
+            }
+
             if (cityDAO.findAll().size() < 5570) {
                 log.info("Populando cidades");
                 populateCities(cityDAO);
@@ -99,7 +107,7 @@ public class QueroBikeApplication {
                 rental.setNeighborhood(neighborhood);
                 rental.setStreetNumber(streetNumber);
                 rental.setPassword(rawPassword);
-                
+
                 City city = cityDAO.findById(cityId);
                 rental.setCity(city);
 
@@ -115,4 +123,17 @@ public class QueroBikeApplication {
         }
     }
 
+    private static void populateAdmins(IAdminService adminService) {
+        Admin admin1 = new Admin();
+        admin1.setEmail("admin1@mailinator.com");
+        admin1.setName("Lorhan Sohaky");
+        admin1.setPassword("password123");
+        adminService.save(admin1);
+
+        Admin admin2 = new Admin();
+        admin2.setEmail("admin2@mailinator.com");
+        admin2.setName("Lucas Martins");
+        admin2.setPassword("password123");
+        adminService.save(admin2);
+    }
 }
