@@ -99,7 +99,7 @@ public class QueroBikeApplication {
                 rental.setNeighborhood(neighborhood);
                 rental.setStreetNumber(streetNumber);
                 rental.setPassword(rawPassword);
-
+                
                 City city = cityDAO.findById(cityId);
                 rental.setCity(city);
 

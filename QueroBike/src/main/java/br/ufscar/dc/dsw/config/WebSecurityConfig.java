@@ -1,7 +1,7 @@
 // FROM https://github.com/delanobeder/DSW1/blob/master/Modulo08/LivrariaMVC-v3/src/main/java/br/ufscar/dc/dsw/config/WebSecurityConfig.java
 package br.ufscar.dc.dsw.config;
 
-import br.ufscar.dc.dsw.security.RentalDetailsServiceImpl;
+import br.ufscar.dc.dsw.security.AbstractUserDetailsServiceImpl;
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.dao.*;
 import org.springframework.security.config.annotation.authentication.builders.*;
@@ -21,7 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new RentalDetailsServiceImpl();
+        return new AbstractUserDetailsServiceImpl();
     }
 
     @Bean
@@ -40,12 +40,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/login/**", "/webjars/**", "/resources/**", "/assets/**").permitAll()
-                .anyRequest().anonymous()
+        http
+                .logout()
+                .logoutSuccessUrl("/")
+                .and()
+                .authorizeRequests()
+                .antMatchers("/login/**", "/webjars/**", "/resources/**", "/assets/**", "/rentals/home").permitAll()
+                .antMatchers("/", "/rentals/", "/rentals/login").permitAll()
+                .antMatchers("/rentals/**").hasRole("rental").anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/rentals/login")
-                .permitAll();
+                .loginPage("/rentals/login").permitAll()
+                .defaultSuccessUrl("/rentals/home");
     }
 }

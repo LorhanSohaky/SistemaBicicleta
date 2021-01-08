@@ -6,32 +6,12 @@ import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "rental")
-public class Rental implements Serializable {
-
-    @Id
-    @GeneratedValue
-    private int id;
-
-    @NotBlank
-    @Size(min = 3, max = 128, message = "{size.rental.name}")
-    @Column(nullable = false, length = 128)
-    private String name;
+public class Rental extends User<Integer> implements Serializable {
 
     @NotBlank
     @Size(min = 14, max = 14, message = "{size.rental.cnpj}")
     @Column(nullable = false, length = 14)
     private String cnpj;
-
-    @NotBlank
-    @Email
-    @Size(min = 2, max = 128, message = "{size.rental.email}")
-    @Column(nullable = false, length = 128)
-    private String email;
-
-    @NotBlank
-    @Size(min = 5, max = 128, message = "{size.rental.password}")
-    @Column(nullable = false, length = 128)
-    private String password;
 
     @Size(max = 256, message = "{size.rental.description}")
     @Column(nullable = true, length = 256)
@@ -64,23 +44,9 @@ public class Rental implements Serializable {
     @ManyToOne
     @JoinColumn(name = "fk_city", referencedColumnName = "id")
     private City city;
-    
-    public final String roleType = "rental";
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public Rental() {
+        super("rental");
     }
 
     public String getCnpj() {
@@ -89,22 +55,6 @@ public class Rental implements Serializable {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getDescription() {
@@ -165,6 +115,6 @@ public class Rental implements Serializable {
 
     @Override
     public String toString() {
-        return "Rental{" + "id=" + id + ", name=" + name + ", cnpj=" + cnpj + '}';
+        return "Rental{" + "id=" + this.getId() + ", name=" + this.getName() + ", cnpj=" + cnpj + '}';
     }
 }

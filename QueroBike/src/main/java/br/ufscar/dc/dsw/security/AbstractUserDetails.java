@@ -1,34 +1,34 @@
 package br.ufscar.dc.dsw.security;
 
-import br.ufscar.dc.dsw.domain.Rental;
+import br.ufscar.dc.dsw.domain.User;
 import java.util.Arrays;
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class RentalDetails implements UserDetails {
+public class AbstractUserDetails implements UserDetails {
 
-    private Rental rental;
+    private User user;
 
-    public RentalDetails(Rental rental) {
-        this.rental = rental;
+    public AbstractUserDetails(User user) {
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(rental.roleType);
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
         return Arrays.asList(authority);
     }
 
     @Override
     public String getPassword() {
-        return rental.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return rental.getEmail();
+        return user.getEmail();
     }
 
     @Override
@@ -51,8 +51,8 @@ public class RentalDetails implements UserDetails {
         return true;
     }
 
-    public Rental getRental() {
-        return rental;
+    public User getUser() {
+        return user;
     }
 
 }
