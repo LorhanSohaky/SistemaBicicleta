@@ -1,16 +1,14 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.util.Set;
-import java.io.Serializable;
+import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
-import br.ufscar.dc.dsw.domain.User;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "customer")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Customer extends User<Integer> {
+public class Customer extends User<Integer> implements Serializable {
 
     @NotBlank
     @Size(min = 11, max = 11)
@@ -33,6 +31,10 @@ public class Customer extends User<Integer> {
     @OneToMany(mappedBy = "customer")
     private List<Reserve> reserve;
 
+    public Customer() {
+        super("customer");
+    }
+
     public String getCPF() {
         return CPF;
     }
@@ -53,11 +55,11 @@ public class Customer extends User<Integer> {
         return gender;
     }
 
-    public void setGender(String genero) {
-        this.genero = genero;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
