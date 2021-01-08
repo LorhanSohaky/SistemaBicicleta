@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-public interface ICityDAO extends CrudRepository<City, City> {
+public interface ICityDAO extends CrudRepository<City, Integer> {
 
     City findById(int id);
 
