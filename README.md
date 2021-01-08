@@ -83,7 +83,7 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
   - Internacionalização - Lorhan
   - Interface - Lorhan
   - Controller para listar as locadoras - Lorhan
-  - DAO para listar as locadoras
+  - DAO para listar as locadoras - Lorhan
 - [ ] Lista de locadoras por cidade (R4)
   - Interface
   - Internacionalização
@@ -100,12 +100,12 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
   - Internacionalização
   - Interface
   - Controller para listar as locadoras
-- [ ] Componentes
-  - Menu
-  - Footer
-- [ ] Página inicial
-  - Internacionalização
-  - Interface
+- [x] Componentes
+  - Menu - Lorhan
+  - Footer - Lorhan
+- [x] Página inicial
+  - Internacionalização - Lorhan
+  - Interface - Lorhan
 
 ## Licença
 Este projeto está licenciado sob a licença MIT e pode ser conferida [neste link](./LICENSE).
