@@ -5,7 +5,7 @@ import br.ufscar.dc.dsw.domain.Rental;
 import br.ufscar.dc.dsw.domain.Customer;
 import br.ufscar.dc.dsw.domain.Reserve;
 
-public interface ILocacaoService {
+public interface IReserveService {
 
 
     List<Reserve> findByCustomer(Customer customer);

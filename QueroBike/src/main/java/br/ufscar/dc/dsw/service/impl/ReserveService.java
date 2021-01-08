@@ -1,11 +1,10 @@
 package br.ufscar.dc.dsw.service.impl;
 
-import br.ufscar.dc.dsw.dao.IReservelDAO;
-
+import br.ufscar.dc.dsw.dao.IReserveDAO;
 import br.ufscar.dc.dsw.domain.Customer;
 import br.ufscar.dc.dsw.domain.Reserve;
 import br.ufscar.dc.dsw.domain.Rental;
-import br.ufscar.dc.dsw.service.spec.IReservelService;
+import br.ufscar.dc.dsw.service.spec.IReserveService;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,9 @@ public class ReserveService implements IReserveService {
     public List<Reserve> findByRental(Rental rental) {
         return dao.findByRental(rental);
     }
-    
-    public void save(Locacao locacao) {
-        dao.save(locacao);
+
+    @Override
+    public void save(Reserve reserve) {
+        dao.save(reserve);
     }
 }
