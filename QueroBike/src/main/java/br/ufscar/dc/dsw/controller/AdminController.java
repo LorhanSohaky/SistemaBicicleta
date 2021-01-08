@@ -1,5 +1,6 @@
 package br.ufscar.dc.dsw.controller;
 
+import br.ufscar.dc.dsw.dao.IRentalDAO;
 import br.ufscar.dc.dsw.domain.Rental;
 import br.ufscar.dc.dsw.service.spec.IRentalService;
 import java.security.Principal;
@@ -15,6 +16,9 @@ public class AdminController {
 
     @Autowired
     private IRentalService rentalService;
+
+    @Autowired
+    private IRentalDAO rentalDAO;
 
     @GetMapping("/login")
     public String renderLogin(ModelMap model) {
@@ -38,5 +42,13 @@ public class AdminController {
         Rental rental = new Rental();
         model.addAttribute("rental", rental);
         return "admin/rentals/register";
+    }
+
+    @GetMapping("/rentals/delete")
+    public String deleteRental(@RequestParam String id) {
+        int intergerId = Integer.parseInt(id);
+        rentalDAO.deleteById(intergerId);
+
+        return "redirect:/admins/rentals";
     }
 }
