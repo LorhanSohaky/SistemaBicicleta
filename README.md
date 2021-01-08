@@ -64,11 +64,11 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
   - Controller - Lorhan
   - DAO - Lorhan
 - [ ] Página de home da locadora (R2)
-- [ ] Opção de remover locadora (R2)
-  - DAO
-  - Controller
-  - Interface
-  - Internacionalização
+- [x] Opção de remover locadora (R2)
+  - DAO - Lorhan
+  - Controller - Lorhan
+  - Interface - Lorhan
+  - Internacionalização - Lorhan
 - [ ] Opção para o admin atualizar os dados da locadora (R2)
   - DAO
   - Interface
