@@ -13,46 +13,21 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@Order(1)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Bean
-    public Argon2PasswordEncoder passwordEncoder() {
-        return new Argon2PasswordEncoder();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new AbstractUserDetailsServiceImpl();
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder());
-
-        return authProvider;
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
+@Order(2)
+public class RentalSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .antMatcher("/admin/**")
                 .authorizeRequests()
                 .antMatchers("/login/**", "/webjars/**", "/resources/**", "/assets/**","/rental/processing").permitAll()
-                .antMatchers("/admins/home").hasRole("admin")
+                .antMatchers("/rental/home").hasRole("rental")
                 .and()
                 .formLogin()
-                .loginPage("/admins/login")
-                .loginProcessingUrl("/admin/processing")
-                .failureUrl("/admins/login?error=loginError")
-                .defaultSuccessUrl("/admins/home")
+                .loginPage("/rentals/login")
+                .loginProcessingUrl("/rental/processing")
+                .failureUrl("/rentals/login?error=loginError")
+                .defaultSuccessUrl("/rentals/home")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/");

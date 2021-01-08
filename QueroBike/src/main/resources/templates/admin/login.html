@@ -3,20 +3,18 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title th:text="#{rentalsLogin.headerTitle}"></title>
+    <title th:text="#{admins.login.headerTitle}"></title>
   </head>
   <body class="d-flex flex-column justify-content-between">
     <div th:include="fragments/menu"></div>
     <div class="container h-100 pt-sm-5 d-flex flex-column justify-content-center align-items-center" id="root">
       <div class="w-100">
-        <form th:action="@{/rental/processing}" method="POST">
+        <form th:action="@{/admin/processing}" method="POST">
           <div class="row rounded-right"  style="box-shadow: 0px 4px 32px 8px rgba(0, 0, 0, 0.16);">
             <div class="bg-primary rounded-left col-12 col-md-4 py-3 px-3 d-inline-flex align-items-center justify-content-center">
               <img th:src="@{/assets/images/login/login.svg}" alt="Login" width="200"/>
             </div>
             <div class="rounded-right col-12 col-md-8 py-3 px-4">
-              <h1 class="text-center w-100" th:text="#{rentalsLogin.title}"></h1>
-              <p class="h5 mt-3 text-center w-100" th:text="#{rentalsLogin.subTitle}"></p>
               <div class="alert alert-danger" role="alert" th:if="${param.error}">
                 <ul>
                   <li th:text="#{rentalsLogin.error}"></li>
@@ -24,15 +22,15 @@
               </div>
               <div class="mt-5 mb-2 mx-5">
                 <div class="form-group">
-                  <label for="inputEmail" th:text="#{rentalsLogin.emailLabel}"></label>
-                  <input type="email" name="username" maxlength="128" class="form-control" id="inputEmail" required th:placeholder="#{rentalsLogin.emailPlaceholder}" th:value="${data != null && data.email != null ? data.email : null}">
+                  <label for="inputEmail" th:text="#{admins.login.emailLabel}"></label>
+                  <input type="email" name="username" maxlength="128" class="form-control" id="inputEmail" required th:placeholder="#{admins.login.emailPlaceholder}" th:value="${data != null && data.email != null ? data.email : null}">
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword" th:text="#{rentalsLogin.passwordLabel}"></label>
-                  <input type="password" minlength="5" name="password" class="form-control" id="inputPassword" required th:placeholder="#{rentalsLogin.passwordPlaceholder}">
+                  <label for="inputPassword" th:text="#{admins.login.passwordLabel}"></label>
+                  <input type="password" minlength="5" name="password" class="form-control" id="inputPassword" required th:placeholder="#{admins.login.passwordPlaceholder}">
                 </div>
                 <div class="d-flex flex-column align-items-center">
-                  <button type="submit" class="btn btn-primary" th:text="#{rentalsLogin.submitButton}"></button>
+                  <button type="submit" class="btn btn-primary" th:text="#{admins.login.submitButton}"></button>
                 </div>
               </div>
             </div>
