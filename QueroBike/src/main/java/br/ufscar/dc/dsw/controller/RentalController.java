@@ -31,9 +31,6 @@ public class RentalController {
 
     @GetMapping("/home")
     public String renderHome(ModelMap model, Principal principal) {
-        List<Rental> rentals = rentalService.listAll();
-        model.addAttribute("rentals", rentals);
-        return "rental/list";
-
+        return "rental/home";
     }
 }
