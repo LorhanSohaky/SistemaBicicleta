@@ -1,28 +1,32 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.util.Set;
+import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "reserve")
-public class Reserve {
-    
+public class Reserve implements Serializable {
+
+    @Id
+    @GeneratedValue
+    private int id;
+
     @NotBlank
     @Column(nullable = false, unique = false)
     private String day;
-    
+
     @NotBlank
     @Column(nullable = false, unique = false)
     private int time;
-    
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
-	private Customer customer;
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "rental_id")
-	private Rental rental;
+    private Rental rental;
 
     public Customer getCustomer() {
         return customer;
@@ -37,23 +41,23 @@ public class Reserve {
     }
 
     public void setRental(Rental rental) {
-	this.rental = rental;
+        this.rental = rental;
     }
 
     public String getDay() {
-	return day;
+        return day;
     }
 
     public void setDay(String day) {
-	this.day = day;
+        this.day = day;
     }
-	
+
     public int getTime() {
-	return time;
+        return time;
     }
 
     public void setTime(int time) {
-	this.time = time;
+        this.time = time;
     }
 
 }
