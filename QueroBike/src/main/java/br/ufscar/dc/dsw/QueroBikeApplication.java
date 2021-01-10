@@ -4,9 +4,11 @@ import br.ufscar.dc.dsw.dao.IAdminDAO;
 import br.ufscar.dc.dsw.dao.ICityDAO;
 import br.ufscar.dc.dsw.domain.*;
 import br.ufscar.dc.dsw.service.spec.IAdminService;
+import br.ufscar.dc.dsw.service.spec.ICustomerService;
 import br.ufscar.dc.dsw.service.spec.IRentalService;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.StringTokenizer;
 import org.slf4j.*;
 import org.springframework.boot.*;
@@ -25,7 +27,7 @@ public class QueroBikeApplication {
     }
 
     @Bean
-    public CommandLineRunner run(ICityDAO cityDAO, IRentalService rentalService, IAdminService adminService) throws Exception {
+    public CommandLineRunner run(ICityDAO cityDAO, IRentalService rentalService, IAdminService adminService, ICustomerService customerService) throws Exception {
         return args -> {
             if (adminService.listAll().size() < 2) {
                 log.info("Populando admins");
@@ -40,6 +42,11 @@ public class QueroBikeApplication {
             if (rentalService.listAll().size() < 40) {
                 log.info("Populando locadoras");
                 populateRentals(rentalService, cityDAO);
+            }
+            
+            if(customerService.listAll().size() < 1) {
+                log.info("Populando clientes");
+                populateCustomers(customerService);
             }
         };
     }
@@ -135,5 +142,27 @@ public class QueroBikeApplication {
         admin2.setName("Lucas Martins");
         admin2.setPassword("password123");
         adminService.save(admin2);
+    }
+    
+    private static void populateCustomers(ICustomerService customerService) {
+        Customer customer1 = new Customer();
+        customer1.setEmail("customer1@mailinator.com");
+        customer1.setName("Lorhan Sohaky");
+        customer1.setPassword("password123");
+        customer1.setCPF("01234567891");
+        customer1.setGender("male");
+        customer1.setPhone("5511912345678");
+        customer1.setBirthdate(new Date(1998, 1, 1));
+        customerService.save(customer1);
+        
+        Customer customer2 = new Customer();
+        customer2.setEmail("customer2@mailinator.com");
+        customer2.setName("Lucas Martins");
+        customer2.setPassword("password123");
+        customer2.setCPF("01234567892");
+        customer2.setGender("male");
+        customer2.setPhone("5511912345678");
+        customer2.setBirthdate(new Date(1998, 1, 1));
+        customerService.save(customer2);
     }
 }
