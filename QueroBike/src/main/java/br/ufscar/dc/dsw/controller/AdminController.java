@@ -30,10 +30,10 @@ public class AdminController {
 
     @Autowired
     private IRentalDAO rentalDAO;
-    
+
     @Autowired
     private ICustomerDAO customerDAO;
-    
+
     @Autowired
     private ICustomerService customerService;
 
@@ -98,14 +98,34 @@ public class AdminController {
 
         return "redirect:/admins/rentals";
     }
-    
+
     @GetMapping("/customers")
     public String renderCustomersList(ModelMap model) {
         List<Customer> customers = customerService.listAll();
         model.addAttribute("customers", customers);
         return "admin/customers/list";
     }
-    
+
+    @GetMapping("/customers/edit")
+    public String renderEditCustomer(@RequestParam String id, ModelMap model) {
+        int integerId = Integer.parseInt(id);
+        model.addAttribute("customer", customerDAO.findById(integerId));
+
+        return "admin/customers/edit";
+    }
+
+    @PostMapping("/customers/edit")
+    public String editCustomer(@Valid Customer customer, BindingResult result, RedirectAttributes attr) {
+
+        if (result.hasErrors()) {
+            return "admin/customers/edit";
+        }
+
+        customerService.save(customer);
+        attr.addFlashAttribute("sucess", "Cliente atualizado com sucesso!");
+        return "redirect:/admins/customers";
+    }
+
     @GetMapping("/customers/delete")
     public String deleteCustomer(@RequestParam String id) {
         int integerId = Integer.parseInt(id);

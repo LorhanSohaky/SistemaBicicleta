@@ -4,6 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "customer")
@@ -25,6 +26,7 @@ public class Customer extends User<Integer> implements Serializable {
     private String gender;
 
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false, unique = false)
     private Date birthdate;
 

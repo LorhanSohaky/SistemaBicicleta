@@ -11,7 +11,7 @@
     <div class="container" id="root">
       <h1 class="w-100 text-center" th:text="#{admins.customers.edit.title}"></h1>
 
-      <form th:action="@{/admins/customers/edit}" th:object="${rental}" method="POST">
+      <form th:action="@{/admins/customers/edit}" th:object="${customer}" method="POST">
         <input type="hidden" th:field="*{id}" />
         <div class="form-group">
           <label for="inputName" th:text="#{admins.customers.edit.nameLabel}"></label>
@@ -21,10 +21,10 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="inputCNPJ">CNPJ</label>
-          <input type="text" maxlength="14" class="form-control" id="inputCNPJ" required th:field="*{cnpj}" th:classappend="${#fields.hasErrors('cnpj')} ? is-invalid">
+          <label for="inputCPF">CPF</label>
+          <input type="text" maxlength="11" class="form-control" id="inputCNPJ" required th:field="*{CPF}" th:classappend="${#fields.hasErrors('CPF')} ? is-invalid">
           <div class="invalid-feedback">
-            <span th:errors="*{cnpj}"></span>
+            <span th:errors="*{CPF}"></span>
           </div>
         </div>
         <div class="form-group">
@@ -42,50 +42,24 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="inputDescription" th:text="#{admins.customers.edit.descriptionLabel}"></label>
-          <input type="text" class="form-control" id="inputDescription" th:field="*{description}" th:classappend="${#fields.hasErrors('description')} ? is-invalid">
+          <label for="inputPhone" th:text="#{admins.customers.edit.phoneLabel}"></label>
+          <input type="text" maxlength="15" class="form-control" id="inputPhone" required th:field="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? is-invalid">
           <div class="invalid-feedback">
-            <span th:errors="*{description}"></span>
+            <span th:errors="*{phone}"></span>
           </div>
         </div>
         <div class="form-group">
-          <label for="inputPostalCode" th:text="#{admins.customers.edit.postalCodeLabel}"></label>
-          <input type="text" maxlength="8" class="form-control" id="inputPostalCode" th:field="*{postalCode}" required th:classappend="${#fields.hasErrors('postalCode')} ? is-invalid">
+          <label for="inputGender" th:text="#{admins.customers.edit.genderLabel}"></label>
+          <input type="text" maxlength="15" class="form-control" id="inputGender" required th:field="*{gender}" th:classappend="${#fields.hasErrors('gender')} ? is-invalid">
           <div class="invalid-feedback">
-            <span th:errors="*{postalCode}"></span>
+            <span th:errors="*{gender}"></span>
           </div>
         </div>
         <div class="form-group">
-          <label for="inputStreetName" th:text="#{admins.customers.edit.streetNameLabel}"></label>
-          <input type="text" class="form-control" id="inputStreetName" th:field="*{streetName}" required th:classappend="${#fields.hasErrors('streetName')} ? is-invalid">
+          <label for="inputBirthdate" th:text="#{admins.customers.edit.birthdateLabel}"></label>
+          <input type="date" class="form-control" id="inputBirthdate" pattern="yyyy-MM-dd" required th:field="*{birthdate}" th:classappend="${#fields.hasErrors('birthdate')} ? is-invalid">
           <div class="invalid-feedback">
-            <span th:errors="*{streetName}"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputNeighborhood" th:text="#{admins.customers.edit.neighborhoodLabel}"></label>
-          <input type="text" class="form-control" id="inputNeighborhood" th:field="*{neighborhood}" required th:classappend="${#fields.hasErrors('neighborhood')} ? is-invalid">
-          <div class="invalid-feedback">
-            <span th:errors="*{neighborhood}"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputStreetNumber" th:text="#{admins.customers.edit.streetNumberLabel}"></label>
-          <input type="text" class="form-control" id="inputStreetNumber" th:field="*{streetNumber}" required th:classappend="${#fields.hasErrors('streetNumber')} ? is-invalid">
-          <div class="invalid-feedback">
-            <span th:errors="*{streetNumber}"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputCity" th:text="#{admins.customers.edit.cityLabel}"></label>
-          <select id="inputCity" class="form-control" th:field="*{city}" required th:classappend="${#fields.hasErrors('city')} ? is-invalid">
-            <option value="" th:text="#{admins.customers.edit.select}"></option>
-            <option th:each="city : ${cities}" th:value="${city.id}"
-                    th:text="${city.name} + ' - ' + ${city.state}"></option>
-          </select>
-
-          <div class="invalid-feedback">
-            <span th:errors="*{city}"></span>
+            <span th:errors="*{birthdate}"></span>
           </div>
         </div>
         <button type="submit" class="btn btn-primary" th:text="#{admins.customers.edit.submitButton}"></button>
