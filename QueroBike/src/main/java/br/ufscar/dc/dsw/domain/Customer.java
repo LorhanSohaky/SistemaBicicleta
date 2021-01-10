@@ -24,7 +24,7 @@ public class Customer extends User<Integer> implements Serializable {
     @Column(nullable = false, unique = false)
     private String gender;
 
-    @NotBlank
+    @NotNull
     @Column(nullable = false, unique = false)
     private Date birthdate;
 
