@@ -1,6 +1,7 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.ICityDAO;
+import br.ufscar.dc.dsw.dao.ICustomerDAO;
 import br.ufscar.dc.dsw.dao.IRentalDAO;
 import br.ufscar.dc.dsw.domain.City;
 import br.ufscar.dc.dsw.domain.Customer;
@@ -29,6 +30,9 @@ public class AdminController {
 
     @Autowired
     private IRentalDAO rentalDAO;
+    
+    @Autowired
+    private ICustomerDAO customerDAO;
     
     @Autowired
     private ICustomerService customerService;
@@ -100,6 +104,14 @@ public class AdminController {
         List<Customer> customers = customerService.listAll();
         model.addAttribute("customers", customers);
         return "admin/customers/list";
+    }
+    
+    @GetMapping("/customers/delete")
+    public String deleteCustomer(@RequestParam String id) {
+        int integerId = Integer.parseInt(id);
+        customerDAO.deleteById(integerId);
+
+        return "redirect:/admins/customers";
     }
 
     @ModelAttribute("cities")
