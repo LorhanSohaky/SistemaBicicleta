@@ -37,10 +37,10 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
 
 ## TODOs
 - [ ] Página de login do cliente (R1)
-  - Interface
-  - Internacionalização
-  - Controller para realizar o login
-  - DAO para buscar o cliente pelo email
+  - Interface - Lorhan
+  - Internacionalização - Lorhan
+  - Controller para realizar o login - Lorhan
+  - DAO para buscar o cliente pelo email - Lorhan
 - [ ] Página de cadastro do cliente (R1)
   - Interface
   - Internacionalização
@@ -90,8 +90,8 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
   - Controller para listar as locadoras - Lorhan
   - DAO para listar as locadoras - Lorhan
 - [ ] Lista de locadoras por cidade (R4)
-  - Interface
-  - Internacionalização
+  - Interface - Lorhan
+  - Internacionalização - Lorhan
 - [ ] Página para locação de bicicleta (R5) - Lucas
 - [ ] Opção para listar as locações do cliente (R6) - Lucas
 - [ ] Não deve permitir o cadastro de locações de um mesmo cliente ou de uma mesma locadora em um mesmo dia/horário (R7) - Lucas
