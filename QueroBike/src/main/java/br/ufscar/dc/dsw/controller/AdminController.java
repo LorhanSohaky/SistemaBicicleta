@@ -56,16 +56,36 @@ public class AdminController {
         if (result.hasErrors()) {
             return "admin/rentals/register";
         }
-        
+
         rentalService.save(rental);
-        attr.addFlashAttribute("sucess", "Locadora cadastrada com sucesso");
+        attr.addFlashAttribute("sucess", "Locadora cadastrada com sucesso!");
+        return "redirect:/admins/rentals";
+    }
+
+    @GetMapping("/rentals/edit")
+    public String renderEditRental(@RequestParam String id, ModelMap model) {
+        int integerId = Integer.parseInt(id);
+        model.addAttribute("rental", rentalDAO.findById(integerId));
+
+        return "admin/rentals/edit";
+    }
+
+    @PostMapping("/rentals/edit")
+    public String editRental(@Valid Rental rental, BindingResult result, RedirectAttributes attr) {
+
+        if (result.hasErrors()) {
+            return "admin/rentals/edit";
+        }
+
+        rentalService.save(rental);
+        attr.addFlashAttribute("sucess", "Locadora atualizada com sucesso!");
         return "redirect:/admins/rentals";
     }
 
     @GetMapping("/rentals/delete")
     public String deleteRental(@RequestParam String id) {
-        int intergerId = Integer.parseInt(id);
-        rentalDAO.deleteById(intergerId);
+        int integerId = Integer.parseInt(id);
+        rentalDAO.deleteById(integerId);
 
         return "redirect:/admins/rentals";
     }

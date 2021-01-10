@@ -36,7 +36,7 @@
           <td th:text="${rental.city.name}"></td>
           <td th:text="${rental.city.state}"></td>
           <td>
-            <a class="badge badge-secondary" th:href="'/admins/rentals/edit?id='+${rental.id}" th:text='#{admins.rentals.edit}'></a>
+            <a class="badge badge-secondary" th:href="@{/admins/rentals/edit}+'?id='+${rental.id}" th:text='#{admins.rentals.edit}'></a>
             <a class="badge badge-danger" href="#" data-toggle="modal" data-target="#modalDelete" th:onclick="'updateLinkDelete('+${rental.id}+')'" th:text='#{admins.rentals.remove}'></a>
           </td>
         </tr>
