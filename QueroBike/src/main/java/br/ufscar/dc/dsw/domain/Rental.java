@@ -9,35 +9,35 @@ import javax.validation.constraints.*;
 public class Rental extends User<Integer> implements Serializable {
 
     @NotBlank
-    @Size(min = 14, max = 14, message = "{size.rental.cnpj}")
+    @Size(min = 14, max = 14)
     @Column(nullable = false, length = 14)
     private String cnpj;
 
-    @Size(max = 256, message = "{size.rental.description}")
+    @Size(max = 256)
     @Column(nullable = true, length = 256)
     private String description;
 
     @NotBlank
-    @Size(min = 8, max = 8, message = "{size.rental.postalCode}")
+    @Size(min = 8, max = 8)
     @Column(nullable = false, length = 8)
     private String postalCode;
 
     @NotBlank
-    @Size(min = 2, max = 128, message = "{size.rental.streetName}")
+    @Size(min = 2, max = 128)
     @Column(nullable = false, length = 128)
     private String streetName;
 
     @NotBlank
-    @Size(min = 2, max = 128, message = "{size.rental.neighborhood}")
+    @Size(min = 2, max = 128)
     @Column(nullable = false, length = 128)
     private String neighborhood;
 
-    @Size(min = 2, max = 128, message = "{size.rental.complent}")
+    @Size(min = 2, max = 128)
     @Column(nullable = true, length = 128)
     private String complent;
 
     @NotBlank
-    @Size(min = 1, max = 128, message = "{size.rental.streetNumber}")
+    @Size(min = 1, max = 128)
     @Column(nullable = false, length = 128)
     private String streetNumber;
 
