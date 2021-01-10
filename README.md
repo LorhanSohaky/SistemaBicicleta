@@ -55,9 +55,9 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
   - Internacionalização
   - Controller
   - DAO
-- [ ] Opção para remover conta do cliente (R1)
-  - Controller
-  - DAO
+- [x] Opção para remover conta do cliente (R1)
+  - Controller - Lorhan
+  - DAO - Lorhan
 - [x] Página de login da locadora (R2)
   - Interface - Lorhan
   - Internacionalização - Lorhan
