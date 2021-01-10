@@ -19,38 +19,38 @@ public class ReserveController {
     @Autowired
     private IReserveService reserveService;
 
-    private boolean isTimeAvailable(Rental rental){
-        list<Reserve> reserve = reserveService.findByRental(rental.getRental());
-       
-        for (int i = 0; i < reserve.size(); i++) {
-            if (reserve.get(i).getDay() == reserve.getDay()){
-                if (reserve.get(i).getTime() == reserve.getTime()){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+//    private boolean isTimeAvailable(Rental rental){
+//        List<Reserve> reserve = reserveService.findByRental(rental.getRental());
+//       
+//        for (int i = 0; i < reserve.size(); i++) {
+//            if (reserve.get(i).getDay() == reserve.getDay()){
+//                if (reserve.get(i).getTime() == reserve.getTime()){
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
             
-    @GetMapping("/listC")
-    public String listReserveByCustomer(ModelMap model) {
-        List<Reserve> reserves = reserveService.findByCustomer(getId());
-        model.addAttribute("reserves", reserves);
-
-        return "customer/list";
-    }
-    
-    @GetMapping("/listR")
-    public String listReserveByRental(ModelMap model) {
-        List<Reserve> reserves = reserveService.findByRental(getId());
-        model.addAttribute("reserves", reserves);
-
-        return "rental/home";
-    }
-
-    @PostMapping("/save")
-    public String save(){
-        
-    }
+//    @GetMapping("/listC")
+//    public String listReserveByCustomer(ModelMap model) {
+//        List<Reserve> reserves = reserveService.findByCustomer(getId());
+//        model.addAttribute("reserves", reserves);
+//
+//        return "customer/list";
+//    }
+//    
+//    @GetMapping("/listR")
+//    public String listReserveByRental(ModelMap model) {
+//        List<Reserve> reserves = reserveService.findByRental(getId());
+//        model.addAttribute("reserves", reserves);
+//
+//        return "rental/home";
+//    }
+//
+//    @PostMapping("/save")
+//    public String save(){
+//        
+//    }
 
 }
