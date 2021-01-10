@@ -69,16 +69,16 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
   - Controller - Lorhan
   - Interface - Lorhan
   - Internacionalização - Lorhan
-- [ ] Opção para o admin atualizar os dados da locadora (R2)
-  - DAO
-  - Interface
-  - Internacionalização
-  - Controller
-- [ ] Opção para o admin cadastrar uma locadora (R2)
-  - DAO
-  - Interface
-  - Internacionalização
-  - Controller
+- [x] Opção para o admin atualizar os dados da locadora (R2)
+  - DAO - Lorhan
+  - Interface - Lorhan
+  - Internacionalização - Lorhan
+  - Controller - Lorhan
+- [x] Opção para o admin cadastrar uma locadora (R2)
+  - DAO - Lorhan
+  - Interface - Lorhan
+  - Internacionalização - Lorhan
+  - Controller - Lorhan
 - [x] Lista de locadoras (R3)
   - Internacionalização - Lorhan
   - Interface - Lorhan
@@ -96,10 +96,10 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
   - Model - Lucas
   - Controller - Lucas
   - DAO - Lucas
-- [ ] Página para o administrador listar as locadoras
-  - Internacionalização
-  - Interface
-  - Controller para listar as locadoras
+- [x] Página para o administrador listar as locadoras
+  - Internacionalização - Lorhan
+  - Interface - Lorhan
+  - Controller para listar as locadoras - Lorhan
 - [x] Componentes
   - Menu - Lorhan
   - Footer - Lorhan
