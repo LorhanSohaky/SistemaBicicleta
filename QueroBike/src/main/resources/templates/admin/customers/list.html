@@ -10,9 +10,6 @@
     <div th:include="/fragments/menu"></div>
     <div class="container" id="root">
       <h1 class="w-100 text-center" th:text="#{admins.customers.title}"></h1>
-      <div id="toolbar">
-        <a class="btn btn-primary" th:href="@{/admins/rentals/register}" th:text="#{admins.customers.new}"></a>
-      </div>
       <table class="table table-striped table-hover"  data-show-columns="true" id="table"
              data-toggle="table"
              data-flat="true"
