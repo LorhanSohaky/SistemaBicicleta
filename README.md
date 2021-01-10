@@ -50,11 +50,16 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
   - Interface
   - Controller
   - Internacionalização
-- [ ] Página para atualizar os dados do cliente (R1)
+- [ ] Página para o cliente atualizar seus dados (R1)
   - Interface
   - Internacionalização
   - Controller
   - DAO
+- [ ] Página para o administrador atualizar os dados do cliente (R1)
+  - Interface - Lorhan
+  - Internacionalização - Lorhan
+  - Controller - Lorhan
+  - DAO - Lorhan
 - [x] Opção para remover conta do cliente (R1)
   - Controller - Lorhan
   - DAO - Lorhan
