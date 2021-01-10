@@ -13,23 +13,23 @@ public class User<ID extends Serializable> implements Serializable {
     private ID id;
 
     @NotBlank
-    @Size(min = 3, max = 128, message = "{size.user.name}")
+    @Size(min = 3, max = 128)
     @Column(nullable = false, length = 128)
     private String name;
 
     @NotBlank
     @Email
-    @Size(min = 2, max = 128, message = "{size.user.email}")
-    @Column(nullable = false, length = 128)
+    @Size(min = 2, max = 128)
+    @Column(nullable = false, length = 128, unique = true)
     private String email;
 
     @NotBlank
-    @Size(min = 5, max = 128, message = "{size.user.password}")
+    @Size(min = 5, max = 128)
     @Column(nullable = false, length = 128)
     private String password;
 
     @NotBlank
-    @Size(min = 1, max = 14, message = "{size.user.role}")
+    @Size(min = 1, max = 14)
     @Column(nullable = false, length = 14)
     private String role;
 
