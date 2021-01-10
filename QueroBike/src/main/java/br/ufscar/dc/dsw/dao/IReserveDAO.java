@@ -5,9 +5,7 @@ import br.ufscar.dc.dsw.domain.Customer;
 import br.ufscar.dc.dsw.domain.Reserve;
 
 import java.util.List;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
 public interface IReserveDAO extends CrudRepository<Reserve, Integer> {
 
@@ -15,6 +13,7 @@ public interface IReserveDAO extends CrudRepository<Reserve, Integer> {
 
     List<Reserve> findByRental(Rental rental);
 
+    @Override
     Reserve save(Reserve reserve);
 
 }

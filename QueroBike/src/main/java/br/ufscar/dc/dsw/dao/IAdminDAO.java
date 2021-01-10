@@ -8,7 +8,9 @@ public interface IAdminDAO extends CrudRepository<Admin, Integer> {
 
     Admin findById(int id);
 
+    @Override
     List<Admin> findAll();
 
+    @Override
     Admin save(Admin admin);
 }

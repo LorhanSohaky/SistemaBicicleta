@@ -10,8 +10,10 @@ public interface IRentalDAO extends CrudRepository<Rental, Integer> {
 
     Rental findById(int id);
 
+    @Override
     List<Rental> findAll();
 
+    @Override
     Rental save(Rental rental);
 
     @Query("SELECT r FROM Rental r WHERE r.email = :email")

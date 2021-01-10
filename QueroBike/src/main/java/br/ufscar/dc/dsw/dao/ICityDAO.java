@@ -10,8 +10,10 @@ public interface ICityDAO extends CrudRepository<City, Integer> {
 
     City findById(int id);
 
+    @Override
     List<City> findAll();
 
+    @Override
     City save(City city);
 
     @Query("SELECT c FROM City c WHERE c.name = :name AND c.state = :state")
