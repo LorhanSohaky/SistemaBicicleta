@@ -15,7 +15,6 @@ import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication()
 public class QueroBikeApplication {
