@@ -36,7 +36,7 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
 - 
 
 ## TODOs
-- [ ] Página de login do cliente (R1)
+- [x] Página de login do cliente (R1)
   - Interface - Lorhan
   - Internacionalização - Lorhan
   - Controller para realizar o login - Lorhan
@@ -55,7 +55,7 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
   - Internacionalização
   - Controller
   - DAO
-- [ ] Página para o administrador atualizar os dados do cliente (R1)
+- [x] Página para o administrador atualizar os dados do cliente (R1)
   - Interface - Lorhan
   - Internacionalização - Lorhan
   - Controller - Lorhan
