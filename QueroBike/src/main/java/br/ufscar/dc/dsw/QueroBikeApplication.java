@@ -42,8 +42,8 @@ public class QueroBikeApplication {
                 log.info("Populando locadoras");
                 populateRentals(rentalService, cityDAO);
             }
-            
-            if(customerService.listAll().size() < 1) {
+
+            if (customerService.listAll().size() < 1) {
                 log.info("Populando clientes");
                 populateCustomers(customerService);
             }
@@ -142,7 +142,7 @@ public class QueroBikeApplication {
         admin2.setPassword("password123");
         adminService.save(admin2);
     }
-    
+
     private static void populateCustomers(ICustomerService customerService) {
         Customer customer1 = new Customer();
         customer1.setEmail("customer1@mailinator.com");
@@ -153,7 +153,7 @@ public class QueroBikeApplication {
         customer1.setPhone("5511912345678");
         customer1.setBirthdate(new Date(1998, 1, 1));
         customerService.save(customer1);
-        
+
         Customer customer2 = new Customer();
         customer2.setEmail("customer2@mailinator.com");
         customer2.setName("Lucas Martins");

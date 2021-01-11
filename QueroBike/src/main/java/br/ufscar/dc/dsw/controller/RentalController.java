@@ -24,11 +24,6 @@ public class RentalController {
         return "rental/list";
     }
 
-    @GetMapping("/login")
-    public String renderLogin(ModelMap model) {
-        return "rental/login";
-    }
-
     @GetMapping("/home")
     public String renderHome(ModelMap model, Principal principal) {
         return "rental/home";

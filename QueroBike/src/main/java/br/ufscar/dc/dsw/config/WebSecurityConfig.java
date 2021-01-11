@@ -3,7 +3,6 @@ package br.ufscar.dc.dsw.config;
 
 import br.ufscar.dc.dsw.security.AbstractUserDetailsServiceImpl;
 import org.springframework.context.annotation.*;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.*;
 import org.springframework.security.config.annotation.authentication.builders.*;
 import org.springframework.security.config.annotation.web.builders.*;
@@ -13,7 +12,6 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@Order(1)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -43,18 +41,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .antMatcher("/admin/**")
                 .authorizeRequests()
-                .antMatchers("/login/**", "/webjars/**", "/resources/**", "/assets/**","/rental/processing").permitAll()
-                .antMatchers("/admins/**","/admins/rentals","/admin/rentals/register").hasRole("admin")
+                .antMatchers("/login/**", "/webjars/**", "/resources/**", "/assets/**").permitAll()
+                .antMatchers("/rentals/**").hasAuthority("rental")
+                .antMatchers("/customers/**").hasAuthority("customer")
+                .antMatchers("/admins/**").hasAuthority("admin")
                 .and()
                 .formLogin()
-                .loginPage("/admins/login")
-                .loginProcessingUrl("/admin/processing")
-                .failureUrl("/admins/login?error=loginError")
-                .defaultSuccessUrl("/admins/home")
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .failureUrl("/login?error=loginError")
+                .defaultSuccessUrl("/logged")
                 .and()
                 .logout()
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/login");
     }
 }

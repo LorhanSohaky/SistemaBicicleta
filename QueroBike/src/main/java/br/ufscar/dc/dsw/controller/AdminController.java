@@ -37,11 +37,6 @@ public class AdminController {
     @Autowired
     private ICustomerService customerService;
 
-    @GetMapping("/login")
-    public String renderLogin(ModelMap model) {
-        return "admin/login";
-    }
-
     @GetMapping("/home")
     public String renderHome(ModelMap model, Principal principal) {
         return "admin/home";
