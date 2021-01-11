@@ -6,24 +6,18 @@ Antes de iniciar o desenvolvimento em nível de código foi criado um [mockup da
 ## Como instalar?
 O projeto depende do [Java 11](https://openjdk.java.net/projects/jdk/11/), [Maven 3.6.3](https://maven.apache.org/download.cgi) e [Tomcat 9](https://tomcat.apache.org/download-90.cgi). Caso tenha alguma dúvida pode usar o [guia rápido de instalação](https://github.com/delanobeder/DSW1/blob/master/software.md).
 
-## Como executar? TODO
+## Como executar?
 Para executar basta fazer os seguintes passos:
-1. Executar o Tomcat
-  - Pode executar usando `./catalina.sh run` ou `./catalina.bat run`
+1. Configurar banco de dados
+  - Nessa etapa usamos o MySQL, portanto é necessário baixar o MySQL (utilizamos a versão 8.0.22).
+  - É preciso que existe um usuário com nome `root` e senha `root`. Outra opção é modificar o usuário e senha no arquivo `application.properties`
 2. Fazer deploy da aplicação
-  - Para isso basta ir para dentro da pasta `QueroBike` e executar `mvn tomcat7:redeploy`
-3. Agora a aplicação já está praticamente pronta, só falta popular o banco de dados
-  - Pra isso basta acessar a rota `/reset-database`, lembrando de adicionar o contexto da aplicação caso necessário (`QueroBike/reset-database`).
-
-Se tudo der certo aparecerá uma lista de cidades. ;-)
+  - Para isso basta ir para dentro da pasta `QueroBike` e executar `mvn spring-boot:run`
 
 ### Usuários Defaults
-No caso de locadoras, existe a usuária `larissapeixoto@araujo.br`, 
-TODO: no caso de clientes existe `customer@mailinator.com` e, no caso de administradores existe `admin1@mailinator.com`, todos com a senha `password123`. Caso queira ver os demais usuários basta acessar os arquivos `.sql`.
+No caso de locadoras, existe a usuária `larissapeixoto@araujo.br`, no caso de clientes existe `customer1@mailinator.com` e, no caso de administradores existe `admin1@mailinator.com`, todos com a senha `password123`.
 
 ## Observações
-Como o acesso de admin é mais restritivo ele não aparece no menu, então só é possível acessar através da url `/admins/login`.
-
 Na primeira etapa optamos por usar SQLite, mas o mesmo não possui uma boa integração com o Spring, então tivemos de deixar de utilizar o sqlite e passar a usar o MySQL.
 
 Para trazer um pouco mais de segurança ao projeto optamos por utilizar [Argon2](https://en.wikipedia.org/wiki/Argon2) para criar um hash das senhas e em seguida armazená-las no banco de dados, assim o projeto se aproxima ainda mais de um projeto real.
@@ -32,8 +26,7 @@ Quando criamos a tabela de cidade, optamos por deixar a `cidade` e `estado` como
 
 A inicialização  do projeto é um pouco lento pelo fato dele popular todo o banco de dados.
 
-### Problemas conhecidos
-- 
+Inicialmente queríamos uma tela de login para cada tipo de acesso, mas isso gerou muitos problema e muito tempo perdido, então no final optamos por ser uma tela única.
 
 ## TODOs
 - [x] Página de login do cliente (R1)
@@ -89,7 +82,7 @@ A inicialização  do projeto é um pouco lento pelo fato dele popular todo o ba
   - Interface - Lorhan
   - Controller para listar as locadoras - Lorhan
   - DAO para listar as locadoras - Lorhan
-- [ ] Lista de locadoras por cidade (R4)
+- [x] Lista de locadoras por cidade (R4)
   - Interface - Lorhan
   - Internacionalização - Lorhan
 - [ ] Página para locação de bicicleta (R5) - Lucas
