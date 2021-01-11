@@ -33,7 +33,7 @@ public class MainController {
             String role = String.valueOf(roleObj);
 
             if (role.equals("admin")) {
-                return "redirect:/admin/home";
+                return "redirect:/admins/home";
             } else if (role.equals("customer")) {
                 return "redirect:/customers/home";
             } else if (role.equals("rental")) {

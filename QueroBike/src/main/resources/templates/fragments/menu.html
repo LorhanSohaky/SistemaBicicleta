@@ -45,7 +45,7 @@
     </ul>
     <ul class="navbar-nav" sec:authorize="hasAuthority('admin')">
       <li class="nav-item mr-2">
-        <a class="nav-link" href="/admins/" th:text="#{menu.profile}"></a>
+        <a class="nav-link" href="/admins/home" th:text="#{menu.profile}"></a>
       </li>
       <li class="nav-item">
         <a class="btn btn-primary" th:href="@{/logout}" th:text="#{menu.logout}"></a>
