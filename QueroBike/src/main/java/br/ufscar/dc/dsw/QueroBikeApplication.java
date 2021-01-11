@@ -1,6 +1,5 @@
 package br.ufscar.dc.dsw;
 
-import br.ufscar.dc.dsw.dao.IAdminDAO;
 import br.ufscar.dc.dsw.dao.ICityDAO;
 import br.ufscar.dc.dsw.domain.*;
 import br.ufscar.dc.dsw.service.spec.IAdminService;
