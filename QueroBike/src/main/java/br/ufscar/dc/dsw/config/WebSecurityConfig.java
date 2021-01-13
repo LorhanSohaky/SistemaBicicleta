@@ -40,20 +40,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/rentals/home").hasAuthority("rental")
-                .antMatchers("/customers/**").hasAuthority("customer")
-                .antMatchers("/admins/**").hasAuthority("admin")
-                .antMatchers("/","/rentals/","/login/**", "/webjars/**", "/resources/**", "/assets/**").permitAll()
+        http.csrf().disable().authorizeRequests()
+                // Controladores REST    
+                .antMatchers("/clientes", "/locadoras", "/locacoes").permitAll()
+                .antMatchers("/clientes/{\\d+}", "/locadoras/{\\d+}").permitAll()
+                .antMatchers("/locacoes/{\\d+}").permitAll()
+                .antMatchers("/locadoras/cidades/{\\w+}").permitAll()
+                .antMatchers("/locacoes/clientes/{\\d+}").permitAll()
+                .antMatchers("/locacoes/locadoras/{\\d+}").permitAll()
+                // Demais linhas
+                .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .failureUrl("/login?error=loginError")
-                .defaultSuccessUrl("/logged")
+                .formLogin().loginPage("/login").permitAll()
                 .and()
-                .logout()
-                .logoutSuccessUrl("/login");
+                .logout().logoutSuccessUrl("/").permitAll();
     }
 }

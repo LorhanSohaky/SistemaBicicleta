@@ -1,31 +1,82 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.domain.Rental;
+import br.ufscar.dc.dsw.domain.City;
+import br.ufscar.dc.dsw.parsers.CityParser;
+import br.ufscar.dc.dsw.parsers.RentalParser;
 import br.ufscar.dc.dsw.service.spec.IRentalService;
-import java.security.Principal;
-import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import java.io.IOException;
+import java.util.*;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/rentals")
+@CrossOrigin
+@RestController
 public class RentalController {
 
     @Autowired
     private IRentalService rentalService;
 
-    @GetMapping("/")
-    public String listRentals(ModelMap model) {
-        List<Rental> rentals = rentalService.listAll();
-        model.addAttribute("rentals", rentals);
-
-        return "rental/list";
+    private boolean isJSONValid(String jsonInString) {
+        try {
+            return new ObjectMapper().readTree(jsonInString) != null;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
-    @GetMapping("/home")
-    public String renderHome(ModelMap model, Principal principal) {
-        return "rental/home";
+    @PostMapping("locadoras")
+    public ResponseEntity<Rental> createRental(@RequestBody JSONObject json) {
+        try {
+            if (isJSONValid(json.toString())) {
+                Gson gson = new Gson();
+                Rental rental = gson.fromJson(json.toString(), Rental.class);
+                rentalService.save(rental);
+                return ResponseEntity.ok(rental);
+            } else {
+                return ResponseEntity.badRequest().body(null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        }
+    }
+
+    @GetMapping("/locadoras")
+    public ResponseEntity<List<Rental>> listRentals() {
+        List<Rental> rentals = rentalService.listAll();
+
+        return ResponseEntity.ok(rentals);
+    }
+
+    @GetMapping("/locadoras/{id}")
+    public ResponseEntity<Rental> getRental(@PathVariable("id") int id) {
+
+        Rental rental = rentalService.findById(id);
+
+        return ResponseEntity.ok(rental);
+    }
+
+    @DeleteMapping("/locadoras/{id}")
+    public ResponseEntity<Boolean> deleteRental(@PathVariable("id") int id) {
+        Rental rental = rentalService.findById(id);
+        if (rental == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            rentalService.delete(rental);
+            return ResponseEntity.noContent().build();
+        }
+    }
+
+    @GetMapping("/locadoras/cidades/{name}")
+    public ResponseEntity<List<Rental>> listRentals(@PathVariable("name") String name) {
+        List<Rental> rentals = rentalService.listAllFromCity(name);
+
+        return ResponseEntity.ok(rentals);
     }
 }

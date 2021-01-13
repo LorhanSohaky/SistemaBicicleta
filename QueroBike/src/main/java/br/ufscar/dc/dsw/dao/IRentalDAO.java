@@ -1,5 +1,6 @@
 package br.ufscar.dc.dsw.dao;
 
+import br.ufscar.dc.dsw.domain.City;
 import br.ufscar.dc.dsw.domain.Rental;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,7 @@ public interface IRentalDAO extends CrudRepository<Rental, Integer> {
 
     @Query("SELECT r FROM Rental r WHERE r.email = :email")
     public Rental getUserByEmail(@Param("email") String email);
+
+    @Query("SELECT r FROM Rental r WHERE r.city = :city")
+    public List<Rental> getByCity(@Param("city") City city);
 }

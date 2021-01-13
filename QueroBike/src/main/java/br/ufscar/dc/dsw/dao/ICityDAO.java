@@ -18,4 +18,7 @@ public interface ICityDAO extends CrudRepository<City, Integer> {
 
     @Query("SELECT c FROM City c WHERE c.name = :name AND c.state = :state")
     public List<City> find(@Param("name") String name, @Param("state") String state);
+
+    @Query("SELECT c FROM City c WHERE c.name = :name")
+    public List<City> findByCity(@Param("name") String name);
 }

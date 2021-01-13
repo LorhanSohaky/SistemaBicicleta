@@ -34,7 +34,7 @@ public class Rental extends User<Integer> implements Serializable {
 
     @Size(min = 2, max = 128)
     @Column(nullable = true, length = 128)
-    private String complent;
+    private String complement;
 
     @NotBlank
     @Size(min = 1, max = 128)
@@ -89,12 +89,12 @@ public class Rental extends User<Integer> implements Serializable {
         this.neighborhood = neighborhood;
     }
 
-    public String getComplent() {
-        return complent;
+    public String getComplement() {
+        return complement;
     }
 
-    public void setComplent(String complent) {
-        this.complent = complent;
+    public void setComplement(String complement) {
+        this.complement = complement;
     }
 
     public String getStreetNumber() {

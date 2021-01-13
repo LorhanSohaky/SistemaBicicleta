@@ -42,7 +42,7 @@ public class QueroBikeApplication {
                 populateRentals(rentalService, cityDAO);
             }
 
-            if (customerService.listAll().size() < 1) {
+            if (customerService.listAll().size() < 2) {
                 log.info("Populando clientes");
                 populateCustomers(customerService);
             }
