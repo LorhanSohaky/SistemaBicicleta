@@ -1,5 +1,6 @@
 package br.ufscar.dc.dsw.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -31,7 +32,8 @@ public class Customer extends User<Integer> implements Serializable {
     private Date birthdate;
 
     @OneToMany(mappedBy = "customer")
-    private List<Reserve> reserve;
+    @JsonManagedReference
+    private List<Reserve> reserves;
 
     public Customer() {
         super("customer");
@@ -69,11 +71,11 @@ public class Customer extends User<Integer> implements Serializable {
         this.birthdate = birthdate;
     }
 
-    public List<Reserve> getReserve() {
-        return reserve;
+    public List<Reserve> getReserves() {
+        return reserves;
     }
 
-    public void setReserve(List<Reserve> reserve) {
-        this.reserve = reserve;
+    public void setReserves(List<Reserve> reserves) {
+        this.reserves = reserves;
     }
 }

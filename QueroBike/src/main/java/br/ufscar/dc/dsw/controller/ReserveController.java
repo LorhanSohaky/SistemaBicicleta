@@ -1,56 +1,64 @@
 package br.ufscar.dc.dsw.controller;
 
-import br.ufscar.dc.dsw.domain.Reserve;
-import br.ufscar.dc.dsw.domain.Rental;
-import br.ufscar.dc.dsw.domain.Customer;
+import br.ufscar.dc.dsw.domain.*;
+import br.ufscar.dc.dsw.service.spec.*;
 
 import br.ufscar.dc.dsw.service.spec.IReserveService;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/reserve")
+@CrossOrigin
+@RestController
 public class ReserveController {
 
     @Autowired
     private IReserveService reserveService;
 
-//    private boolean isTimeAvailable(Rental rental){
-//        List<Reserve> reserve = reserveService.findByRental(rental.getRental());
-//       
-//        for (int i = 0; i < reserve.size(); i++) {
-//            if (reserve.get(i).getDay() == reserve.getDay()){
-//                if (reserve.get(i).getTime() == reserve.getTime()){
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
-//    }
-            
-//    @GetMapping("/listC")
-//    public String listReserveByCustomer(ModelMap model) {
-//        List<Reserve> reserves = reserveService.findByCustomer(getId());
-//        model.addAttribute("reserves", reserves);
-//
-//        return "customer/list";
-//    }
-//    
-//    @GetMapping("/listR")
-//    public String listReserveByRental(ModelMap model) {
-//        List<Reserve> reserves = reserveService.findByRental(getId());
-//        model.addAttribute("reserves", reserves);
-//
-//        return "rental/home";
-//    }
-//
-//    @PostMapping("/save")
-//    public String save(){
-//        
-//    }
+    @Autowired
+    private IRentalService rentalService;
 
+    @Autowired
+    private ICustomerService customerService;
+
+    @GetMapping("/locacoes")
+    public ResponseEntity<List<Reserve>> listReserves() {
+        List<Reserve> reserves = reserveService.listAll();
+
+        return ResponseEntity.ok(reserves);
+    }
+
+    @GetMapping("/locacoes/{id}")
+    public ResponseEntity<Reserve> getReserve(@PathVariable("id") int id) {
+
+        Reserve reserve = reserveService.findById(id);
+
+        return ResponseEntity.ok(reserve);
+    }
+
+    @GetMapping("/locacoes/locadoras/{id}")
+    public ResponseEntity<List<Reserve>> getReserveFromRental(@PathVariable("id") int id) {
+        Rental rental = rentalService.findById(id);
+        if (rental == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            List<Reserve> reserves = reserveService.findByRental(rental);
+
+            return ResponseEntity.ok(reserves);
+        }
+    }
+
+    @GetMapping("/locacoes/clientes/{id}")
+    public ResponseEntity<List<Reserve>> getReserveFromCustomer(@PathVariable("id") int id) {
+        Customer customer = customerService.findById(id);
+        if (customer == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            List<Reserve> reserves = reserveService.findByCustomer(customer);
+
+            return ResponseEntity.ok(reserves);
+        }
+    }
 }

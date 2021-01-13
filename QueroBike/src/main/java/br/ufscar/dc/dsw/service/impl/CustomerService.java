@@ -31,6 +31,7 @@ public class CustomerService implements ICustomerService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public Customer findById(int id) {
         return dao.findById(id);
     }

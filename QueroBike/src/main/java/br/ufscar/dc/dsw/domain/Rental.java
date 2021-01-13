@@ -1,6 +1,8 @@
 package br.ufscar.dc.dsw.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -44,6 +46,10 @@ public class Rental extends User<Integer> implements Serializable {
     @ManyToOne
     @JoinColumn(name = "fk_city", referencedColumnName = "id")
     private City city;
+
+    @OneToMany(mappedBy = "rental")
+    @JsonManagedReference
+    private List<Reserve> reserves;
 
     public Rental() {
         super("rental");
@@ -111,6 +117,14 @@ public class Rental extends User<Integer> implements Serializable {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public List<Reserve> getReserves() {
+        return reserves;
+    }
+
+    public void setReserves(List<Reserve> reserves) {
+        this.reserves = reserves;
     }
 
     @Override

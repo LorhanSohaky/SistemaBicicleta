@@ -5,10 +5,13 @@ import br.ufscar.dc.dsw.domain.*;
 import br.ufscar.dc.dsw.service.spec.IAdminService;
 import br.ufscar.dc.dsw.service.spec.ICustomerService;
 import br.ufscar.dc.dsw.service.spec.IRentalService;
+import br.ufscar.dc.dsw.service.spec.IReserveService;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.List;
 import java.util.StringTokenizer;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.*;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
@@ -25,7 +28,7 @@ public class QueroBikeApplication {
     }
 
     @Bean
-    public CommandLineRunner run(ICityDAO cityDAO, IRentalService rentalService, IAdminService adminService, ICustomerService customerService) throws Exception {
+    public CommandLineRunner run(ICityDAO cityDAO, IRentalService rentalService, IAdminService adminService, ICustomerService customerService, IReserveService reserveService) throws Exception {
         return args -> {
             if (adminService.listAll().size() < 2) {
                 log.info("Populando admins");
@@ -45,6 +48,11 @@ public class QueroBikeApplication {
             if (customerService.listAll().size() < 2) {
                 log.info("Populando clientes");
                 populateCustomers(customerService);
+            }
+
+            if (reserveService.listAll().size() < 1) {
+                log.info("Populando reservas");
+                populateReserves(reserveService, customerService, rentalService);
             }
         };
     }
@@ -162,5 +170,26 @@ public class QueroBikeApplication {
         customer2.setPhone("5511912345678");
         customer2.setBirthdate(new Date(1998, 1, 1));
         customerService.save(customer2);
+    }
+
+    private static void populateReserves(IReserveService reserveService, ICustomerService customerService, IRentalService rentalService) {
+        List<Customer> customers = customerService.listAll();
+        List<Rental> rentals = rentalService.listAll();
+
+        if (customers.size() > 0 && rentals.size() > 0) {
+            Date startTime = new Date();
+            Date endTime = new Date(startTime.getTime() + TimeUnit.HOURS.toMillis(1));
+
+            Reserve reserve = new Reserve();
+
+            reserve.setCustomer(customers.get(0));
+            reserve.setRental(rentals.get(0));
+            reserve.setStartTime(startTime);
+            reserve.setEndTime(endTime);
+
+            reserveService.save(reserve);
+        } else {
+            log.warn("Sem cliente e locadora cadastradas");
+        }
     }
 }

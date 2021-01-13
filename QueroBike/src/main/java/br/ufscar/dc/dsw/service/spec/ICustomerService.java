@@ -7,6 +7,8 @@ public interface ICustomerService {
 
     List<Customer> listAll();
 
+    Customer findById(int id);
+
     void save(Customer customer);
 
     void delete(Customer customer);

@@ -1,8 +1,13 @@
 package br.ufscar.dc.dsw.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "reserve")
@@ -12,19 +17,23 @@ public class Reserve implements Serializable {
     @GeneratedValue
     private int id;
 
-    @NotBlank
+    @NotNull
     @Column(nullable = false, unique = false)
-    private String day;
+    private Date startTime;
 
-    @NotBlank
+    @NotNull
     @Column(nullable = false, unique = false)
-    private int time;
+    private Date endTime;
 
     @ManyToOne
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ManyToOne
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "rental_id")
     private Rental rental;
 
@@ -44,20 +53,28 @@ public class Reserve implements Serializable {
         this.rental = rental;
     }
 
-    public String getDay() {
-        return day;
+    public int getId() {
+        return id;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getTime() {
-        return time;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setTime(int time) {
-        this.time = time;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
 }

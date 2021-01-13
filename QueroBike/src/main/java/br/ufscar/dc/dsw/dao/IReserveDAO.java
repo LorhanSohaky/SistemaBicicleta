@@ -9,6 +9,11 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface IReserveDAO extends CrudRepository<Reserve, Integer> {
 
+    Reserve findById(int id);
+
+    @Override
+    List<Reserve> findAll();
+
     List<Reserve> findByCustomer(Customer customer);
 
     List<Reserve> findByRental(Rental rental);

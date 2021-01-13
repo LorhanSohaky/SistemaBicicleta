@@ -7,10 +7,16 @@ import br.ufscar.dc.dsw.domain.Reserve;
 
 public interface IReserveService {
 
+    List<Reserve> listAll();
+
+    Reserve findById(int id);
+
+    void save(Reserve reserve);
+
+    void delete(Reserve reserve);
+
     List<Reserve> findByCustomer(Customer customer);
 
     List<Reserve> findByRental(Rental rental);
-
-    void save(Reserve reserve);
 
 }

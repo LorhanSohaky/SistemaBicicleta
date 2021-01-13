@@ -19,11 +19,13 @@ public class ReserveService implements IReserveService {
     IReserveDAO dao;
 
     @Transactional(readOnly = true)
+    @Override
     public List<Reserve> findByCustomer(Customer customer) {
         return dao.findByCustomer(customer);
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Reserve> findByRental(Rental rental) {
         return dao.findByRental(rental);
     }
@@ -31,5 +33,21 @@ public class ReserveService implements IReserveService {
     @Override
     public void save(Reserve reserve) {
         dao.save(reserve);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Reserve> listAll() {
+        return dao.findAll();
+    }
+
+    @Override
+    public Reserve findById(int id) {
+        return dao.findById(id);
+    }
+
+    @Override
+    public void delete(Reserve reserve) {
+        dao.delete(reserve);
     }
 }
