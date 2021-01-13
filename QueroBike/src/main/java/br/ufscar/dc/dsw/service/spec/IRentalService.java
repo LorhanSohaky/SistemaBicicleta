@@ -10,6 +10,7 @@ public interface IRentalService {
     Rental findById(int id);
 
     void save(Rental rental);
+
     void delete(Rental rental);
 
     List<Rental> listAllFromCity(String cityName);

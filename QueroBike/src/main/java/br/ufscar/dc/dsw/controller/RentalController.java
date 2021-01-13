@@ -1,9 +1,6 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.domain.Rental;
-import br.ufscar.dc.dsw.domain.City;
-import br.ufscar.dc.dsw.parsers.CityParser;
-import br.ufscar.dc.dsw.parsers.RentalParser;
 import br.ufscar.dc.dsw.service.spec.IRentalService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -36,6 +33,38 @@ public class RentalController {
             if (isJSONValid(json.toString())) {
                 Gson gson = new Gson();
                 Rental rental = gson.fromJson(json.toString(), Rental.class);
+                rentalService.save(rental);
+                return ResponseEntity.ok(rental);
+            } else {
+                return ResponseEntity.badRequest().body(null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        }
+    }
+
+    @PutMapping("locadoras/{id}")
+    public ResponseEntity<Rental> updateRental(@RequestBody JSONObject json, @PathVariable("id") int id) {
+        Rental rental = rentalService.findById(id);
+        try {
+            if (isJSONValid(json.toString())) {
+                Gson gson = new Gson();
+
+                Rental newRental = gson.fromJson(json.toString(), Rental.class);
+                
+                rental.setCity(newRental.getCity());
+                rental.setCnpj(newRental.getCnpj());
+                rental.setComplement(newRental.getComplement());
+                rental.setDescription(newRental.getDescription());
+                rental.setEmail(newRental.getEmail());
+                rental.setName(newRental.getName());
+                rental.setNeighborhood(newRental.getNeighborhood());
+                rental.setPassword(newRental.getPassword());
+                rental.setPostalCode(newRental.getPostalCode());
+                rental.setStreetName(newRental.getStreetName());
+                rental.setStreetNumber(newRental.getStreetNumber());
+
                 rentalService.save(rental);
                 return ResponseEntity.ok(rental);
             } else {

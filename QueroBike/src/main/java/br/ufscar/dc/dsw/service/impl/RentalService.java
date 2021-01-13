@@ -25,21 +25,25 @@ public class RentalService implements IRentalService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
     public void save(Rental rental) {
         rental.setPassword(passwordEncoder.encode(rental.getPassword()));
         dao.save(rental);
     }
-    
+
+    @Override
     public void delete(Rental rental) {
         dao.delete(rental);
     }
 
     @Transactional(readOnly = true)
+    @Override
     public Rental findById(int id) {
         return dao.findById(id);
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Rental> listAll() {
         return dao.findAll();
     }
