@@ -147,7 +147,7 @@ public class QueroBikeApplication {
         customer1.setEmail("customer1@mailinator.com");
         customer1.setName("Lorhan Sohaky");
         customer1.setPassword("password123");
-        customer1.setCPF("01234567891");
+        customer1.setCpf("01234567891");
         customer1.setGender("male");
         customer1.setPhone("5511912345678");
         customer1.setBirthdate(new Date(1998, 1, 1));
@@ -157,7 +157,7 @@ public class QueroBikeApplication {
         customer2.setEmail("customer2@mailinator.com");
         customer2.setName("Lucas Martins");
         customer2.setPassword("password123");
-        customer2.setCPF("01234567892");
+        customer2.setCpf("01234567892");
         customer2.setGender("male");
         customer2.setPhone("5511912345678");
         customer2.setBirthdate(new Date(1998, 1, 1));

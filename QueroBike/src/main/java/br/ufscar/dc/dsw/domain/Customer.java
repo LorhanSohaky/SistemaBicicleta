@@ -14,7 +14,7 @@ public class Customer extends User<Integer> implements Serializable {
     @NotBlank
     @Size(min = 11, max = 11)
     @Column(nullable = false, unique = true)
-    private String CPF;
+    private String cpf;
 
     @NotBlank
     @Size(min = 12, max = 13)
@@ -37,12 +37,12 @@ public class Customer extends User<Integer> implements Serializable {
         super("customer");
     }
 
-    public String getCPF() {
-        return CPF;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getPhone() {

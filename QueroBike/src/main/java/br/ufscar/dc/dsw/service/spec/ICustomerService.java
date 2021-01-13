@@ -8,4 +8,6 @@ public interface ICustomerService {
     List<Customer> listAll();
 
     void save(Customer customer);
+
+    void delete(Customer customer);
 }

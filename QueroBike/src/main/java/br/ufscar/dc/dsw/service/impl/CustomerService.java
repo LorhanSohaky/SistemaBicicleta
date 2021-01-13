@@ -19,9 +19,15 @@ public class CustomerService implements ICustomerService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
     public void save(Customer customer) {
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         dao.save(customer);
+    }
+
+    @Override
+    public void delete(Customer customer) {
+        dao.delete(customer);
     }
 
     @Transactional(readOnly = true)
@@ -30,6 +36,7 @@ public class CustomerService implements ICustomerService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<Customer> listAll() {
         return dao.findAll();
     }
