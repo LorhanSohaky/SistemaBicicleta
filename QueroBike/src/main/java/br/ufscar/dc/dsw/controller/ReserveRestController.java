@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-public class ReserveController {
+public class ReserveRestController {
 
     @Autowired
     private IReserveService reserveService;

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-public class CustomerController {
+public class CustomerRestController {
 
     @Autowired
     private CustomerService customerService;

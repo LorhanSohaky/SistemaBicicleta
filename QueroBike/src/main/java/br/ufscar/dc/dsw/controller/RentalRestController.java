@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-public class RentalController {
+public class RentalRestController {
 
     @Autowired
     private IRentalService rentalService;
