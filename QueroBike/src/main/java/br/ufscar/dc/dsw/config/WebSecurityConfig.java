@@ -49,10 +49,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/locacoes/clientes/{\\d+}").permitAll()
                 .antMatchers("/locacoes/locadoras/{\\d+}").permitAll()
                 // Demais linhas
-                .anyRequest().authenticated()
+                .antMatchers("/rentals/home").hasAuthority("rental")
+                .antMatchers("/customers/**").hasAuthority("customer")
+                .antMatchers("/admins/**").hasAuthority("admin")
+                .antMatchers("/", "/rentals/", "/login/**", "/webjars/**", "/resources/**", "/assets/**").permitAll()
                 .and()
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .failureUrl("/login?error=loginError")
+                .defaultSuccessUrl("/logged")
                 .and()
-                .logout().logoutSuccessUrl("/").permitAll();
+                .logout()
+                .logoutSuccessUrl("/login");
     }
 }

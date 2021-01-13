@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/png" th:href="@{/assets/images/icons/favicon.png}"/>
+    <title th:text="#{admins.customers.edit.headerTitle}"></title>
+  </head>
+  <body  class="d-flex flex-column justify-content-between">
+    <div th:include="/fragments/menu"></div>
+    <div class="container" id="root">
+      <h1 class="w-100 text-center" th:text="#{admins.customers.edit.title}"></h1>
+
+      <form th:action="@{/admins/customers/edit}" th:object="${customer}" method="POST">
+        <input type="hidden" th:field="*{id}" />
+        <div class="form-group">
+          <label for="inputName" th:text="#{admins.customers.edit.nameLabel}"></label>
+          <input type="text" maxlength="128" class="form-control" id="inputName" required th:field="*{name}" th:classappend="${#fields.hasErrors('name')} ? is-invalid">
+          <div class="invalid-feedback">
+            <span th:errors="*{name}"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCPF">CPF</label>
+          <input type="text" maxlength="11" class="form-control" id="inputCNPJ" required th:field="*{CPF}" th:classappend="${#fields.hasErrors('CPF')} ? is-invalid">
+          <div class="invalid-feedback">
+            <span th:errors="*{CPF}"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputEmail" th:text="#{admins.customers.edit.emailLabel}"></label>
+          <input type="email" maxlength="128" class="form-control" id="inputEmail" required th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? is-invalid">
+          <div class="invalid-feedback">
+            <span th:errors="*{email}"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" th:text="#{admins.customers.edit.passwordLabel}"></label>
+          <input type="password" minlength="5" class="form-control" id="inputPassword" required th:field="*{password}" th:classappend="${#fields.hasErrors('password')} ? is-invalid">
+          <div class="invalid-feedback">
+            <span th:errors="*{password}"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPhone" th:text="#{admins.customers.edit.phoneLabel}"></label>
+          <input type="text" maxlength="15" class="form-control" id="inputPhone" required th:field="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? is-invalid">
+          <div class="invalid-feedback">
+            <span th:errors="*{phone}"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputGender" th:text="#{admins.customers.edit.genderLabel}"></label>
+          <input type="text" maxlength="15" class="form-control" id="inputGender" required th:field="*{gender}" th:classappend="${#fields.hasErrors('gender')} ? is-invalid">
+          <div class="invalid-feedback">
+            <span th:errors="*{gender}"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputBirthdate" th:text="#{admins.customers.edit.birthdateLabel}"></label>
+          <input type="date" class="form-control" id="inputBirthdate" pattern="yyyy-MM-dd" required th:field="*{birthdate}" th:classappend="${#fields.hasErrors('birthdate')} ? is-invalid">
+          <div class="invalid-feedback">
+            <span th:errors="*{birthdate}"></span>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" th:text="#{admins.customers.edit.submitButton}"></button>
+
+      </form>
+    </div>
+
+    <div th:replace="/fragments/footer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/pages/index.css}" />
+    <div th:replace="/fragments/imports" />
+  </body>
+</html>

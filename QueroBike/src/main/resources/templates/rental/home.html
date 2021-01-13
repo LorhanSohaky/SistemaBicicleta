@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/png" th:href="@{/assets/images/icons/favicon.png}"/>
+    <title th:text="#{rentals.home.headerTitle}"></title>
+  </head>
+  <body  class="d-flex flex-column justify-content-between">
+    <div th:include="/fragments/menu"></div>
+    <div class="container" id="root">
+      <h1 class="w-100 text-center" th:text="#{rentals.home.title}"></h1>
+      <h2>TODO</h2>
+            <table class="table table-striped table-hover"  data-show-columns="true" id="table"
+                   data-toggle="table"
+                   data-flat="true"
+                   data-search="true"
+                   data-toolbar="#toolbar"
+                   th:data-locale="${#locale}"
+                   >
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">CPF</th>
+                  <th scope="col" th:text="#{rentals.home.customer}"></th>
+                  <th scope="col" th:text="#{rentals.home.date}"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="reserve : ${reserves}">
+                  <td scope="row" th:text="${reserve.id}"></td>
+                  <td th:text="${reserve.customer.cpf}"></td>
+                  <td th:text="${reserve.customer.name}"></td>
+                  <td th:text="${reserve.day}"></td>
+                  <td th:text="${reserve.time}"></td>
+                </tr>
+              </tbody>
+            </table>
+    </div>
+
+    <div th:replace="/fragments/footer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/pages/index.css}" />
+    <div th:replace="/fragments/imports" />
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css">
+    <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/locale/bootstrap-table-en-US.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/locale/bootstrap-table-pt-BR.js"></script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/png" th:href="@{/assets/images/icons/favicon.png}"/>
+    <title th:text="#{error.headerTitle}"></title>
+  </head>
+  <body class="d-flex flex-column align-items-center justify-content-around">
+    <h1 th:text="${status} + ' '+ ${error}"></h1>
+    <span class="h5" th:if="${message != null}" th:text="${message}"></span>
+    <table>
+      <tr>
+        <td>Date</td>
+        <td th:text="${timestamp}"/>
+      </tr>
+      <tr>
+        <td>Path</td>
+        <td th:text="${path}"/>
+      </tr>
+      <tr>
+        <td>Error</td>
+        <td th:text="${error}"/>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td th:text="${status}"/>
+      </tr>
+      <tr>
+        <td>Message</td>
+        <td th:text="${message}"/>
+      </tr>
+      <tr>
+        <td>Exception</td>
+        <td th:text="${exception}"/>
+      </tr>
+      <tr>
+        <td>Trace</td>
+        <td>
+          <pre th:text="${trace}"/>
+        </td>
+      </tr>
+    </table>
+    <div th:replace="/fragments/imports"></div>
+  </body>
+</html>
